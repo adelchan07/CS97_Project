@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>My Calendar</title>
+        <link rel="stylesheet" href="forms.css">    
+    </head>
+    <body>
+        
+        <a href="welcomePage.html"><h1 id= "header"> My Calendar </h1></a>
+        
+        <div id="login">
+            <form action="////replace me////">
+
+                <label for="un"> Username: </label>
+                <input type="text" name="un" placeholder="Username" autocomplete="off" required></input><br><br>
+
+                <label for="pw"> Password: </label>
+                <input type="password" name="pw" id="pass" placeholder="Password" required></input><br>
+                <input type="checkbox" onClick="passwordVisible()"> Show Password </input><br><br>
+
+                <button type="submit" onClick="validate()"> Login </button>
+
+                <p class="change_link">
+					Don't have an account? Create one here:
+					<a href="signupForm.html" class="to_register">Register</a>
+				</p>
+                
+            </form>
+        </div>
+
+        <script src="loginForm.js"></script>
+
+    </body>
+</html>

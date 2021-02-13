@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>My Calendar</title>
+        <link rel="stylesheet" href="forms.css">    
+    </head>
+    <body>
+        <a href="welcomePage.html"><h1 id= "header"> My Calendar </h1></a>
+
+        <div id="register">
+            <form action="////replace me////">
+                <label for="register_un"> Select a username: </label>
+                <input type="text" name="register_un" placeholder="Username" autocomplete="off"k required></input><br><br>
+                
+                <label for="register_pw"> Select a password: </label> 
+                <input type="password" name="register_pw" placeholder="Password" required></input><br>
+
+                <label for="confirm_pw"> Confirm password: </label> 
+                <input type="password" name="confirm_pw" placeholder="Confirm Password" required></input><br>
+
+                <button type="submit" onClick="validate()"> Create Account </button>
+
+                <p class="change_link">
+					Already have an account?
+					<a href="loginForm.html" class="to_register">Login here</a>
+				</p>
+            </form>
+        </div>
+
+        <script src="loginForm.js"></script>
+
+    </body>
+</html>
+
+
