@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import WelcomePage from "./LoginSignup/welcomePage";
 import LoginForm from "./LoginSignup/loginForm";
 import SignupForm from "./LoginSignup/signupForm";
+import './LoginSignup/forms.css';
+import Calendar from "./calendar";
 
 class App extends React.Component {
   render() {
@@ -22,6 +24,10 @@ class App extends React.Component {
             <Route exact path="/LoginForm">
               <LoginForm
               ></LoginForm>
+            </Route>
+            <Route exact path="/Calendar">
+              <Calendar
+              ></Calendar>
             </Route>
           </Switch>
         </Router>

@@ -6,7 +6,7 @@ export default class LoginPage extends React.Component {
       <meta charSet="UTF-8" />
       <title>My Calendar</title>
       <link rel="stylesheet" href="forms.css" />    
-      <a href="welcomePage.html"><h1 id="header"> My Calendar </h1></a>
+      <a href="/"><h1 id="header"> My Calendar </h1></a>
       <div id="login">
         <form action="////replace me////">
           <label htmlFor="un"> Username: </label>
