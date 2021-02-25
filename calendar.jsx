@@ -6,7 +6,8 @@ export default class LoginPage extends React.Component {
     return(<>
       <meta charSet="UTF-8" />
       <title>My Calendar</title>
-      <link rel="stylesheet" href="calendarLayout.css" />    
+      <link rel="stylesheet" href="calendarLayout.css" />
+      <link href="https://fonts.googleapis.com/css?family=Kanit:300,700" rel="stylesheet">
       <div className="container">
         <div className="calendar-base">
           <div className="year">2021</div>
