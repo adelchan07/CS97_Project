@@ -45,6 +45,16 @@ server.post('/abc', (req, res) => {
     res.send('post request');
 });
 
+
+
+server.post('/createacc', (req, res) => {  
+    const user = req.body;
+
+    console.log(user);
+    //user.push(user);
+    res.send({ success: true });
+});
+
 // NOTE: for project you need a database to store data
 const users = [
     {
