@@ -15,7 +15,7 @@ export default class SignupPage extends React.Component {
           <input type="password" name="register_pw" placeholder="Password" required /><br />
           <label htmlFor="confirm_pw"> Confirm password: </label> 
           <input type="password" name="confirm_pw" placeholder="Confirm Password" required /><br />
-          <button type="submit" onclick="validate()"> Create Account </button>
+          <button type="submit" onClick="validate()"> Create Account </button>
           <p> Already have an account?
             <a href="LoginForm" className="to_register">Login here</a>
           </p>

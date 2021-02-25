@@ -13,8 +13,8 @@ export default class LoginPage extends React.Component {
           <input type="text" name="un" placeholder="Username" autoComplete="off" required /><br /><br />
           <label htmlFor="pw"> Password: </label>
           <input type="password" name="pw" id="pass" placeholder="Password" required /><br />
-          <input type="checkbox" onclick="passwordVisible()" /> Show Password <br /><br />
-          <button type="submit" onclick="validate()"> Login </button>
+          <input type="checkbox" onClick="passwordVisible()" /> Show Password <br /><br />
+          <button type="submit" onClick="validate()"> Login </button>
           <p> Don't have an account? Create one here:
             <a href="SignupForm" className="to_register">Register</a>
           </p>

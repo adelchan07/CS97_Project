@@ -1,0 +1,42 @@
+body {
+  background-color: aliceblue;
+  text-align: center;
+}
+
+label { display: inline-block; width: 210px; text-align: right; }
+
+
+form {
+      
+  border: 3px solid #f1f1f1;
+  margin: 0 auto; 
+  width: 100%;
+  font-family: monospace;
+}
+
+/* Full-width inputs */
+input[type=text], input[type=password] {
+  display: table-cell;
+  width: 30%;
+  padding: 10px 16px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+button {
+  background-color: #375aa5;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 20%;
+}
+
+/* Add a hover effect for buttons */
+button:hover {
+  opacity: 0.8;
+}
