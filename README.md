@@ -9,3 +9,7 @@ functionality:
 - selection of date reveals activities listed on the left
 - ability to add and remove events (date & time specifications) from the calendar
 - notifications for all events occuring within the next 30 minutes when users logged into their calendar
+
+To run the app locally:
+1. Run the command "npm install"
+2. Run the command "npm start"
