@@ -18,6 +18,19 @@ const bodyParser = require('body-parser');
 const server = express();
 server.use(cors());
 server.use(bodyParser.json());
+
+
+var firebase = require('firebase');
+
+admin.initializeApp({
+    credential: admin.credential.applicationDefault(),
+    databaseURL: 'https://cs97project-97ea7-default-rtdb.firebaseio.com/'
+});
+
+var db=admin.database();
+var userRef=db.ref("users");
+var oneUser=userRef.child(1);
+
 // Creating a GET request handler
 /* handle request on URL which is denoted by '/****', sends "Hello world!" back to client
    two arguments:
