@@ -2,12 +2,22 @@ import React from "react";
 import './calendarLayout.css';
 
 export default class LoginPage extends React.Component {
+  openForm() {
+    document.getElementById("eventForm").style.display = "block";
+  }
+  
+  closeForm() {
+    document.getElementById("eventForm").style.display = "none";
+  }
+  
+
   render() {
     return(<>
       <meta charSet="UTF-8" />
       <title>My Calendar</title>
       <link rel="stylesheet" href="calendarLayout.css" />
       <link href="https://fonts.googleapis.com/css?family=Kanit:300,700" rel="stylesheet" />
+
       <div className="container">
         <div className="calendar-base">
           <div className="year">2021</div>
@@ -77,7 +87,20 @@ export default class LoginPage extends React.Component {
           <div className="create-event">Create an Event</div>
           {/* create-event */}
           <hr className="event-line" />
-          <div className="add-event"><span className="add">+</span></div>
+          <button class="open-button" onClick={this.openForm.bind(this)}>Create an Event!</button>
+          <div class="popup-form" id="eventForm">
+            <form action="///replace me///" class="form-container">
+
+              <label htmlFor="event"> Event </label>
+              <input type="text" placeholder="Event name" name="event" required></input>
+
+              <label htmlFor="day"> Day </label>
+              <input type="text" placeholder="Event time" name="day" required></input>
+
+              <button type="submit" class="btn"> Create event </button>
+              <button type="submit" class="btn cancel" onClick={this.closeForm.bind(this)}>Cancel</button>
+            </form>
+          </div>
           {/* add-event */}
         </div>
         {/* calendar-left */}
