@@ -167,7 +167,7 @@ export default class Calendar extends React.Component {
             <span className="posts"> </span></div>
           
           {/* create-event */}
-          <button class="open-button" onClick={this.openForm.bind(this)}>Create an Event!</button>
+          <button class="open-button" onClick={this.openForm.bind(this)}>Create an Event</button>
           <div class="popup-form" id="eventForm">
             <form class="form-container">
 
