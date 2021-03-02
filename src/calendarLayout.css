@@ -220,7 +220,7 @@ body {
   color:#6495ED !important;
 }
 
-.create-event {
+/*.create-event {
   font-size: 18px;
   position: relative;
   margin-top: 30px;
@@ -249,7 +249,7 @@ body {
   bottom: 11px;
 }
 
-.add:hover, .create-event:hover, .add-event:hover{
+/* .add:hover, .create-event:hover, .add-event:hover{
   color:#6495ED !important;
   border-color: #6495ED !important;
 }
@@ -257,18 +257,20 @@ body {
 
  * {
   box-sizing: border-box;
-}
+}*/
+
+
 /* Button used to open the contact form - fixed at the bottom of the page */
 .open-button {
-  background-color: #48d16a;
-  color: white;
+  background-color: white;
+  color: #6495ED;
   padding: 16px 20px;
   border: none;
   cursor: pointer;
   opacity: 0.8;
   position: fixed;
-  bottom: 23px;
-  left: 28px;
+  bottom: 500px;
+  left: 250px;
   width: 280px;
 }
 
