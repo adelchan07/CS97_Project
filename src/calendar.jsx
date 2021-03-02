@@ -1,7 +1,82 @@
 import React from "react";
 import './calendarLayout.css';
 
-export default class LoginPage extends React.Component {
+class Dates extends React.Component {
+  renderDay(i) {
+    return (
+      <button className="day-button" onClick={() => this.props.onClick(i)} >
+      {this.props.dateArray[i]}
+    </button>
+    );
+  }
+  renderGreyDay(i) {
+    return (
+      <button className="day-button grey" onClick={() => this.props.onClick(i)} >
+      {this.props.dateArray[i]}
+    </button>
+    );
+  }
+
+  render() {
+    return (
+      <div>
+        <div className="dates-row">
+          {this.renderGreyDay(0)}
+          {this.renderDay(1)}
+          {this.renderDay(2)}
+          {this.renderDay(3)}
+          {this.renderDay(4)}
+          {this.renderDay(5)}
+          {this.renderDay(6)}
+        </div>
+        <div className="dates-row">
+          {this.renderDay(7)}
+          {this.renderDay(8)}
+          {this.renderDay(9)}
+          {this.renderDay(10)}
+          {this.renderDay(11)}
+          {this.renderDay(12)}
+          {this.renderDay(13)}
+        </div>
+        <div className="dates-row">
+          {this.renderDay(14)}
+          {this.renderDay(15)}
+          {this.renderDay(16)}
+          {this.renderDay(17)}
+          {this.renderDay(18)}
+          {this.renderDay(19)}
+          {this.renderDay(20)}
+        </div>
+        <div className="dates-row">
+          {this.renderDay(21)}
+          {this.renderDay(22)}
+          {this.renderDay(23)}
+          {this.renderDay(24)}
+          {this.renderDay(25)}
+          {this.renderDay(26)}
+          {this.renderDay(27)}
+        </div>
+        <div className="dates-row">
+          {this.renderDay(28)}
+          {this.renderDay(29)}
+          {this.renderDay(30)}
+          {this.renderDay(31)}
+          {this.renderGreyDay(32)}
+          {this.renderGreyDay(33)}
+          {this.renderGreyDay(34)}
+        </div>
+      </div>
+    );
+  }
+}
+
+export default class Calendar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentDate: 0,
+    };
+  }
   openForm() {
     document.getElementById("eventForm").style.display = "block";
   }
@@ -9,9 +84,30 @@ export default class LoginPage extends React.Component {
   closeForm() {
     document.getElementById("eventForm").style.display = "none";
   }
-  
+  handleClick(i) {
+    this.setState({
+      currentDate: i,
+    })
+  }
+  getDayOfWeek(i) {
+    /*TODO: handleclick*/
+    switch(i % 7) {
+      case 0: return "SUNDAY";
+      case 1: return "MONDAY";
+      case 2: return "TUESDAY";
+      case 3: return "WEDNESDAY";
+      case 4: return "THURSDAY";
+      case 5: return "FRIDAY";
+      case 6: return "SATURDAY";
+    }
+  }
 
   render() {
+    let dateArray = [28, 1, 2, 3, 4, 5, 6, 
+      7, 8, 9, 10, 11, 12, 13, 
+      14, 15, 16, 17, 18, 19, 20, 
+      21, 22, 23, 24, 25, 26, 27, 
+      28, 29, 30, 31, 1, 2, 3];
     return(<>
       <meta charSet="UTF-8" />
       <title>My Calendar</title>
@@ -37,29 +133,15 @@ export default class LoginPage extends React.Component {
             <span className="month-hover">Dec </span>
           </div>{/* months */}
           <hr className="month-line" />
-          <div className="days"><span className="white"> </span>SUN MON TUE WED THU FRI SAT</div>
+          <div className="days-line"><span className="white"> </span>SUN MON TUE WED THU FRI SAT</div>
           {/* days */}
-          <div className="num-dates">
-            <div className="first-week"><span className="grey">28</span> 01 02 03 04 05 06</div>
-            {/* first week */}
-            <div className="second-week"> 07 08 09 10 11 12 13</div>
-            {/* week */}
-            <div className="third-week"> 14 15 16 17 <strong className="white">18</strong> 19 20</div>
-            {/* week */}
-            <div className="fourth-week"> 21 22 23 24 25 26 27</div>
-            {/* week */}
-            <div className="fifth-week">28 29 30 31<span className="grey"> 01 02 03</span></div>
-            {/* week */}
-            <div className="sixth-week">  <span className="grey">04 05 06 07 08 09 10</span></div>
-            {/* week */}
+          <div className="dates-grid">
+            <Dates
+              dateArray={dateArray}
+              onClick={(i) => this.handleClick(i)}
+            />
           </div>
           {/* num-dates */}
-          <div className="event-indicator" />
-          {/* event-indicator */}
-          <div className="active-day" />
-          {/* active-day */}
-          <div className="event-indicator two" />
-          {/* event-indicator */}
         </div>
         {/* calendar-base */}
         <div className="calendar-left">
@@ -72,9 +154,9 @@ export default class LoginPage extends React.Component {
             {/* burger-line */}
           </div>
           {/* hamburger */}
-          <div className="num-date">18</div>
+          <div className="num-date">{dateArray[this.state.currentDate]}</div>
           {/*num-date */}
-          <div className="day">THURSDAY</div>
+          <div className="day">{this.getDayOfWeek(this.state.currentDate)}</div>
           {/*day */}
           <div className="current-events">{/*Current Events*/}
             <br />
@@ -83,10 +165,8 @@ export default class LoginPage extends React.Component {
               <li><strong className="white">5:30 PM - 6:00 PM</strong> Cry because you don’t understand</li>
             </ul>
             <span className="posts"> </span></div>
-          {/*current-events */}
-          <div className="create-event">Create an Event</div>
+          
           {/* create-event */}
-          <hr className="event-line" />
           <button class="open-button" onClick={this.openForm.bind(this)}>Create an Event!</button>
           <div class="popup-form" id="eventForm">
             <form action="///replace me///" class="form-container">
@@ -101,6 +181,8 @@ export default class LoginPage extends React.Component {
               <button type="submit" class="btn cancel" onClick={this.closeForm.bind(this)}>Cancel</button>
             </form>
           </div>
+
+          
           {/* add-event */}
         </div>
         {/* calendar-left */}
