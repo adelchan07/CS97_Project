@@ -12,7 +12,7 @@ body {
   border-radius: 20px;
   background-color: white;
   position: relative;
-  z-index: -1;
+  /*z-index: -1;*/
   color: black;
 }
 
@@ -134,7 +134,7 @@ body {
   border-radius: 20px 0px 0px 20px;
   background-color: #6495ED;
   position: relative;
-  z-index: -1;
+  z-index: auto;
   bottom: 500px;
   color: white;
 }

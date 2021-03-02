@@ -169,7 +169,7 @@ export default class Calendar extends React.Component {
           {/* create-event */}
           <button class="open-button" onClick={this.openForm.bind(this)}>Create an Event!</button>
           <div class="popup-form" id="eventForm">
-            <form action="///replace me///" class="form-container">
+            <form class="form-container">
 
               <label htmlFor="event"> Event </label>
               <input type="text" placeholder="Event name" name="event" required></input>
