@@ -83,10 +83,8 @@ export default class LoginPage extends React.Component {
               <li><strong className="white">5:30 PM - 6:00 PM</strong> Cry because you don’t understand</li>
             </ul>
             <span className="posts"> </span></div>
-          {/*current-events */}
-          <div className="create-event">Create an Event</div>
+          
           {/* create-event */}
-          <hr className="event-line" />
           <button class="open-button" onClick={this.openForm.bind(this)}>Create an Event!</button>
           <div class="popup-form" id="eventForm">
             <form action="///replace me///" class="form-container">
@@ -101,6 +99,8 @@ export default class LoginPage extends React.Component {
               <button type="submit" class="btn cancel" onClick={this.closeForm.bind(this)}>Cancel</button>
             </form>
           </div>
+
+          
           {/* add-event */}
         </div>
         {/* calendar-left */}
