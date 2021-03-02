@@ -63,6 +63,7 @@ body {
   color:#6495ED !important;
 }
 
+/* for the line that says Jan Feb ...*/
 .months {
   color: #AAAAAA;
   position: relative;
@@ -71,6 +72,7 @@ body {
   word-spacing: 12px;
 }
 
+/* for the line under Jan Feb ...*/
 .month-line {
   border-color: #E8E8E8;
   position: relative;
@@ -79,7 +81,8 @@ body {
   left: 178px;
 }
 
-.days {
+/* for the line that says SUN MON ...*/
+.days-line {
   color: #9ecfff;
   position: relative;
   font-size: 18px;
@@ -89,73 +92,37 @@ body {
   font-weight: 600;
 }
 
-.num-dates {
-  float: right;
+.dates-row:before {
+  clear: both;
+  content: "";
+  display: table;
+}
+
+/* for each day's button */
+.day-button {
+  color: #9ecfff;
+  background-color: #ffffff;
   position: relative;
-  top: 110px;
-  right: 65px;
+  font-size: 20px;
+  font-weight: 600;
+  position: relative;
+  top: 90px;
+  left: 340px;
   z-index: 1;
+  border: 1px solid #c5ced8;
+  border-radius: 7px;
+  float: left;
+  height: 40px;
+  margin-right: 13px;
+  margin-top: 10px;
+  padding: 0;
+  text-align: center;
+  width: 63px;
 }
-
-.first-week {
-  margin-bottom: 25px;
-  word-spacing: 54px;
-}
-
-.second-week {
-  margin-bottom: 25px;
-  word-spacing: 56px;
-}
-
-.third-week {
-  margin-bottom: 25px;
-  word-spacing: 58px;
-}
-
-.fourth-week {
-  margin-bottom: 25px;
-  word-spacing: 56px;
-}
-
-.fifth-week {
-  margin-bottom: 25px;
-  word-spacing: 55px;
-}
-
-.sixth-week {
-  margin-bottom: 25px;
-  word-spacing: 53px;
-}
-
-.active-day {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  background-color: #6495ED;
-  position: relative;
-  top: 195px;
-  left: 653px;
-} /* react to JS to indicate date being shown */
 
 .white {
   color: white;
 }
-
-.event-indicator {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background-color: #6495ED;
-  position: relative;
-  top: 306px;
-  left: 682px;
-}
-
-.two {
-  position: relative;
-  top: 169px;
-  left: 452px;
-} /* can delete but keep for now as indicators of events labeled "important" (additional functionality) */
 
 .grey {
   color: #AAAAB1;
