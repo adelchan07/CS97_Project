@@ -246,8 +246,8 @@ body {
 .popup-form {
   display: none;
   position: relative;
-  bottom: 0;
-  left: 15px;
+  bottom: 350px;
+  left: 2px;
   border: 3px solid #f1f1f1;
   z-index: 9;
 }
@@ -264,8 +264,9 @@ body {
   width: 100%;
   padding: 15px;
   margin: 5px 0 22px 0;
-  border: none;
+  border-radius: 10px;
   background: #f1f1f1;
+  font-family: 'Kanit', sans-serif;
 }
 
 /* When the inputs get focus, do something */
@@ -279,11 +280,12 @@ body {
   background-color: #261da5;
   color: white;
   padding: 16px 20px;
-  border: none;
+  border-radius: 10px;
   cursor: pointer;
   width: 100%;
   margin-bottom:10px;
   opacity: 0.8;
+  font-family: 'Kanit', sans-serif;
 }
 
 /* Add a red background color to the cancel button */
