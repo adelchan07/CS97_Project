@@ -36,15 +36,15 @@ export default class SignupPage extends React.Component {
         <form onSubmit={this.onSubmit.bind(this)}>
           <label htmlFor="register_un"> Select a username: </label>
           <input type="text" name="register_un" placeholder="Username" 
-           onChange={(event) => this.setState({username: event.value})} autoComplete="off" required /><br /><br />
+           onChange={({target}) => this.setState({username: target.value})} autoComplete="off" required /><br /><br />
 
           <label htmlFor="register_pw"> Select a password: </label> 
           <input type="password" name="register_pw" placeholder="Password"
-           onChange={(event) => this.setState({password: event.value})} required /><br />
+           onChange={({target}) => this.setState({password: target.value})} required /><br />
 
           <label htmlFor="confirm_pw"> Confirm password: </label> 
           <input type="password" name="confirm_pw" placeholder="Confirm Password"
-           onChange={(event) => this.setState({confirm: event.value})} required /><br />
+           onChange={({target}) => this.setState({confirm: target.value})} required /><br />
 
           <button type="submit"> Create Account </button>
           
