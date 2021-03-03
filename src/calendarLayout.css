@@ -118,6 +118,7 @@ body {
   padding: 0;
   text-align: center;
   width: 63px;
+  border:none;
 }
 
 .day-button:hover {
@@ -262,6 +263,7 @@ body {
   font-size: 17px;
   bottom: 55px;
   align-items: center;
+  border:none;
 }
 
 .open-button:hover {
