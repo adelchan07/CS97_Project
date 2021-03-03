@@ -152,11 +152,15 @@ app.get('/:username/events/:day/search', async (req, res) => {
 // create a new user
 app.post('/users', async (req, res) => {  
     const username = req.body.username      // id tag (can change later to random unique key)
-    // if (users.doc(username).exists()) {
-    //     res.status(406);
-    //     res.json({message: 'User already exists'});
-    //     return;
-    // }
+    const checkUserExists = await users.doc(username).get();
+    var userExists = false;
+    if (checkUserExists.exists)  {
+        userExists = true;
+        res.status(406);
+        res.json({userExists : userExists});
+        return;
+    }
+    else {
     const newUser = {
         username: req.body.username,
         password: req.body.password,
@@ -164,8 +168,11 @@ app.post('/users', async (req, res) => {
     await users.doc(username).set(newUser);
 
     res.status(201);
-    res.json({ message: 'User created' });
+    res.json({userExists : userExists});
+    return;
+    }
 
+    console.log('Error in creating user server side');
 });
 
 // create a new event

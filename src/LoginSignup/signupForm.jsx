@@ -16,14 +16,20 @@ export default class SignupPage extends React.Component {
     const data = {username: this.state.username, password: this.state.password, 
                   confirm: this.state.confirm};
 
-    const result = await fetch('http://localhost:3200/users', {
+    const res = await fetch('http://localhost:3200/users', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),
     })
-    return result.data;    
+    if(res.userExists = 'true') {
+      alert("User already exists, try a different username.");
+      return;
+    }
+    
+
+    return res.data;    
   }
 
   render() {
