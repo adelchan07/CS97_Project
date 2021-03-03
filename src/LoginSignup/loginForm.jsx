@@ -1,8 +1,9 @@
-import React from "react";
+import React from 'react';
 
 export default class LoginPage extends React.Component {
-  onSubmit() {
-  
+  onSubmit(event) {
+    event.preventDefault();
+    
   }
 
   passwordVisible() {
@@ -17,7 +18,7 @@ export default class LoginPage extends React.Component {
       <link rel="stylesheet" href="forms.css" />    
       <a href="/"><h1 id="header"> My Calendar </h1></a>
       <div id="login">
-        <form>
+        <form onSubmit={this.onSubmit.bind(this)}>
           <label htmlFor="un"> Username: </label>
           <input type="text" name="un" placeholder="Username" autoComplete="off" required /><br /><br />
 
@@ -26,7 +27,7 @@ export default class LoginPage extends React.Component {
 
           <input type="checkbox" onClick={this.passwordVisible.bind(this)} /> Show Password <br /><br />
 
-          <button onClick={this.onSubmit.bind(this)}> Login </button>
+          <button type="submit"> Login </button>
 
           <p> Don't have an account? Create one here:
             <a href="SignupForm" className="to_register">Register</a>
@@ -35,9 +36,4 @@ export default class LoginPage extends React.Component {
       </div>
     </>)
   }
-}
-
-
-function validate() {
-    
 }

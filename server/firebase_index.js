@@ -228,7 +228,7 @@ https://firebase.google.com/docs/firestore/manage-data/delete-data#collections
 
 
 // Starting up the server
-app.listen(3000, () => {
+app.listen(3200, () => {
     console.log('Server has started');
 });
 

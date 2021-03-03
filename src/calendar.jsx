@@ -101,6 +101,7 @@ export default class Calendar extends React.Component {
       case 4: return "THURSDAY";
       case 5: return "FRIDAY";
       case 6: return "SATURDAY";
+      default: return;
     }
   }
 

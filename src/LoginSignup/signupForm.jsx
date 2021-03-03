@@ -1,8 +1,8 @@
 import React from "react";
 
 export default class SignupPage extends React.Component {
-  onSubmit() { 
-  
+  onSubmit(event) { 
+    event.preventDefault();
   }
 
   render() {
@@ -12,7 +12,7 @@ export default class SignupPage extends React.Component {
       <link rel="stylesheet" href="forms.css" />    
       <a href="/"><h1 id="header"> My Calendar </h1></a>
       <div id="register">
-        <form >
+        <form onSubmit={this.onSubmit.bind(this)}>
           <label htmlFor="register_un"> Select a username: </label>
           <input type="text" name="register_un" placeholder="Username" autoComplete="off" k required /><br /><br />
 
@@ -22,7 +22,7 @@ export default class SignupPage extends React.Component {
           <label htmlFor="confirm_pw"> Confirm password: </label> 
           <input type="password" name="confirm_pw" placeholder="Confirm Password" required /><br />
 
-          <button onClick={ (event) => {this.onSubmit.bind(this) ; event.preventDefault()} }> Create Account </button>
+          <button type="submit"> Create Account </button>
           
           <p> Already have an account?
             <a href="LoginForm" className="to_register">Login here</a>
