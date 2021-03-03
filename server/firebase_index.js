@@ -81,13 +81,13 @@ app.get('/:username/events', async (req, res) => {
 });
 
 // retrieve events in specific calendar: GOOD
-app.get('/:username/events/cal/:calendars', async (req, res) => {
+// app.get('/:username/events/cal/:calendars', async (req, res) => {
+
 //     const username = req.params.username;
 //     const calendarName = req.params.calendars;
-//     const calendars = users.doc(username).collection('calendars');
-//     const events = calendars.doc(calendarName).collection('events');
+//     const events = users.doc(username).collection('events');
 //     const allEvents = [];
-//     const allEventRefs = await events.get();
+//     const allEventRefs = await events.where('calendar', '==', calendarName).get();
 
 //     allEventRefs.forEach(doc => {
 //         allEvents.push(doc.data());
@@ -95,23 +95,10 @@ app.get('/:username/events/cal/:calendars', async (req, res) => {
 
 //     res.status(200);
 //     res.json(allEvents);
-
-    const username = req.params.username;
-    const calendarName = req.params.calendars;
-    const events = users.doc(username).collection('events');
-    const allEvents = [];
-    const allEventRefs = await events.where('calendar', '==', calendarName).get();
-
-    allEventRefs.forEach(doc => {
-        allEvents.push(doc.data());
-    });
-
-    res.status(200);
-    res.json(allEvents);
-});
+// });
 
 // retrieve events on specific day
-app.get('/:username/events/day/:day', async (req, res) => {
+app.get('/:username/events/:day', async (req, res) => {
     const username = req.params.username;
     const dayOfWeek = req.params.day;
     const events = users.doc(username).collection('events');
@@ -126,8 +113,8 @@ app.get('/:username/events/day/:day', async (req, res) => {
     res.json(allEvents);
 });
 
-// retrieve events on spec day in spec cal (cal first in endpoint): GOOD
-app.get('/:username/events/cal/:calendars/day/:day', async (req, res) => {
+// retrieve events on spec day in spec cal (day first, cal next): GOOD
+app.get('/:username/events/:day/:calendars', async (req, res) => {
     const username = req.params.username;
     const calendarName = req.params.calendars;
     const dayOfWeek = req.params.day;
@@ -143,13 +130,13 @@ app.get('/:username/events/cal/:calendars/day/:day', async (req, res) => {
     res.json(allEvents);
 });
 
-// retrieve events on spec day in spec cal (day first in endpoint): GOOD
-app.get('/:username/events/day/:day/cal/:calendars', async (req, res) => {
+app.get('/:username/events/:day/search', async (req, res) => {
     const username = req.params.username;
-    const calendarName = req.params.calendars;
     const dayOfWeek = req.params.day;
+    const fieldName = req.body.fieldname;
+    const fieldValue = req.body.fieldvalue;
     const events = users.doc(username).collection('events');
-    const allEventRefs = await events.where('day', '==', dayOfWeek).where('calendar', '==', calendarName).get();
+    const allEventRefs = await events.where('day', '==', dayOfWeek).where(fieldName, '==', fieldValue).get();
     const allEvents = [];
 
     allEventRefs.forEach(doc => {
@@ -159,8 +146,6 @@ app.get('/:username/events/day/:day/cal/:calendars', async (req, res) => {
     res.status(200);
     res.json(allEvents);
 });
-
-
 
 /* POST REQUESTS */
 
@@ -169,7 +154,7 @@ app.post('/users', async (req, res) => {
     const username = req.body.username      // id tag (can change later to random unique key)
     // if (users.doc(username).exists()) {
     //     res.status(406);
-    //     res.json({message: "User already exists"});
+    //     res.json({message: 'User already exists'});
     //     return;
     // }
     const newUser = {
@@ -177,13 +162,6 @@ app.post('/users', async (req, res) => {
         password: req.body.password,
     }
     await users.doc(username).set(newUser);
-
-    // // create default 'general' calendar
-    // const calendars = users.doc(username).collection('calendars');
-    // const newCalendar = {
-    //     calendarName: "general",
-    // }
-    // await calendars.doc("general").set(newCalendar);
 
     res.status(201);
     res.json({ message: 'User created' });
@@ -194,13 +172,6 @@ app.post('/users', async (req, res) => {
 app.post('/:username/events', async (req, res) => {  
     const username = req.params.username
     const events = users.doc(username).collection('events');
-    // create calendar if one does not exist
-    // if (!calendars.doc(calendarName).exists()) {
-    //     const newCalendar = {
-    //         calendarName: calendarName,
-    //     }
-    //     await calendars.doc(calendarName).set(newCalendar);
-    // }
 
     const newEvent = {
         user: username, // to identify whose events belong to who
@@ -227,31 +198,6 @@ app.post('/:username/events', async (req, res) => {
 
 });
 
-// // create a new calendar
-// app.post('/:username/calendars', async (req, res) => {  
-//     const username = req.params.username;
-//     const calendarName = req.body.calendarName;             // id tag (can change later to random unique key)
-//     const calendars = users.doc(username).collection('calendars');
-//     const newCalendar = {
-//         calendarName: req.body.calendarName,
-//     }
-//     await calendars.doc(calendarName).set(newCalendar);
-//     res.status(201);
-//     res.json({ message: 'Calendar created' });
-
-// });
-
-
-/* IMPORTANT NOTE FROM FIREBASE ABOUT DELETING DOCUMENTS: 
-When you delete a document that has subcollections, 
-those subcollections are not deleted. For example, 
-there may be a document located at coll/doc/subcoll/subdoc 
-even though the document coll/doc no longer exists. 
-If you want to delete documents in subcollections when 
-deleting a parent document, you must do so manually, 
-as shown in Delete Collections.
-https://firebase.google.com/docs/firestore/manage-data/delete-data#collections
-*/
 
 /* DELETE REQUESTS */
 
