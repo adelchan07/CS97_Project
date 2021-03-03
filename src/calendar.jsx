@@ -80,7 +80,9 @@ export default class Calendar extends React.Component {
   openForm() {
     document.getElementById("eventForm").style.display = "block";
   }
-  
+  create() {
+
+  }
   closeForm() {
     document.getElementById("eventForm").style.display = "none";
   }
@@ -177,8 +179,8 @@ export default class Calendar extends React.Component {
               <label htmlFor="day"> Day </label>
               <input type="text" placeholder="Event time" name="day" required></input>
 
-              <button type="submit" class="btn"> Create event </button>
-              <button type="submit" class="btn cancel" onClick={this.closeForm.bind(this)}>Cancel</button>
+              <button class="btn" onClick={this.create.bind(this)}> Create event </button>
+              <button class="btn cancel" onClick={this.closeForm.bind(this)}>Cancel</button>
             </form>
           </div>
 
