@@ -63,29 +63,14 @@ app.get('/:username', async (req, res) => {
     res.json(userRef.data());
 });
 
-// retrieve list of user calendars:
-app.get('/:username/calendars', async (req, res) => {
+// retrieve list of user events:
+app.get('/:username/events', async (req, res) => {
     const username = req.params.username;
-    const calendars = users.doc(username).collection('calendars');
-    const allCalendars = [];
-    const allCalendarRefs = await calendars.get();
-
-    allCalendarRefs.forEach(doc => {
-        allCalendars.push(doc.data());
-    });
-
-    res.status(200);
-    res.json(allCalendars);
-});
-
-// retrieve events in specific calendar:
-app.get('/:username/:calendars/events', async (req, res) => {
-    const username = req.params.username;
-    const calendarName = req.params.calendars;
-    const calendars = users.doc(username).collection('calendars');
-    const events = calendars.doc(calendarName).collection('events');
+    const events = users.doc(username).collection('events');
     const allEvents = [];
     const allEventRefs = await events.get();
+    
+    console.log(allEventRefs);
 
     allEventRefs.forEach(doc => {
         allEvents.push(doc.data());
@@ -95,25 +80,86 @@ app.get('/:username/:calendars/events', async (req, res) => {
     res.json(allEvents);
 });
 
-//retrieve all events in all calendars?
-app.get('/:username/calendars/events', async (req, res) => {
+// retrieve events in specific calendar: GOOD
+app.get('/:username/events/cal/:calendars', async (req, res) => {
+//     const username = req.params.username;
+//     const calendarName = req.params.calendars;
+//     const calendars = users.doc(username).collection('calendars');
+//     const events = calendars.doc(calendarName).collection('events');
+//     const allEvents = [];
+//     const allEventRefs = await events.get();
 
-});
+//     allEventRefs.forEach(doc => {
+//         allEvents.push(doc.data());
+//     });
 
-// retrieve user to do list:
-app.get('/:username/todo', async (req, res) => {
+//     res.status(200);
+//     res.json(allEvents);
+
     const username = req.params.username;
-    const todo = users.doc(username).collection('toDoList');
-    const allToDos = [];
-    const allToDoRefs = await todo.get();
+    const calendarName = req.params.calendars;
+    const events = users.doc(username).collection('events');
+    const allEvents = [];
+    const allEventRefs = await events.where('calendar', '==', calendarName).get();
 
-    allToDoRefs.forEach(doc => {
-        allToDos.push(doc.data());
+    allEventRefs.forEach(doc => {
+        allEvents.push(doc.data());
     });
 
     res.status(200);
-    res.json(allToDos);
+    res.json(allEvents);
 });
+
+// retrieve events on specific day
+app.get('/:username/events/day/:day', async (req, res) => {
+    const username = req.params.username;
+    const dayOfWeek = req.params.day;
+    const events = users.doc(username).collection('events');
+    const allEventRefs = await events.where('day', '==', dayOfWeek).get();
+    const allEvents = [];    
+
+    allEventRefs.forEach(doc => {
+        allEvents.push(doc.data());
+    });
+
+    res.status(200);
+    res.json(allEvents);
+});
+
+// retrieve events on spec day in spec cal (cal first in endpoint): GOOD
+app.get('/:username/events/cal/:calendars/day/:day', async (req, res) => {
+    const username = req.params.username;
+    const calendarName = req.params.calendars;
+    const dayOfWeek = req.params.day;
+    const events = users.doc(username).collection('events');
+    const allEventRefs = await events.where('day', '==', dayOfWeek).where('calendar', '==', calendarName).get();
+    const allEvents = [];
+
+    allEventRefs.forEach(doc => {
+        allEvents.push(doc.data());
+    });
+
+    res.status(200);
+    res.json(allEvents);
+});
+
+// retrieve events on spec day in spec cal (day first in endpoint): GOOD
+app.get('/:username/events/day/:day/cal/:calendars', async (req, res) => {
+    const username = req.params.username;
+    const calendarName = req.params.calendars;
+    const dayOfWeek = req.params.day;
+    const events = users.doc(username).collection('events');
+    const allEventRefs = await events.where('day', '==', dayOfWeek).where('calendar', '==', calendarName).get();
+    const allEvents = [];
+
+    allEventRefs.forEach(doc => {
+        allEvents.push(doc.data());
+    });
+
+    res.status(200);
+    res.json(allEvents);
+});
+
 
 
 /* POST REQUESTS */
@@ -121,11 +167,23 @@ app.get('/:username/todo', async (req, res) => {
 // create a new user
 app.post('/users', async (req, res) => {  
     const username = req.body.username      // id tag (can change later to random unique key)
+    // if (users.doc(username).exists()) {
+    //     res.status(406);
+    //     res.json({message: "User already exists"});
+    //     return;
+    // }
     const newUser = {
         username: req.body.username,
         password: req.body.password,
     }
     await users.doc(username).set(newUser);
+
+    // // create default 'general' calendar
+    // const calendars = users.doc(username).collection('calendars');
+    // const newCalendar = {
+    //     calendarName: "general",
+    // }
+    // await calendars.doc("general").set(newCalendar);
 
     res.status(201);
     res.json({ message: 'User created' });
@@ -133,63 +191,56 @@ app.post('/users', async (req, res) => {
 });
 
 // create a new event
-app.post('/:username/:calendars/events', async (req, res) => {  
+app.post('/:username/events', async (req, res) => {  
     const username = req.params.username
-    const calendarName = req.params.calendars;
-    const calendars = users.doc(username).collection('calendars');
-    const events = calendars.doc(calendarName).collection('events');
+    const events = users.doc(username).collection('events');
+    // create calendar if one does not exist
+    // if (!calendars.doc(calendarName).exists()) {
+    //     const newCalendar = {
+    //         calendarName: calendarName,
+    //     }
+    //     await calendars.doc(calendarName).set(newCalendar);
+    // }
 
-    const eventName = req.body.eventName        // id tag (can change later to random unique key)
     const newEvent = {
+        user: username, // to identify whose events belong to who
+
         eventName: req.body.eventName,
-        startDay: req.body.startDay,
-        endDay: req.body.endDay,
-        startHour: req.body.startHour,                      
-        startMinute: req.body.startMinute,
-        endHour: req.body.endHour,                        
-        endMinute: req.body.endMinute,
+        day: req.body.day,
+        calendar: req.body.calendar,
+        
+        // startHour: req.body.startHour,                      
+        // startMinute: req.body.startMinute,
+        // startAM: req.body.startAM,
+        // endHour: req.body.endHour,                        
+        // endMinute: req.body.endMinute,
+        // endAM: req.body.endAM,
+
         notificationMinute: req.body.notificationMinute,             
         location: req.body.location,
         description: req.body.description,
-        color: req.body.color,
     }
-    await events.doc(eventName).set(newEvent);
+    await events.doc().set(newEvent);
 
     res.status(201);
     res.json({ message: 'Event created' });
 
 });
 
-// create a new calendar (needs to create an event in calendar too)
-app.post('/:username/calendars', async (req, res) => {  
-    const username = req.params.username;
-    const calendarName = req.body.calendarName;             // id tag (can change later to random unique key)
-    const calendars = users.doc(username).collection('calendars');
-    const newCalendar = {
-        calendarName: req.body.calendarName,
-    }
-    await calendars.doc(calendarName).set(newCalendar);
-    //await calendars.doc(calendarName).collection('events').doc();
-    res.status(201);
-    res.json({ message: 'Calendar created' });
+// // create a new calendar
+// app.post('/:username/calendars', async (req, res) => {  
+//     const username = req.params.username;
+//     const calendarName = req.body.calendarName;             // id tag (can change later to random unique key)
+//     const calendars = users.doc(username).collection('calendars');
+//     const newCalendar = {
+//         calendarName: req.body.calendarName,
+//     }
+//     await calendars.doc(calendarName).set(newCalendar);
+//     res.status(201);
+//     res.json({ message: 'Calendar created' });
 
-});
+// });
 
-// create a "to do" task
-app.post('/:username/todo', async (req, res) => {  
-    const username = req.params.username;
-    const taskName = req.body.taskName;             // id tag (can change later to random unique key)
-    const toDoList = users.doc(username).collection('toDoList');
-    const newTask = {
-        taskName: req.body.taskName,
-        complete: false,
-        description: req.body.description
-    }
-    await toDoList.doc(taskName).set(newTask);
-    res.status(201);
-    res.json({ message: 'Task created' });
-
-});
 
 /* IMPORTANT NOTE FROM FIREBASE ABOUT DELETING DOCUMENTS: 
 When you delete a document that has subcollections, 
