@@ -206,8 +206,9 @@ app.post('/:username/events', async (req, res) => {
         user: username, // to identify whose events belong to who
 
         eventName: req.body.eventName,
-        day: req.body.day,
-        calendar: req.body.calendar,
+        eventTime: req.body.eventTime,
+        //day: req.body.day,
+        //calendar: req.body.calendar,
         
         // startHour: req.body.startHour,                      
         // startMinute: req.body.startMinute,
@@ -216,9 +217,9 @@ app.post('/:username/events', async (req, res) => {
         // endMinute: req.body.endMinute,
         // endAM: req.body.endAM,
 
-        notificationMinute: req.body.notificationMinute,             
-        location: req.body.location,
-        description: req.body.description,
+        //notificationMinute: req.body.notificationMinute,             
+        //location: req.body.location,
+        //description: req.body.description,
     }
     await events.doc().set(newEvent);
 
