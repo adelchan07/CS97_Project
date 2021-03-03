@@ -160,7 +160,7 @@ export default class Calendar extends React.Component {
             <span className="posts"> </span></div>
           
           {/* display user info */}
-          <button class="btn"><i class="fa fa-bars"></i> </button>
+          <button class="btn" onClick={this.showModal}><i class="fa fa-bars"></i> </button>
 
           {/* create-event */}
           <button class="open-button" onClick={this.openForm.bind(this)}>Create an Event</button>
@@ -184,6 +184,7 @@ export default class Calendar extends React.Component {
         {/* calendar-left */}
       </div>
       {/* container */}
+      
     </>)
   }
 }
