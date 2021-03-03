@@ -75,13 +75,28 @@ export default class Calendar extends React.Component {
     super(props);
     this.state = {
       currentDate: 0,
+      eventName: null,
+      eventTime: null
     };
   }
+
+  async onSubmit(event) {
+    event.preventDefault();
+    
+    const data = {eventName: this.state.eventName, eventTime: this.state.eventTime};
+
+    const result = await fetch('http://localhost:3200/:username/events', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+    return result.data;
+  }
+
   openForm() {
     document.getElementById("eventForm").style.display = "block";
-  }
-  create() {
-
   }
   closeForm() {
     document.getElementById("eventForm").style.display = "none";
@@ -172,15 +187,17 @@ export default class Calendar extends React.Component {
           {/* create-event */}
           <button class="open-button" onClick={this.openForm.bind(this)}>Create an Event</button>
           <div class="popup-form" id="eventForm">
-            <form class="form-container">
+            <form onSubmit={this.onSubmit.bind(this)} class="form-container">
 
               <label htmlFor="event"> Event </label>
-              <input type="text" placeholder="Event name" name="event" required></input>
+              <input type="text" placeholder="Event name" name="event" 
+               onChange={({target}) => this.setState({eventName: target.value})} required></input>
 
               <label htmlFor="day"> Day </label>
-              <input type="text" placeholder="Event time" name="day" required></input>
+              <input type="text" placeholder="Event time" name="day" 
+               onChange={({target}) => this.setState({eventTime: target.value})} required></input>
 
-              <button class="btn" onClick={this.create.bind(this)}> Create event </button>
+              <button type="submit" class="btn"> Create event </button>
               <button class="btn cancel" onClick={this.closeForm.bind(this)}>Cancel</button>
             </form>
           </div>
