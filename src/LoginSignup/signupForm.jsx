@@ -1,13 +1,22 @@
 import React from "react";
 
 export default class SignupPage extends React.Component {
+  constructor(props){
+  super(props);
+    this.state = {
+      username: null,
+      password: null,
+      confirm: null
+    };
+  }
+
   async onSubmit(event) { 
     event.preventDefault();
 
     const data = {username: this.state.username, password: this.state.password, 
                   confirm: this.state.confirm};
 
-    const result = await fetch('localhost:3200/users', {
+    const result = await fetch('http://localhost:3200/users', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
