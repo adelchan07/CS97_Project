@@ -1,8 +1,20 @@
 import React from "react";
 
 export default class SignupPage extends React.Component {
-  onSubmit(event) { 
+  async onSubmit(event) { 
     event.preventDefault();
+
+    const data = {username: this.state.username, password: this.state.password, 
+                  confirm: this.state.confirm};
+
+    const result = await fetch('localhost:3200/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+    return result.data;    
   }
 
   render() {
@@ -14,13 +26,16 @@ export default class SignupPage extends React.Component {
       <div id="register">
         <form onSubmit={this.onSubmit.bind(this)}>
           <label htmlFor="register_un"> Select a username: </label>
-          <input type="text" name="register_un" placeholder="Username" autoComplete="off" k required /><br /><br />
+          <input type="text" name="register_un" placeholder="Username" 
+           onChange={(event) => this.setState({username: event.value})} autoComplete="off" required /><br /><br />
 
           <label htmlFor="register_pw"> Select a password: </label> 
-          <input type="password" name="register_pw" placeholder="Password" required /><br />
+          <input type="password" name="register_pw" placeholder="Password"
+           onChange={(event) => this.setState({password: event.value})} required /><br />
 
           <label htmlFor="confirm_pw"> Confirm password: </label> 
-          <input type="password" name="confirm_pw" placeholder="Confirm Password" required /><br />
+          <input type="password" name="confirm_pw" placeholder="Confirm Password"
+           onChange={(event) => this.setState({confirm: event.value})} required /><br />
 
           <button type="submit"> Create Account </button>
           
