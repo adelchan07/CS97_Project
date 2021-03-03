@@ -112,6 +112,7 @@ export default class Calendar extends React.Component {
       <meta charSet="UTF-8" />
       <title>My Calendar</title>
       <link rel="stylesheet" href="calendarLayout.css" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
       <link href="https://fonts.googleapis.com/css?family=Kanit:300,700" rel="stylesheet" />
 
       <div className="container">
@@ -145,14 +146,6 @@ export default class Calendar extends React.Component {
         </div>
         {/* calendar-base */}
         <div className="calendar-left">
-          <div className="hamburger">
-            <div className="burger-line" />
-            {/* burger-line */}
-            <div className="burger-line" />
-            {/* burger-line */}
-            <div className="burger-line" />
-            {/* burger-line */}
-          </div>
           {/* hamburger */}
           <div className="num-date">{dateArray[this.state.currentDate]}</div>
           {/*num-date */}
@@ -165,6 +158,10 @@ export default class Calendar extends React.Component {
               <li><strong className="white">5:30 PM - 6:00 PM</strong> Cry because you don’t understand</li>
             </ul>
             <span className="posts"> </span></div>
+          
+          {/* display user info */}
+          <button class="btn"><i class="fa fa-bars"></i> </button>
+
           
           {/* create-event */}
           <button class="open-button" onClick={this.openForm.bind(this)}>Create an Event</button>
