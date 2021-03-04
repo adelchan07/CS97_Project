@@ -100,7 +100,7 @@ body {
 
 /* for each day's button */
 .day-button {
-  color: #9ecfff;
+  color: #92b0e9;
   background-color: #ffffff;
   position: relative;
   font-size: 20px;
@@ -118,6 +118,11 @@ body {
   padding: 0;
   text-align: center;
   width: 63px;
+  border:none;
+}
+
+.day-button:hover {
+  background-color: lightgrey;
 }
 
 .white {
@@ -149,7 +154,7 @@ body {
   background-color:#6495ED !important;
 }
 
-.burger-line {
+/*.burger-line {
   width: 25px;
   height: 3px;
   background-color: white;
@@ -226,7 +231,6 @@ body {
   box-sizing: border-box;
 }
 
-
 /* Button used to open the contact form - fixed at the bottom of the page */
 .open-button {
   background-color: white;
@@ -237,9 +241,15 @@ body {
   opacity: 1;
   font-family: 'Kanit', sans-serif;
   position: relative;
-  left: 5px;
   width: 240px;
   font-size: 17px;
+  bottom: 35px;
+  align-items: center;
+  border: none;
+}
+
+.open-button:hover {
+  background-color: #261da5;
 }
 
 /* The popup form - hidden by default */
@@ -277,15 +287,23 @@ body {
 
 /* Set a style for the submit/login button */
 .form-container .btn {
-  background-color: #261da5;
+  background-color: #2ECC71;
   color: white;
   padding: 16px 20px;
   border-radius: 10px;
   cursor: pointer;
-  width: 100%;
+  width: 80%;
   margin-bottom:10px;
   opacity: 0.8;
   font-family: 'Kanit', sans-serif;
+  font-size: 12px;
+  left: 1px;
+  bottom: 10px;
+  border: none;
+}
+
+.form-container .btn:hover {
+  background-color: darkgreen;
 }
 
 /* Add a red background color to the cancel button */
@@ -293,7 +311,78 @@ body {
   background-color: rgb(248, 39, 39);
 }
 
+.form-container .cancel:hover {
+  background-color: darkred;
+}
+
 /* Add some hover effects to buttons */
 .form-container .btn:hover, .open-button:hover {
   opacity: 1;
 }
+
+/* Popup container */
+.popup {
+  background-color: #6495ED; /* Blue background */
+  border: none; /* Remove borders */
+  border-radius:20px;
+  color: white; /* White text */
+  padding: 12px 16px; /* Some padding */
+  font-size: 25px; /* Set a font size */
+  cursor: pointer; /* Mouse pointer on hover */
+  position: relative;
+  left:12px;
+  bottom: 370px;
+  width:60px;
+}
+
+.popup:hover {
+  background-color: #261da5;
+}
+
+/* The actual popup (appears on top) */
+.popup .popuptext {
+  visibility: hidden;
+  width: 160px;
+  background-color:white;
+  color: #6495ED;
+  text-align: center;
+  font-size: 15px;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 50px;
+  left: 30px;
+  margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class when clicking on the popup container (hide and show the popup) */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
+}
+

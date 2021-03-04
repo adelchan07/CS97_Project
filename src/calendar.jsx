@@ -119,6 +119,11 @@ export default class Calendar extends React.Component {
       default: return;
     }
   }
+  displayUser() {
+    console.log("displayUser function");
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
+  }
 
   render() {
     let dateArray = [28, 1, 2, 3, 4, 5, 6, 
@@ -130,6 +135,7 @@ export default class Calendar extends React.Component {
       <meta charSet="UTF-8" />
       <title>My Calendar</title>
       <link rel="stylesheet" href="calendarLayout.css" />
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
       <link href="https://fonts.googleapis.com/css?family=Kanit:300,700" rel="stylesheet" />
 
       <div className="container">
@@ -163,14 +169,6 @@ export default class Calendar extends React.Component {
         </div>
         {/* calendar-base */}
         <div className="calendar-left">
-          <div className="hamburger">
-            <div className="burger-line" />
-            {/* burger-line */}
-            <div className="burger-line" />
-            {/* burger-line */}
-            <div className="burger-line" />
-            {/* burger-line */}
-          </div>
           {/* hamburger */}
           <div className="num-date">{dateArray[this.state.currentDate]}</div>
           {/*num-date */}
@@ -184,6 +182,11 @@ export default class Calendar extends React.Component {
             </ul>
             <span className="posts"> </span></div>
           
+          {/* display user info */}
+          <div class="popup" onClick={() => this.displayUser()}><i class="fa fa-bars"></i> 
+              <span class="popuptext" id="myPopup">sample user name</span>
+          </div>
+
           {/* create-event */}
           <button class="open-button" onClick={this.openForm.bind(this)}>Create an Event</button>
           <div class="popup-form" id="eventForm">
@@ -208,6 +211,7 @@ export default class Calendar extends React.Component {
         {/* calendar-left */}
       </div>
       {/* container */}
+      
     </>)
   }
 }
