@@ -101,6 +101,11 @@ export default class Calendar extends React.Component {
       case 6: return "SATURDAY";
     }
   }
+  displayUser() {
+    console.log("displayUser function");
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
+  }
 
   render() {
     let dateArray = [28, 1, 2, 3, 4, 5, 6, 
@@ -160,7 +165,7 @@ export default class Calendar extends React.Component {
             <span className="posts"> </span></div>
           
           {/* display user info */}
-          <div class="popup" onclick="myFunction()"><i class="fa fa-bars"></i> 
+          <div class="popup" onClick={() => this.displayUser()}><i class="fa fa-bars"></i> 
               <span class="popuptext" id="myPopup">Popup text...</span>
           </div>
 
