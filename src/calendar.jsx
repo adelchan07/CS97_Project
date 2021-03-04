@@ -160,21 +160,10 @@ export default class Calendar extends React.Component {
             <span className="posts"> </span></div>
           
           {/* display user info */}
-          <button class="btn" onClick={this.openForm.bind(this)}><i class="fa fa-bars"></i> </button>
-          <div class="popup-form" id="userInfo">
-            <form class="form-container">
-
-              <label htmlFor="event"> Event </label>
-              <input type="text" placeholder="Event name" name="event" required></input>
-
-              <label htmlFor="day"> Day </label>
-              <input type="text" placeholder="Event time" name="day" required></input>
-
-              <button type="submit" class="btn"> Create event </button>
-              <button type="submit" class="btn cancel" onClick={this.closeForm.bind(this)}>Cancel</button>
-            </form>
+          <div class="popup" onclick="myFunction()"><i class="fa fa-bars"></i> 
+              <span class="popuptext" id="myPopup">Popup text...</span>
           </div>
-          
+
           {/* create-event */}
           <button class="open-button" onClick={this.openForm.bind(this)}>Create an Event</button>
           <div class="popup-form" id="eventForm">
