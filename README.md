@@ -13,3 +13,7 @@ functionality:
 To run the app locally:
 1. Run the command "npm install"
 2. Run the command "npm start"
+
+To run the server locally:
+1. Open a different terminal
+2. Run the command "node server/firebase_index.js"
