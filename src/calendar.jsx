@@ -166,7 +166,7 @@ export default class Calendar extends React.Component {
           
           {/* display user info */}
           <div class="popup" onClick={() => this.displayUser()}><i class="fa fa-bars"></i> 
-              <span class="popuptext" id="myPopup">Popup text...</span>
+              <span class="popuptext" id="myPopup">sample user name</span>
           </div>
 
           {/* create-event */}
