@@ -80,23 +80,6 @@ app.get('/:username/events', async (req, res) => {
     res.json(allEvents);
 });
 
-// retrieve events in specific calendar: GOOD
-// app.get('/:username/events/cal/:calendars', async (req, res) => {
-
-//     const username = req.params.username;
-//     const calendarName = req.params.calendars;
-//     const events = users.doc(username).collection('events');
-//     const allEvents = [];
-//     const allEventRefs = await events.where('calendar', '==', calendarName).get();
-
-//     allEventRefs.forEach(doc => {
-//         allEvents.push(doc.data());
-//     });
-
-//     res.status(200);
-//     res.json(allEvents);
-// });
-
 // retrieve events on specific day
 app.get('/:username/events/:day', async (req, res) => {
     const username = req.params.username;
@@ -151,28 +134,22 @@ app.get('/:username/events/:day/search', async (req, res) => {
 
 // create a new user
 app.post('/users', async (req, res) => {  
-    const username = req.body.username      // id tag (can change later to random unique key)
+    const username = req.body.username;
     const checkUserExists = await users.doc(username).get();
-    var userExists = false;
-    if (checkUserExists.exists)  {
-        userExists = true;
-        res.status(406);
-        res.json({userExists : userExists});
-        return;
+    if (checkUserExists.exists) {
+        res.status(400);
+        res.json({ message : "User already exists, try a different username" });
     }
     else {
-    const newUser = {
-        username: req.body.username,
-        password: req.body.password,
-    }
-    await users.doc(username).set(newUser);
+        const newUser = {
+           username: req.body.username,
+           password: req.body.password,
+        }
+        await users.doc(username).set(newUser);
 
-    res.status(201);
-    res.json({userExists : userExists});
-    return;
+        res.status(201);
+        res.json({ message : "New user created" });
     }
-
-    console.log('Error in creating user server side');
 });
 
 // create a new event
