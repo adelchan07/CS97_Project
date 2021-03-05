@@ -162,6 +162,7 @@ app.post('/:username/events', async (req, res) => {
 
         eventName: req.body.eventName,
         eventTime: req.body.eventTime,
+        eventDay: req.body.eventDay,
         //day: req.body.day,
         //calendar: req.body.calendar,
         

@@ -1,9 +1,24 @@
 import React from 'react';
+//import firebase from 'firebase';
 
 export default class LoginPage extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      username: null,
+      password: null,
+    };
+  }
+
   onSubmit(event) {
     event.preventDefault();
     
+    const data = {username: this.state.username, password: this.state.password};
+
+    /*firebase.auth().signInWithEmailAndPassword(username, password).catch((error) => {
+      console.error('Incorrect username or password');
+    }); */
+
   }
 
   passwordVisible() {
@@ -19,11 +34,14 @@ export default class LoginPage extends React.Component {
       <a href="/"><h1 id="header"> My Calendar </h1></a>
       <div id="login">
         <form onSubmit={this.onSubmit.bind(this)}>
+
           <label htmlFor="un"> Username: </label>
-          <input type="text" name="un" placeholder="Username" autoComplete="off" required /><br /><br />
+          <input type="text" name="un" placeholder="Username" autoComplete="off"
+           onChange={({target}) => this.setState({username: target.value})} required /><br /><br />
 
           <label htmlFor="pw"> Password: </label>
-          <input type="password" name="pw" id="pass" placeholder="Password" required /><br />
+          <input type="password" name="pw" id="pass" placeholder="Password" 
+           onChange={({target}) => this.setState({password: target.value})} required /><br />
 
           <input type="checkbox" onClick={this.passwordVisible.bind(this)} /> Show Password <br /><br />
 

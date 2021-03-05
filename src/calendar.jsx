@@ -75,6 +75,7 @@ export default class Calendar extends React.Component {
     super(props);
     this.state = {
       currentDate: 0,
+      eventDay: null,
       eventName: null,
       eventTime: null
     };
@@ -83,29 +84,56 @@ export default class Calendar extends React.Component {
   async onSubmit(event) {
     event.preventDefault();
     
-    const data = {eventName: this.state.eventName, eventTime: this.state.eventTime};
+    const data = {eventName: this.state.eventName, eventDay: this.state.eventDay,
+                  eventTime: this.state.eventTime};
 
-    const result = await fetch('http://localhost:3200/:username/events', {
+    const res = await fetch('http://localhost:3200/:username/events', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),
-    })
-    return result.data;
+    });
+    
+    this.closeForm(event);
+    //this.refreshPage();
+    
+    return res.data;
   }
 
-  openForm() {
+  displayUser() {
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
+  }
+
+  displayTime() {
+
+  }
+
+  displayEvent() {
+
+  }
+
+  /*refreshPage() { 
+    window.location.reload(); 
+  }*/
+  
+  openForm(event) {
+    event.preventDefault();
     document.getElementById("eventForm").style.display = "block";
   }
-  closeForm() {
+
+  closeForm(event) {
+    event.preventDefault();
     document.getElementById("eventForm").style.display = "none";
   }
+
   handleClick(i) {
     this.setState({
       currentDate: i,
     })
   }
+
   getDayOfWeek(i) {
     /*TODO: handleclick*/
     switch(i % 7) {
@@ -118,11 +146,6 @@ export default class Calendar extends React.Component {
       case 6: return "SATURDAY";
       default: return;
     }
-  }
-  displayUser() {
-    console.log("displayUser function");
-    var popup = document.getElementById("myPopup");
-    popup.classList.toggle("show");
   }
 
   render() {
@@ -193,18 +216,21 @@ export default class Calendar extends React.Component {
             <form onSubmit={this.onSubmit.bind(this)} class="form-container">
 
               <label htmlFor="event"> Event </label>
-              <input type="text" placeholder="Event name" name="event" 
+              <input type="text" placeholder="Event name" name="event" autoComplete="off"
                onChange={({target}) => this.setState({eventName: target.value})} required></input>
 
               <label htmlFor="day"> Day </label>
-              <input type="text" placeholder="Event time" name="day" 
+              <input type="text" placeholder="Event date" name="day" autoComplete="off"
+               onChange={({target}) => this.setState({eventDay: target.value})} required></input>
+
+              <label htmlFor="time"> Time </label>
+              <input type="text" placeholder="Event time" name="time" autoComplete="off"
                onChange={({target}) => this.setState({eventTime: target.value})} required></input>
 
-              <button type="submit" class="btn"> Create event </button>
+              <button type="submit" class="btn" > Create event </button>
               <button class="btn cancel" onClick={this.closeForm.bind(this)}>Cancel</button>
             </form>
           </div>
-
           
           {/* add-event */}
         </div>
