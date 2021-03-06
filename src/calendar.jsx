@@ -1,5 +1,6 @@
 import React from "react";
 import './calendarLayout.css';
+import fb from '../src/firebase_config'
 
 class Dates extends React.Component {
   renderDay(i) {
@@ -75,10 +76,12 @@ export default class Calendar extends React.Component {
     super(props);
     this.state = {
       currentDate: 0,
+      currentUser: "",
       eventDay: null,
       eventName: null,
       eventTime: null
     };
+
   }
 
   async onSubmit(event) {
@@ -101,17 +104,27 @@ export default class Calendar extends React.Component {
     return res.data;
   }
 
-  displayUser() {
-    var popup = document.getElementById("myPopup");
-    popup.classList.toggle("show");
-  }
-
   displayTime() {
 
   }
 
   displayEvent() {
 
+  }
+
+  displayUser = () => {
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
+
+    fb.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({
+          currentUser: user.email
+        }); 
+      } else {
+        console.log('signed out ');
+      }
+    });
   }
 
   /*refreshPage() { 
@@ -207,7 +220,7 @@ export default class Calendar extends React.Component {
           
           {/* display user info */}
           <div class="popup" onClick={() => this.displayUser()}><i class="fa fa-bars"></i> 
-              <span class="popuptext" id="myPopup">sample user name</span>
+              <span class="popuptext" id="myPopup"> User: {this.state.currentUser}</span>
           </div>
 
           {/* create-event */}

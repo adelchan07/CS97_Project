@@ -1,10 +1,11 @@
 import React from "react";
+import fb from '../firebase_config.js'
 
 export default class SignupPage extends React.Component {
   constructor(props){
   super(props);
     this.state = {
-      username: null,
+      email: null,
       password: null,
       confirm: null
     };
@@ -13,15 +14,25 @@ export default class SignupPage extends React.Component {
   async onSubmit(event) { 
     event.preventDefault();
 
-    const data = {username: this.state.username, password: this.state.password, 
+    const data = {email: this.state.email, password: this.state.password, 
                   confirm: this.state.confirm};
+
+    if (data.password.length < 6) {
+      alert("Password must be a minimum of 6 characters");
+    }
 
     if(data.password !== data.confirm) {
       alert("Password and confirm password must match.");
       return;
     }
+    fb.auth().createUserWithEmailAndPassword(data.email, data.password).then(()=>{
+        window.location.replace('LoginForm'); 
+        console.log('Done');
+    }).catch((error) => {
+        console.error('Failed');
+    });
 
-    const res = await fetch('http://localhost:3200/users', {
+    /*const res = await fetch('http://localhost:3200/users', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -32,9 +43,7 @@ export default class SignupPage extends React.Component {
     if(res.status === 400) {
       alert("Username is taken, please choose a different username.");
       return;
-    }
-
-    return;    
+    } */
   }
 
   render() {
@@ -45,16 +54,16 @@ export default class SignupPage extends React.Component {
       <a href="/"><h1 id="header"> My Calendar </h1></a>
       <div id="register">
         <form onSubmit={this.onSubmit.bind(this)}>
-          <label htmlFor="register_un"> Select a username: </label>
-          <input type="text" name="register_un" placeholder="Username" 
-           onChange={({target}) => this.setState({username: target.value})} autoComplete="off" required /><br /><br />
+          <label htmlFor="register_un"> Select an email address: </label>
+          <input type="text" name="register_un" placeholder="Email address" 
+           onChange={({target}) => this.setState({email: target.value})} autoComplete="off" required /><br /><br />
 
           <label htmlFor="register_pw"> Select a password: </label> 
-          <input type="password" name="register_pw" placeholder="Password"
+          <input type="password" name="register_pw" placeholder="Password (min length: 6)"
            onChange={({target}) => this.setState({password: target.value})} required /><br />
 
           <label htmlFor="confirm_pw"> Confirm password: </label> 
-          <input type="password" name="confirm_pw" placeholder="Confirm Password"
+          <input type="password" name="confirm_pw" placeholder="Confirm password"
            onChange={({target}) => this.setState({confirm: target.value})} required /><br />
 
           <button type="submit"> Create Account </button>

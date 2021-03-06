@@ -1,11 +1,11 @@
 import React from 'react';
-//import firebase from 'firebase';
+import fb from '../firebase_config.js';
 
 export default class LoginPage extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      username: null,
+      email: null,
       password: null,
     };
   }
@@ -13,12 +13,14 @@ export default class LoginPage extends React.Component {
   onSubmit(event) {
     event.preventDefault();
     
-    const data = {username: this.state.username, password: this.state.password};
+    const data = {email: this.state.email, password: this.state.password};
 
-    /*firebase.auth().signInWithEmailAndPassword(username, password).catch((error) => {
-      console.error('Incorrect username or password');
-    }); */
-
+    fb.auth().signInWithEmailAndPassword(data.email, data.password).then(()=>{
+        window.location.replace('Calendar');   // logs into calendar page
+        console.log('Done');
+    }).catch((error) => {
+        alert('Incorrect username or password');
+    }); 
   }
 
   passwordVisible() {
@@ -35,9 +37,9 @@ export default class LoginPage extends React.Component {
       <div id="login">
         <form onSubmit={this.onSubmit.bind(this)}>
 
-          <label htmlFor="un"> Username: </label>
+          <label htmlFor="un"> Email: </label>
           <input type="text" name="un" placeholder="Username" autoComplete="off"
-           onChange={({target}) => this.setState({username: target.value})} required /><br /><br />
+           onChange={({target}) => this.setState({email: target.value})} required /><br /><br />
 
           <label htmlFor="pw"> Password: </label>
           <input type="password" name="pw" id="pass" placeholder="Password" 
@@ -55,3 +57,4 @@ export default class LoginPage extends React.Component {
     </>)
   }
 }
+
