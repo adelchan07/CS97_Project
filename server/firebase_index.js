@@ -33,40 +33,38 @@ admin.initializeApp({
 const db = admin.firestore();
 
 // adding data to firebase
-const users = db.collection('users');
+const events = db.collection('events');
 
 
 /* GET REQUESTS */
 
 // retrieve all upcoming users:
-app.get('/users', async (req, res) => {
-    const allUsers = [];
-    const allUserRefs = await users.get();
+// app.get('/users', async (req, res) => {
+//     const allUsers = [];
+//     const allUserRefs = await users.get();
 
-    allUserRefs.forEach(doc => {
-        allUsers.push(doc.data());
-    });
+//     allUserRefs.forEach(doc => {
+//         allUsers.push(doc.data());
+//     });
 
-    res.status(200);
-    res.json(allUsers);
-});
+//     res.status(200);
+//     res.json(allUsers);
+// });
 
 // retrieve specific user info:
-app.get('/:username', async (req, res) => {
-    const username = req.params.username;
-    const userRef = await users.doc(username).get();
-    if(!userRef.exists) {
-        res.status(404);
-        res.json({ message: 'User does not exist'});
-        return;
-    }
-    res.json(userRef.data());
-});
+// app.get('/:username', async (req, res) => {
+//     const username = req.params.email;
+//     const userRef = await users.doc(username).get();
+//     if(!userRef.exists) {
+//         res.status(404);
+//         res.json({ message: 'User does not exist'});
+//         return;
+//     }
+//     res.json(userRef.data());
+// });
 
-// retrieve list of user events:
-app.get('/:username/events', async (req, res) => {
-    const username = req.params.username;
-    const events = users.doc(username).collection('events');
+// retrieve list ALL user events (for DEBUG):
+app.get('/events', async (req, res) => {
     const allEvents = [];
     const allEventRefs = await events.get();
     
@@ -80,12 +78,11 @@ app.get('/:username/events', async (req, res) => {
     res.json(allEvents);
 });
 
-// retrieve events on specific day
-app.get('/:username/events/:day', async (req, res) => {
-    const username = req.params.username;
-    const dayOfWeek = req.params.day;
-    const events = users.doc(username).collection('events');
-    const allEventRefs = await events.where('day', '==', dayOfWeek).get();
+// retrieve events on specific users (for DEBUG)
+app.get('/events/:uid', async (req, res) => {
+    const uid = req.params.uid;
+    const dayOfWeek = req.body.eventDay;
+    const allEventRefs = await events.where('uid', '==', uid).get();
     const allEvents = [];    
 
     allEventRefs.forEach(doc => {
@@ -96,13 +93,11 @@ app.get('/:username/events/:day', async (req, res) => {
     res.json(allEvents);
 });
 
-// retrieve events on spec day in spec cal (day first, cal next): GOOD
-app.get('/:username/events/:day/:calendars', async (req, res) => {
-    const username = req.params.username;
-    const calendarName = req.params.calendars;
-    const dayOfWeek = req.params.day;
-    const events = users.doc(username).collection('events');
-    const allEventRefs = await events.where('day', '==', dayOfWeek).where('calendar', '==', calendarName).get();
+// retrieve events of spec user on spec day
+app.get('/events/:uid/:eventDay', async (req, res) => {
+    const uid = req.params.uid;
+    const dayOfWeek = req.params.eventDay;
+    const allEventRefs = await events.where('eventDay', '==', dayOfWeek).where('uid', '==', uid).get();
     const allEvents = [];
 
     allEventRefs.forEach(doc => {
@@ -113,70 +108,55 @@ app.get('/:username/events/:day/:calendars', async (req, res) => {
     res.json(allEvents);
 });
 
-app.get('/:username/events/:day/search', async (req, res) => {
-    const username = req.params.username;
-    const dayOfWeek = req.params.day;
-    const fieldName = req.body.fieldname;
-    const fieldValue = req.body.fieldvalue;
-    const events = users.doc(username).collection('events');
-    const allEventRefs = await events.where('day', '==', dayOfWeek).where(fieldName, '==', fieldValue).get();
-    const allEvents = [];
+// app.get('/:username/events/:day/search', async (req, res) => {
+//     const username = req.params.username;
+//     const dayOfWeek = req.params.day;
+//     const fieldName = req.body.fieldname;
+//     const fieldValue = req.body.fieldvalue;
+//     const events = users.doc(username).collection('events');
+//     const allEventRefs = await events.where('day', '==', dayOfWeek).where(fieldName, '==', fieldValue).get();
+//     const allEvents = [];
 
-    allEventRefs.forEach(doc => {
-        allEvents.push(doc.data());
-    });
+//     allEventRefs.forEach(doc => {
+//         allEvents.push(doc.data());
+//     });
 
-    res.status(200);
-    res.json(allEvents);
-});
+//     res.status(200);
+//     res.json(allEvents);
+// });
 
 /* POST REQUESTS */
 
 // create a new user
-app.post('/users', async (req, res) => {  
-    const username = req.body.username;
-    const checkUserExists = await users.doc(username).get();
-    if (checkUserExists.exists) {
-        res.status(400);
-        res.json({ message : "User already exists, try a different username" });
-    }
-    else {
-        const newUser = {
-           username: req.body.username,
-           password: req.body.password,
-        }
-        await users.doc(username).set(newUser);
+// app.post('/users', async (req, res) => {  
+//     const username = req.body.username;
+//     const checkUserExists = await users.doc(username).get();
+//     if (checkUserExists.exists) {
+//         res.status(400);
+//         res.json({ message : "User already exists, try a different username" });
+//     }
+//     else {
+//         const newUser = {
+//            username: req.body.username,
+//            password: req.body.password,
+//         }
+//         await users.doc(username).set(newUser);
 
-        res.status(201);
-        res.json({ message : "New user created" });
-    }
-});
+//         res.status(201);
+//         res.json({ message : "New user created" });
+//     }
+// });
 
 // create a new event
-app.post('/:username/events', async (req, res) => {  
-    const username = req.params.username
-    const events = users.doc(username).collection('events');
+app.post('/events', async (req, res) => {  
 
     const newEvent = {
-        user: username, // to identify whose events belong to who
-
+        uid: req.body.uid, 
         eventName: req.body.eventName,
         eventTime: req.body.eventTime,
         eventDay: req.body.eventDay,
-        //day: req.body.day,
-        //calendar: req.body.calendar,
-        
-        // startHour: req.body.startHour,                      
-        // startMinute: req.body.startMinute,
-        // startAM: req.body.startAM,
-        // endHour: req.body.endHour,                        
-        // endMinute: req.body.endMinute,
-        // endAM: req.body.endAM,
-
-        //notificationMinute: req.body.notificationMinute,             
-        //location: req.body.location,
-        //description: req.body.description,
-    }
+        eventDate: req.body.eventDate
+    };
     await events.doc().set(newEvent);
 
     res.status(201);

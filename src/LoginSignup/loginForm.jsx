@@ -13,11 +13,14 @@ export default class LoginPage extends React.Component {
   onSubmit(event) {
     event.preventDefault();
     
-    const data = {email: this.state.email, password: this.state.password};
+    const userData = {
+      email: this.state.email, 
+      password: this.state.password
+    };
 
-    fb.auth().signInWithEmailAndPassword(data.email, data.password).then(()=>{
-        window.location.replace('Calendar');   // logs into calendar page
-        console.log('Done');
+    fb.auth().signInWithEmailAndPassword(userData.email, userData.password).then(()=>{
+      console.log('Done');
+      window.location.replace('Calendar');   // logs into calendar page
     }).catch((error) => {
         alert('Incorrect username or password');
     }); 

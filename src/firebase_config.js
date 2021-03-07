@@ -1,4 +1,7 @@
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';
+
 
 var firebaseConfig = {
     apiKey: "AIzaSyBv7ozkzyu-aKCU6xvEPQtHpUQXwnk4VZU",
@@ -18,5 +21,5 @@ try {
     }
 }
 
-const fb = firebase
+const fb = firebase;
 export default fb;

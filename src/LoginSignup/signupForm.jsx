@@ -14,36 +14,40 @@ export default class SignupPage extends React.Component {
   async onSubmit(event) { 
     event.preventDefault();
 
-    const data = {email: this.state.email, password: this.state.password, 
-                  confirm: this.state.confirm};
+    const userData = {
+      email: this.state.email, 
+      password: this.state.password, 
+      confirm: this.state.confirm
+    };
 
-    if (data.password.length < 6) {
+    if (userData.password.length < 6) {
       alert("Password must be a minimum of 6 characters");
     }
 
-    if(data.password !== data.confirm) {
+    if(userData.password !== userData.confirm) {
       alert("Password and confirm password must match.");
       return;
     }
-    fb.auth().createUserWithEmailAndPassword(data.email, data.password).then(()=>{
-        window.location.replace('LoginForm'); 
-        console.log('Done');
+    await fb.auth().createUserWithEmailAndPassword(userData.email, userData.password).then(()=>{
+      console.log('User Created');
+      window.location.replace('LoginForm'); 
     }).catch((error) => {
-        console.error('Failed');
+      alert("Email seems to be registered already");
+      console.log('Failure!!!')  
+      console.error('Failed');
     });
 
-    /*const res = await fetch('http://localhost:3200/users', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    });
-
-    if(res.status === 400) {
-      alert("Username is taken, please choose a different username.");
-      return;
-    } */
+    // const res = await fetch('http://localhost:3200/users', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(data),
+    // });
+    // if(res.status === 400) {
+    //   alert("Username is taken, please choose a different username.");
+    //   return;
+    // }
   }
 
   render() {

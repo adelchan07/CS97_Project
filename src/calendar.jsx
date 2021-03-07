@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import './calendarLayout.css';
 import fb from '../src/firebase_config'
 
@@ -74,34 +74,63 @@ class Dates extends React.Component {
 export default class Calendar extends React.Component {
   constructor(props) {
     super(props);
+    console.log('OPEN CAL:');
     this.state = {
       currentDate: 0,
-      currentUser: "",
+      //currentUserEmail: "",
+      //uid: "",
       eventDay: null,
       eventName: null,
-      eventTime: null
+      eventTime: null,
     };
-
+    fb.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({
+          currentUserEmail: user.email,
+          uid: user.uid
+        }); 
+        console.log(user.uid);
+      } else {
+        console.log('No user signed in');
+      }
+    });
   }
 
   async onSubmit(event) {
     event.preventDefault();
     
-    const data = {eventName: this.state.eventName, eventDay: this.state.eventDay,
-                  eventTime: this.state.eventTime};
+    const eventData = {
+      uid: this.state.uid,
+      eventName: this.state.eventName, 
+      eventDay: this.state.eventDay,
+      eventTime: this.state.eventTime,
+      eventDate: this.state.currentDate
+      //calendar: req.body.calendar,
+        
+      // startHour: req.body.startHour,                      
+      // startMinute: req.body.startMinute,
+      // startAM: req.body.startAM,
+      // endHour: req.body.endHour,                        
+      // endMinute: req.body.endMinute,
+      // endAM: req.body.endAM,
 
-    const res = await fetch('http://localhost:3200/:username/events', {
+      //notificationMinute: req.body.notificationMinute,             
+      //location: req.body.location,
+      //description: req.body.description,
+    };
+
+    const res = await fetch('http://localhost:3200/events', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(eventData),
     });
     
     this.closeForm(event);
     //this.refreshPage();
     
-    return res.data;
+    return res;
   }
 
   displayTime() {
@@ -115,16 +144,20 @@ export default class Calendar extends React.Component {
   displayUser = () => {
     var popup = document.getElementById("myPopup");
     popup.classList.toggle("show");
-
-    fb.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.setState({
-          currentUser: user.email
-        }); 
-      } else {
-        console.log('signed out ');
-      }
-    });
+    //var user = fb.auth().currentUser;
+    //var name, email, photoUrl, uid, emailVerified;
+    
+    // fb.auth().onAuthStateChanged((user) => {
+    //   if (user) {
+    //     this.setState({
+    //       currentUser: user.email,
+    //       uid: user.uid
+    //     }); 
+    //     console.log(user.uid);
+    //   } else {
+    //     console.log('No user signed in');
+    //   }
+    // });
   }
 
   /*refreshPage() { 
@@ -144,7 +177,8 @@ export default class Calendar extends React.Component {
   handleClick(i) {
     this.setState({
       currentDate: i,
-    })
+    });
+    console.log(this.state.currentDate);
   }
 
   getDayOfWeek(i) {
@@ -220,7 +254,7 @@ export default class Calendar extends React.Component {
           
           {/* display user info */}
           <div class="popup" onClick={() => this.displayUser()}><i class="fa fa-bars"></i> 
-              <span class="popuptext" id="myPopup"> User: {this.state.currentUser}</span>
+              <span class="popuptext" id="myPopup"> User: {this.state.currentUserEmail}</span>
           </div>
 
           {/* create-event */}
