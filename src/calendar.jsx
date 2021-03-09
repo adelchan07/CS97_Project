@@ -191,6 +191,58 @@ export default class Calendar extends React.Component {
     return this.displayEvents(i);
   }
 
+  setEventInfo(type, input) {
+    console.log("1: ", input)
+    switch(type) {
+      case "eventMonth": 
+      if (this.validateInput(input, 12)) {
+        this.setState({eventMonth: input})
+        return input;
+      }
+      break;
+      case "eventDay": 
+      if (this.validateInput(input, 31)) {
+        this.setState({eventDay: input})
+        return input;
+      }
+      break;
+      case "eventStartHour": 
+      if (this.validateInput(input, 24)) {
+        this.setState({eventStartHour: input})
+        return input;
+      }
+      break;
+      case "eventStartMinute": 
+      if (this.validateInput(input, 59)) {
+        this.setState({eventStartMinute: input})
+        return input;
+      }
+      break;
+      case "eventEndHour": 
+      if (this.validateInput(input, 24)) {
+        this.setState({eventEndHour: input})
+        return input;
+      }
+      break;
+      case "eventEndMinute": 
+      if (this.validateInput(input, 59)) {
+        this.setState({eventEndMinute: input})
+        return input;
+      }
+    }
+    alert("Input Invalid!")
+    return input.substring(0, input.length - 1);
+  }
+
+  validateInput(input, num) {
+    console.log(input)
+    if (isNaN(input))
+      return false;
+    if (parseInt(input) > num)
+      return false;
+    return true;
+  }
+
   getDayOfWeek(i) {
     switch(i % 7) {
       case 0: return "SUNDAY";
@@ -200,7 +252,6 @@ export default class Calendar extends React.Component {
       case 4: return "THURSDAY";
       case 5: return "FRIDAY";
       case 6: return "SATURDAY";
-      default: return;
     }
   }
 
@@ -312,15 +363,16 @@ export default class Calendar extends React.Component {
               <input type="event_text" placeholder="Event name" name="event" autoComplete="off"
                onChange={({target}) => this.setState({eventName: target.value})} required></input>
               
-              <input type="date_text" placeholder="Month" name="month" autoComplete="off"
-               onChange={({target}) => this.setState({eventMonth: target.value})} required></input>      <input type="date_text" placeholder="Day" name="day" autoComplete="off"
-               onChange={({target}) => this.setState({eventDay: target.value})} required></input>
+              <input type="date_text" placeholder="Month" name="month" autoComplete="off" maxlength="2"
+               onChange={({target}) => target.value = this.setEventInfo("eventMonth", target.value)} required></input>      
+              <input type="date_text" placeholder="Day" name="day" autoComplete="off" maxlength="2"
+               onChange={({target}) => target.value = this.setEventInfo("eventDay", target.value)} required></input>
 
-              <input type="time_text" placeholder="hour" name="time" autoComplete="off"
-               onChange={({target}) => this.setState({eventTime: target.value})} required></input> : <input type="time_text" placeholder="min" name="time" autoComplete="off"
-               onChange={({target}) => this.setState({eventTime: target.value})} required></input>   -   <input type="time_text" placeholder="hour" name="time" autoComplete="off"
-               onChange={({target}) => this.setState({eventTime: target.value})} required></input> : <input type="time_text" placeholder="min" name="time" autoComplete="off"
-               onChange={({target}) => this.setState({eventTime: target.value})} required></input>
+              <input type="time_text" placeholder="hour" name="time" autoComplete="off" maxlength="2"
+               onChange={({target}) => target.value = this.setEventInfo("eventStartHour", target.value)} required></input> : <input type="time_text" placeholder="min" name="time" autoComplete="off" maxlength="2"
+               onChange={({target}) => target.value = this.setEventInfo("eventStartMinute", target.value)} required></input>   -   <input type="time_text" placeholder="hour" name="time" autoComplete="off" maxlength="2"
+               onChange={({target}) => target.value = this.setEventInfo("eventEndHour", target.value)} required></input> : <input type="time_text" placeholder="min" name="time" autoComplete="off" maxlength="2"
+               onChange={({target}) => target.value = this.setEventInfo("eventEndMinute", target.value)} required></input>
 
               <button type="submit" class="btn" > Create event </button>
               <button class="btn cancel" onClick={this.closeForm.bind(this)}>Cancel</button>
