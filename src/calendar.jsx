@@ -308,13 +308,13 @@ export default class Calendar extends React.Component {
           <div class="popup-form" id="eventForm">
             <form onSubmit={this.onSubmit.bind(this)} class="form-container">
               <label htmlFor="time"> Event Name </label>
-              <input type="text" placeholder="Event name" name="event" autoComplete="off"
+              <input type="long_text" placeholder="Event name" name="event" autoComplete="off"
                onChange={({target}) => this.setState({eventName: target.value})} required></input>
               
               <label htmlFor="time"> Event Date </label>
-              <input type="text" placeholder="Event Month" name="month" autoComplete="off"
+              <input type="text" placeholder="Month" name="month" autoComplete="off"
                onChange={({target}) => this.setState({eventDay: target.value})} required></input>
-              <input type="text" placeholder="Event Day" name="day" autoComplete="off"
+              <input type="text" placeholder="Day" name="day" autoComplete="off"
                onChange={({target}) => this.setState({eventDay: target.value})} required></input>
 
               <label htmlFor="time"> Start Time </label>
