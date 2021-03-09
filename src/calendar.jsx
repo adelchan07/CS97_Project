@@ -309,26 +309,18 @@ export default class Calendar extends React.Component {
           <button class="open-button" onClick={this.openForm.bind(this)}>Create an Event</button>
           <div class="popup-form" id="eventForm">
             <form onSubmit={this.onSubmit.bind(this)} class="form-container">
-              <label htmlFor="time"> Event Name </label>
-              <input type="long_text" placeholder="Event name" name="event" autoComplete="off"
+              <input type="event_text" placeholder="Event name" name="event" autoComplete="off"
                onChange={({target}) => this.setState({eventName: target.value})} required></input>
               
-              <label htmlFor="time"> Event Date </label>
-              <input type="text" placeholder="Month" name="month" autoComplete="off"
-               onChange={({target}) => this.setState({eventMonth: target.value})} required></input>
-              <input type="text" placeholder="Day" name="day" autoComplete="off"
+              <input type="date_text" placeholder="Month" name="month" autoComplete="off"
+               onChange={({target}) => this.setState({eventMonth: target.value})} required></input>      <input type="date_text" placeholder="Day" name="day" autoComplete="off"
                onChange={({target}) => this.setState({eventDay: target.value})} required></input>
 
-              <label htmlFor="time"> Start Time </label>
-              <input type="text" placeholder="Start Hour" name="time" autoComplete="off"
-               onChange={({target}) => this.setState({eventStartHour: target.value})} required></input>
-              <input type="text" placeholder="Start Minute" name="time" autoComplete="off"
-               onChange={({target}) => this.setState({eventStartMinute: target.value})} required></input>
-              <label htmlFor="time"> End Time </label>
-              <input type="text" placeholder="End Hour" name="time" autoComplete="off"
-               onChange={({target}) => this.setState({eventEndHour: target.value})} required></input>
-              <input type="text" placeholder="End Minute" name="time" autoComplete="off"
-               onChange={({target}) => this.setState({eventEndMinute: target.value})} required></input>
+              <input type="time_text" placeholder="hour" name="time" autoComplete="off"
+               onChange={({target}) => this.setState({eventTime: target.value})} required></input> : <input type="time_text" placeholder="min" name="time" autoComplete="off"
+               onChange={({target}) => this.setState({eventTime: target.value})} required></input>   -   <input type="time_text" placeholder="hour" name="time" autoComplete="off"
+               onChange={({target}) => this.setState({eventTime: target.value})} required></input> : <input type="time_text" placeholder="min" name="time" autoComplete="off"
+               onChange={({target}) => this.setState({eventTime: target.value})} required></input>
 
               <button type="submit" class="btn" > Create event </button>
               <button class="btn cancel" onClick={this.closeForm.bind(this)}>Cancel</button>

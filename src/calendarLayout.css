@@ -259,12 +259,14 @@ body {
 .popup-form {
   display: none;
   position: relative;
-  bottom: 580px;
-  left: 0px;
+  bottom: 500px;
   border: 3px solid #f1f1f1;
   z-index: 9;
+  height:500px;
   overflow-y: scroll;
   color: darkgray;
+  border-radius: 10px;
+  border: none;
 }
 
 /* Add styles to the form container */
@@ -274,25 +276,6 @@ body {
   background-color: white;
 }
 
-/* Full-width input fields */
-.form-container input[type=text] {
-  width: 100%;
-  padding: 15px;
-  margin: 5px 0 22px 0;
-  border-radius: 10px;
-  background: #f1f1f1;
-  font-family: 'Kanit', sans-serif;
-}
-
-.form-container input[type=text]{
-  width: 30%;
-  padding: 5px;
-  margin: 5px 0 22px 0;
-  border-radius: 10px;
-  background: #f1f1f1;
-  font-family: 'Kanit', sans-serif;
-}
-
 /* When the inputs get focus, do something */
 .form-container input[type=text]:focus {
   background-color: #ddd;
@@ -300,17 +283,58 @@ body {
 }
 
 /*different format for event name input textbox*/
-.form-container input[type=long_text]{
-  width: 60%;
+.form-container input[type=event_text]{
+  width: 100%;
+  height:50px;
   padding: 5px;
   margin: 5px 0 22px 0;
   border-radius: 10px;
   background: #f1f1f1;
   font-family: 'Kanit', sans-serif;
+  border:none;
+  text-align: center;
 }
 
 /* When the inputs get focus, do something */
-.form-container input[type=long_text]:focus {
+.form-container input[type=event_text]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/*different format for event name input textbox*/
+.form-container input[type=date_text]{
+  width: 44%;
+  height:50px;
+  padding: 5px;
+  margin: 5px 0 22px 0;
+  border-radius: 10px;
+  background: #f1f1f1;
+  font-family: 'Kanit', sans-serif;
+  border:none;
+  text-align: center;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=date_text]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/*different format for event name input textbox*/
+.form-container input[type=time_text]{
+  width: 19%;
+  height:50px;
+  padding: 5px;
+  margin: 5px 0 22px 0;
+  border-radius: 10px;
+  background: #f1f1f1;
+  font-family: 'Kanit', sans-serif;
+  border:none;
+  text-align: center;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=time_text]:focus {
   background-color: #ddd;
   outline: none;
 }
