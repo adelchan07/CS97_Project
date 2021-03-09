@@ -263,7 +263,6 @@ body {
   left: 0px;
   border: 3px solid #f1f1f1;
   z-index: 9;
-  height:320px;
   overflow-y: scroll;
   color: darkgray;
 }
