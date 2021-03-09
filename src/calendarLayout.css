@@ -3,7 +3,7 @@ body {
   margin: 100px auto;
   background-color: lightgray;
   font-family: 'Kanit', sans-serif;
-  /*overflow: hidden; */
+  overflow: hidden; 
 }
 
 .calendar-base {
@@ -258,10 +258,12 @@ body {
 .popup-form {
   display: none;
   position: relative;
-  bottom: 555px;
+  bottom: 415px;
   left: 0px;
   border: 3px solid #f1f1f1;
   z-index: 9;
+  height:320px;
+  overflow-y: scroll;
 }
 
 /* Add styles to the form container */
