@@ -313,19 +313,19 @@ export default class Calendar extends React.Component {
               
               <label htmlFor="time"> Event Date </label>
               <input type="text" placeholder="Month" name="month" autoComplete="off"
-               onChange={({target}) => this.setState({eventDay: target.value})} required></input>
+               onChange={({target}) => this.setState({eventMonth: target.value})} required></input>
               <input type="text" placeholder="Day" name="day" autoComplete="off"
                onChange={({target}) => this.setState({eventDay: target.value})} required></input>
 
               <label htmlFor="time"> Start Time </label>
-              <input type="text" placeholder="start_hr" name="time" autoComplete="off"
+              <input type="text" placeholder="Start Hour" name="time" autoComplete="off"
                onChange={({target}) => this.setState({eventTime: target.value})} required></input>
-              <input type="text" placeholder="start_min" name="time" autoComplete="off"
+              <input type="text" placeholder="Start Minute" name="time" autoComplete="off"
                onChange={({target}) => this.setState({eventTime: target.value})} required></input>
               <label htmlFor="time"> End Time </label>
-              <input type="text" placeholder="end_hr" name="time" autoComplete="off"
+              <input type="text" placeholder="End Hour" name="time" autoComplete="off"
                onChange={({target}) => this.setState({eventTime: target.value})} required></input>
-              <input type="text" placeholder="end_min" name="time" autoComplete="off"
+              <input type="text" placeholder="End Minute" name="time" autoComplete="off"
                onChange={({target}) => this.setState({eventTime: target.value})} required></input>
 
               <button type="submit" class="btn" > Create event </button>
