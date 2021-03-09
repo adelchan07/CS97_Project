@@ -79,9 +79,13 @@ export default class Calendar extends React.Component {
       currentDate: 0,
       //currentUserEmail: "",
       //uid: "",
-      eventDay: null,
       eventName: null,
-      eventTime: null,
+      eventMonth: null,
+      eventDay: null,
+      eventStartHour: null,
+      eventStartMinute: null,
+      eventEndHour: null,
+      eventEndMinute: null,
     };
     fb.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -97,22 +101,20 @@ export default class Calendar extends React.Component {
   }
 
   async onSubmit(event) {
+    //TODO: validate input
+
     event.preventDefault();
-    
+
     const eventData = {
       uid: this.state.uid,
       eventName: this.state.eventName, 
+      eventMonth: this.state.eventMonth,
       eventDay: this.state.eventDay,
-      eventTime: this.state.eventTime,
-      eventDate: this.state.currentDate
+      eventStartHour: this.state.eventStartHour,
+      eventStartMinute: this.state.eventStartMinute,
+      eventEndHour: this.state.eventEndHour,
+      eventEndMinute: this.state.eventEndMinute,
       //calendar: req.body.calendar,
-        
-      // startHour: req.body.startHour,                      
-      // startMinute: req.body.startMinute,
-      // startAM: req.body.startAM,
-      // endHour: req.body.endHour,                        
-      // endMinute: req.body.endMinute,
-      // endAM: req.body.endAM,
 
       //notificationMinute: req.body.notificationMinute,             
       //location: req.body.location,
@@ -129,7 +131,7 @@ export default class Calendar extends React.Component {
     
     this.closeForm(event);
     //this.refreshPage();
-    
+    console.log(eventData)
     return res;
   }
 
@@ -319,14 +321,14 @@ export default class Calendar extends React.Component {
 
               <label htmlFor="time"> Start Time </label>
               <input type="text" placeholder="Start Hour" name="time" autoComplete="off"
-               onChange={({target}) => this.setState({eventTime: target.value})} required></input>
+               onChange={({target}) => this.setState({eventStartHour: target.value})} required></input>
               <input type="text" placeholder="Start Minute" name="time" autoComplete="off"
-               onChange={({target}) => this.setState({eventTime: target.value})} required></input>
+               onChange={({target}) => this.setState({eventStartMinute: target.value})} required></input>
               <label htmlFor="time"> End Time </label>
               <input type="text" placeholder="End Hour" name="time" autoComplete="off"
-               onChange={({target}) => this.setState({eventTime: target.value})} required></input>
+               onChange={({target}) => this.setState({eventEndHour: target.value})} required></input>
               <input type="text" placeholder="End Minute" name="time" autoComplete="off"
-               onChange={({target}) => this.setState({eventTime: target.value})} required></input>
+               onChange={({target}) => this.setState({eventEndMinute: target.value})} required></input>
 
               <button type="submit" class="btn" > Create event </button>
               <button class="btn cancel" onClick={this.closeForm.bind(this)}>Cancel</button>

@@ -153,15 +153,18 @@ app.post('/events', async (req, res) => {
     const newEvent = {
         uid: req.body.uid, 
         eventName: req.body.eventName,
-        eventTime: req.body.eventTime,
+        eventMonth: req.body.eventMonth,
         eventDay: req.body.eventDay,
-        eventDate: req.body.eventDate
+        eventStartHour: req.body.eventStartHour,
+        eventStartMinute: req.body.eventStartMinute,
+        eventEndHour: req.body.eventEndHour,
+        eventEndMinute: req.body.eventEndMinute,
     };
     await events.doc().set(newEvent);
 
     res.status(201);
     res.json({ message: 'Event created' });
-
+    res.send("Event created")
 });
 
 
