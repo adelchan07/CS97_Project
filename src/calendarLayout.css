@@ -195,13 +195,14 @@ body {
 }
 
 .create-event {
-  font-size: 18px;
+  font-size: 15px;
   position: relative;
   margin-top: 30px;
   margin-left: -5px;
   z-index:9;
   opacity:.9;
   overflow-y: scroll;
+  text-align: center;
 }
 
 .event-line {
@@ -284,6 +285,8 @@ body {
   border-radius: 10px;
   background: #f1f1f1;
   font-family: 'Kanit', sans-serif;
+  text-align: center;
+  font-size: 14px;
 }
 
 /* When the inputs get focus, do something */

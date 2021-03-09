@@ -283,19 +283,13 @@ export default class Calendar extends React.Component {
                onChange={({target}) => this.setState({eventDay: target.value})} required></input>
 
               <label htmlFor="time"> Start Time </label>
-              <input type="text" placeholder="Start Hour" name="time" autoComplete="off"
+              <input type="text" placeholder="--:--" name="time" autoComplete="off"
                onChange={({target}) => this.setState({eventTime: target.value})} required></input>
-              <label htmlFor="colon"> : </label>
-              <input type="text" placeholder="Start Minute" name="time" autoComplete="off"
-               onChange={({target}) => this.setState({eventTime: target.value})} required></input>
-
+              
               <label htmlFor="time"> End Time </label>
-              <input type="text" placeholder="End Hour" name="time" autoComplete="off"
+              <input type="text" placeholder="--:--" name="time" autoComplete="off"
                onChange={({target}) => this.setState({eventTime: target.value})} required></input>
-              <label htmlFor="colon"> : </label>
-              <input type="text" placeholder="End Minute" name="time" autoComplete="off"
-               onChange={({target}) => this.setState({eventTime: target.value})} required></input>
-
+              
 
               <button type="submit" class="btn" > Create event </button>
               <button class="btn cancel" onClick={this.closeForm.bind(this)}>Cancel</button>
