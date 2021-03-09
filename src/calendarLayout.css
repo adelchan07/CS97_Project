@@ -3,7 +3,7 @@ body {
   margin: 100px auto;
   background-color: lightgray;
   font-family: 'Kanit', sans-serif;
-  /*overflow: hidden; */
+  overflow: hidden; 
 }
 
 .calendar-base {
@@ -199,6 +199,7 @@ body {
   position: relative;
   margin-top: 30px;
   margin-left: -5px;
+  color: darkgray;
 }
 
 .event-line {
@@ -258,10 +259,12 @@ body {
 .popup-form {
   display: none;
   position: relative;
-  bottom: 555px;
+  bottom: 580px;
   left: 0px;
   border: 3px solid #f1f1f1;
   z-index: 9;
+  overflow-y: scroll;
+  color: darkgray;
 }
 
 /* Add styles to the form container */
@@ -281,8 +284,33 @@ body {
   font-family: 'Kanit', sans-serif;
 }
 
+.form-container input[type=text]{
+  width: 30%;
+  padding: 5px;
+  margin: 5px 0 22px 0;
+  border-radius: 10px;
+  background: #f1f1f1;
+  font-family: 'Kanit', sans-serif;
+}
+
 /* When the inputs get focus, do something */
 .form-container input[type=text]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/*different format for event name input textbox*/
+.form-container input[type=long_text]{
+  width: 60%;
+  padding: 5px;
+  margin: 5px 0 22px 0;
+  border-radius: 10px;
+  background: #f1f1f1;
+  font-family: 'Kanit', sans-serif;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=long_text]:focus {
   background-color: #ddd;
   outline: none;
 }
