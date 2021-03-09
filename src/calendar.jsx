@@ -263,39 +263,44 @@ export default class Calendar extends React.Component {
       28, 29, 30, 31, 1, 2, 3];
     let eventArray = [
       {
-        eventDate: 19, 
-        eventDay:"17", 
-        eventName: "CS97 Lecture", 
-        eventTime:"4:00 PM - 5:00 PM", 
-        uid:""
+        uid:"",
+        eventName: "CS97 Lecture",
+        eventMonth: "3",
+        eventDay: "17",
+        eventStartHour: "4",
+        eventStartMinute: "00",
+        eventEndHour: "5",
+        eventEndMinute: "00",
       },
       {
-        eventDate: 19, 
-        eventDay:"17", 
-        eventName: "Cry because you don’t understand", 
-        eventTime:"5:30 PM - 6:00 PM", 
-        uid:""
+        uid:"",
+        eventName: "Cry because you don’t understand",
+        eventMonth: "3",
+        eventDay: "17",
+        eventStartHour: "5",
+        eventStartMinute: "30",
+        eventEndHour: "6",
+        eventEndMinute: "00",
       },
       {
-        eventDate: 19, 
-        eventDay:"17", 
-        eventName: "Cry because you don’t understand", 
-        eventTime:"5:30 PM - 6:00 PM", 
-        uid:""
+        uid:"",
+        eventName: "Cry because you don’t understand",
+        eventMonth: "3",
+        eventDay: "17",
+        eventStartHour: "5",
+        eventStartMinute: "30",
+        eventEndHour: "6",
+        eventEndMinute: "00",
       },
       {
-        eventDate: 19, 
-        eventDay:"17", 
-        eventName: "Cry because you don’t understand", 
-        eventTime:"5:30 PM - 6:00 PM", 
-        uid:""
-      },
-      {
-        eventDate: 19, 
-        eventDay:"17", 
-        eventName: "Cry because you don’t understand", 
-        eventTime:"5:30 PM - 6:00 PM", 
-        uid:""
+        uid:"",
+        eventName: "Cry because you don’t understand",
+        eventMonth: "3",
+        eventDay: "17",
+        eventStartHour: "5",
+        eventStartMinute: "30",
+        eventEndHour: "6",
+        eventEndMinute: "00",
       },
     ]
     return(<>
@@ -346,7 +351,7 @@ export default class Calendar extends React.Component {
             <ul>
               {/*eventArray = this.displayEvents(this.state.currentDate)*/}
               {eventArray.map(item => (
-                <li><strong className="white">{item.eventTime}</strong>  {item.eventName}</li>
+                <li><strong className="white">{item.eventStartHour + ":" + item.eventStartMinute + " - " + item.eventEndHour + ":" + item.eventEndMinute}</strong>  {item.eventName}</li>
               ))}
             </ul>
             <span className="posts"> </span></div>
