@@ -137,8 +137,16 @@ export default class Calendar extends React.Component {
 
   }
 
-  displayEvent() {
-
+  displayEvents(currentDate) {
+    const res = fetch('http://localhost:3200/events', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    console.log(res)
+    /*TODO: return an array with correct info */
+    return res;
   }
 
   displayUser = () => {
@@ -178,11 +186,10 @@ export default class Calendar extends React.Component {
     this.setState({
       currentDate: i,
     });
-    console.log(this.state.currentDate);
+    return this.displayEvents(i);
   }
 
   getDayOfWeek(i) {
-    /*TODO: handleclick*/
     switch(i % 7) {
       case 0: return "SUNDAY";
       case 1: return "MONDAY";
@@ -201,6 +208,17 @@ export default class Calendar extends React.Component {
       14, 15, 16, 17, 18, 19, 20, 
       21, 22, 23, 24, 25, 26, 27, 
       28, 29, 30, 31, 1, 2, 3];
+    let eventArray = [
+      {eventDate: 19, 
+        eventDay:"17", 
+        eventName: "CS97 Lecture", 
+        eventTime:"4:00 PM - 5:00 PM", 
+        uid:""},
+        {eventDate: 19, 
+          eventDay:"17", 
+          eventName: "Cry because you don’t understand", 
+          eventTime:"5:30 PM - 6:00 PM", 
+          uid:""}]
     return(<>
       <meta charSet="UTF-8" />
       <title>My Calendar</title>
@@ -232,7 +250,7 @@ export default class Calendar extends React.Component {
           <div className="dates-grid">
             <Dates
               dateArray={dateArray}
-              onClick={(i) => this.handleClick(i)}
+              onClick={(i) => eventArray = this.handleClick(i)}
             />
           </div>
           {/* num-dates */}
@@ -247,22 +265,10 @@ export default class Calendar extends React.Component {
           <div className="current-events">{/*Current Events*/}
             <br />
             <ul>
-              <li><strong className="white">4:00 PM - 5:00 PM</strong>  CS97 Lecture</li>
-              <li><strong className="white">5:30 PM - 6:00 PM</strong> Cry because you don’t understand</li>
-              <li><strong className="white">5:30 PM - 6:00 PM</strong> testing</li>
-              <li><strong className="white">5:30 PM - 6:00 PM</strong> testing</li>
-              <li><strong className="white">5:30 PM - 6:00 PM</strong> testing</li>
-              <li><strong className="white">5:30 PM - 6:00 PM</strong> testing</li>
-              <li><strong className="white">5:30 PM - 6:00 PM</strong> testing</li>
-              <li><strong className="white">5:30 PM - 6:00 PM</strong> testing</li>
-              <li><strong className="white">5:30 PM - 6:00 PM</strong> testing</li>
-              <li><strong className="white">5:30 PM - 6:00 PM</strong> testing</li>
-              <li><strong className="white">5:30 PM - 6:00 PM</strong> testing</li>
-              <li><strong className="white">5:30 PM - 6:00 PM</strong> testing</li>
-              <li><strong className="white">5:30 PM - 6:00 PM</strong> testing</li>
-              <li><strong className="white">5:30 PM - 6:00 PM</strong> testing</li>
-              <li><strong className="white">5:30 PM - 6:00 PM</strong> testing</li>
-              <li><strong className="white">5:30 PM - 6:00 PM</strong> testing</li>
+              {/*eventArray = this.displayEvents(this.state.currentDate)*/}
+              {eventArray.map(item => (
+                <li><strong className="white">{item.eventTime}</strong>  {item.eventName}</li>
+              ))}
             </ul>
             <span className="posts"> </span></div>
           
