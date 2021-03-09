@@ -199,6 +199,7 @@ body {
   position: relative;
   margin-top: 30px;
   margin-left: -5px;
+  color: darkgray;
 }
 
 .event-line {
@@ -264,6 +265,7 @@ body {
   z-index: 9;
   height:320px;
   overflow-y: scroll;
+  color: darkgray;
 }
 
 /* Add styles to the form container */
@@ -276,6 +278,15 @@ body {
 /* Full-width input fields */
 .form-container input[type=text] {
   width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border-radius: 10px;
+  background: #f1f1f1;
+  font-family: 'Kanit', sans-serif;
+}
+
+.form-container input[type=text]{
+  width: 30%;
   padding: 15px;
   margin: 5px 0 22px 0;
   border-radius: 10px;

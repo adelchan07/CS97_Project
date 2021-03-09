@@ -308,16 +308,20 @@ export default class Calendar extends React.Component {
           <div class="popup-form" id="eventForm">
             <form onSubmit={this.onSubmit.bind(this)} class="form-container">
 
-              <label htmlFor="event"> Event </label>
               <input type="text" placeholder="Event name" name="event" autoComplete="off"
                onChange={({target}) => this.setState({eventName: target.value})} required></input>
 
-              <label htmlFor="day"> Day </label>
               <input type="text" placeholder="Event date" name="day" autoComplete="off"
                onChange={({target}) => this.setState({eventDay: target.value})} required></input>
 
               <label htmlFor="time"> Time </label>
-              <input type="text" placeholder="Event time" name="time" autoComplete="off"
+              <input type="text" placeholder="start_hr" name="time" autoComplete="off"
+               onChange={({target}) => this.setState({eventTime: target.value})} required></input>
+              <input type="text" placeholder="start_min" name="time" autoComplete="off"
+               onChange={({target}) => this.setState({eventTime: target.value})} required></input>
+              <input type="text" placeholder="end_hr" name="time" autoComplete="off"
+               onChange={({target}) => this.setState({eventTime: target.value})} required></input>
+              <input type="text" placeholder="end_min" name="time" autoComplete="off"
                onChange={({target}) => this.setState({eventTime: target.value})} required></input>
 
               <button type="submit" class="btn" > Create event </button>
