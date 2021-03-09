@@ -3,7 +3,7 @@ body {
   margin: 100px auto;
   background-color: lightgray;
   font-family: 'Kanit', sans-serif;
-  overflow: hidden; 
+  /*overflow: hidden; */
 }
 
 .calendar-base {
@@ -199,6 +199,9 @@ body {
   position: relative;
   margin-top: 30px;
   margin-left: -5px;
+  z-index:9;
+  opacity:.9;
+  overflow-y: scroll;
 }
 
 .event-line {
@@ -269,6 +272,8 @@ body {
   max-width: 300px;
   padding: 10px;
   background-color: white;
+  color: black;
+  overflow-y: scroll;
 }
 
 /* Full-width input fields */
