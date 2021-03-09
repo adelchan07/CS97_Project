@@ -253,6 +253,16 @@ export default class Calendar extends React.Component {
               <li><strong className="white">5:30 PM - 6:00 PM</strong> testing</li>
               <li><strong className="white">5:30 PM - 6:00 PM</strong> testing</li>
               <li><strong className="white">5:30 PM - 6:00 PM</strong> testing</li>
+              <li><strong className="white">5:30 PM - 6:00 PM</strong> testing</li>
+              <li><strong className="white">5:30 PM - 6:00 PM</strong> testing</li>
+              <li><strong className="white">5:30 PM - 6:00 PM</strong> testing</li>
+              <li><strong className="white">5:30 PM - 6:00 PM</strong> testing</li>
+              <li><strong className="white">5:30 PM - 6:00 PM</strong> testing</li>
+              <li><strong className="white">5:30 PM - 6:00 PM</strong> testing</li>
+              <li><strong className="white">5:30 PM - 6:00 PM</strong> testing</li>
+              <li><strong className="white">5:30 PM - 6:00 PM</strong> testing</li>
+              <li><strong className="white">5:30 PM - 6:00 PM</strong> testing</li>
+              <li><strong className="white">5:30 PM - 6:00 PM</strong> testing</li>
             </ul>
             <span className="posts"> </span></div>
           
