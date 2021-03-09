@@ -3,7 +3,7 @@ body {
   margin: 100px auto;
   background-color: lightgray;
   font-family: 'Kanit', sans-serif;
-  overflow: hidden; 
+  /* overflow: hidden; */
 }
 
 .calendar-base {
@@ -283,7 +283,7 @@ body {
 
 /* When the inputs get focus, do something */
 .form-container input[type=text]:focus {
-  background-color: #ddd;
+  background-color: lightgray;
   outline: none;
 }
 
