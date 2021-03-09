@@ -209,16 +209,42 @@ export default class Calendar extends React.Component {
       21, 22, 23, 24, 25, 26, 27, 
       28, 29, 30, 31, 1, 2, 3];
     let eventArray = [
-      {eventDate: 19, 
+      {
+        eventDate: 19, 
         eventDay:"17", 
         eventName: "CS97 Lecture", 
         eventTime:"4:00 PM - 5:00 PM", 
-        uid:""},
-        {eventDate: 19, 
-          eventDay:"17", 
-          eventName: "Cry because you don’t understand", 
-          eventTime:"5:30 PM - 6:00 PM", 
-          uid:""}]
+        uid:""
+      },
+      {
+        eventDate: 19, 
+        eventDay:"17", 
+        eventName: "Cry because you don’t understand", 
+        eventTime:"5:30 PM - 6:00 PM", 
+        uid:""
+      },
+      {
+        eventDate: 19, 
+        eventDay:"17", 
+        eventName: "Cry because you don’t understand", 
+        eventTime:"5:30 PM - 6:00 PM", 
+        uid:""
+      },
+      {
+        eventDate: 19, 
+        eventDay:"17", 
+        eventName: "Cry because you don’t understand", 
+        eventTime:"5:30 PM - 6:00 PM", 
+        uid:""
+      },
+      {
+        eventDate: 19, 
+        eventDay:"17", 
+        eventName: "Cry because you don’t understand", 
+        eventTime:"5:30 PM - 6:00 PM", 
+        uid:""
+      },
+    ]
     return(<>
       <meta charSet="UTF-8" />
       <title>My Calendar</title>
