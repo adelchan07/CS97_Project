@@ -353,7 +353,7 @@ export default class Calendar extends React.Component {
           
           {/* display user info */}
           <div class="popup" onClick={() => this.displayUser()}><i class="fa fa-bars"></i> 
-              <span class="popuptext" id="myPopup"> User: {this.state.currentUserEmail}</span>
+              <span class="popuptext" id="myPopup"> <strong className="gray">User:</strong> {this.state.currentUserEmail}</span>
           </div>
 
           {/* create-event */}
@@ -367,7 +367,7 @@ export default class Calendar extends React.Component {
                onChange={({target}) => target.value = this.setEventInfo("eventMonth", target.value)} required></input>      
               <input type="date_text" placeholder="Day" name="day" autoComplete="off" maxlength="2"
                onChange={({target}) => target.value = this.setEventInfo("eventDay", target.value)} required></input>
-
+               
               <input type="time_text" placeholder="hour" name="time" autoComplete="off" maxlength="2"
                onChange={({target}) => target.value = this.setEventInfo("eventStartHour", target.value)} required></input> : <input type="time_text" placeholder="min" name="time" autoComplete="off" maxlength="2"
                onChange={({target}) => target.value = this.setEventInfo("eventStartMinute", target.value)} required></input>   -   <input type="time_text" placeholder="hour" name="time" autoComplete="off" maxlength="2"
