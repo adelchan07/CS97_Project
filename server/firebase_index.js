@@ -164,7 +164,7 @@ app.post('/events', async (req, res) => {
 
     res.status(201);
     res.json({ message: 'Event created' });
-    res.send("Event created")
+    //res.send("Event created")
 });
 
 

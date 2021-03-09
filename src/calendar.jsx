@@ -77,8 +77,6 @@ export default class Calendar extends React.Component {
     console.log('OPEN CAL:');
     this.state = {
       currentDate: 0,
-      //currentUserEmail: "",
-      //uid: "",
       eventName: null,
       eventMonth: null,
       eventDay: null,
@@ -127,16 +125,12 @@ export default class Calendar extends React.Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(eventData),
-    });
+    })
     
     this.closeForm(event);
     //this.refreshPage();
     console.log(eventData)
     return res;
-  }
-
-  displayTime() {
-
   }
 
   displayEvents(currentDate) {
@@ -154,20 +148,6 @@ export default class Calendar extends React.Component {
   displayUser = () => {
     var popup = document.getElementById("myPopup");
     popup.classList.toggle("show");
-    //var user = fb.auth().currentUser;
-    //var name, email, photoUrl, uid, emailVerified;
-    
-    // fb.auth().onAuthStateChanged((user) => {
-    //   if (user) {
-    //     this.setState({
-    //       currentUser: user.email,
-    //       uid: user.uid
-    //     }); 
-    //     console.log(user.uid);
-    //   } else {
-    //     console.log('No user signed in');
-    //   }
-    // });
   }
 
   /*refreshPage() { 
