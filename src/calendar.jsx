@@ -77,8 +77,6 @@ export default class Calendar extends React.Component {
     console.log('OPEN CAL:');
     this.state = {
       currentDate: 0,
-      //currentUserEmail: "",
-      //uid: "",
       eventName: null,
       eventMonth: null,
       eventDay: null,
@@ -127,17 +125,13 @@ export default class Calendar extends React.Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(eventData),
-    });
+    })
     
     this.closeForm(event);
     //this.refreshPage();
     console.log(eventData)
     console.log(res);
     return res;
-  }
-
-  displayTime() {
-
   }
 
   displayEvents(currentDate) {
@@ -155,20 +149,20 @@ export default class Calendar extends React.Component {
   displayUser = () => {
     var popup = document.getElementById("myPopup");
     popup.classList.toggle("show");
-    //var user = fb.auth().currentUser;
-    //var name, email, photoUrl, uid, emailVerified;
-    
-    // fb.auth().onAuthStateChanged((user) => {
-    //   if (user) {
-    //     this.setState({
-    //       currentUser: user.email,
-    //       uid: user.uid
-    //     }); 
-    //     console.log(user.uid);
-    //   } else {
-    //     console.log('No user signed in');
-    //   }
-    // });
+  }
+
+  logout(event) {
+    event.preventDefault();
+    fb.auth().signOut().then(() => {
+      this.setState({
+        currentUserEmail: null,
+        uid: null
+      });
+    }).catch(function(error) {
+      console.log('Could not log on');
+    });
+
+    window.location.replace('/')    //welcome page
   }
 
   /*refreshPage() { 
@@ -264,39 +258,44 @@ export default class Calendar extends React.Component {
       28, 29, 30, 31, 1, 2, 3];
     let eventArray = [
       {
-        eventDate: 19, 
-        eventDay:"17", 
-        eventName: "CS97 Lecture", 
-        eventTime:"4:00 PM - 5:00 PM", 
-        uid:""
+        uid:"",
+        eventName: "CS97 Lecture",
+        eventMonth: "3",
+        eventDay: "17",
+        eventStartHour: "4",
+        eventStartMinute: "00",
+        eventEndHour: "5",
+        eventEndMinute: "00",
       },
       {
-        eventDate: 19, 
-        eventDay:"17", 
-        eventName: "Cry because you don’t understand", 
-        eventTime:"5:30 PM - 6:00 PM", 
-        uid:""
+        uid:"",
+        eventName: "Cry because you don’t understand",
+        eventMonth: "3",
+        eventDay: "17",
+        eventStartHour: "5",
+        eventStartMinute: "30",
+        eventEndHour: "6",
+        eventEndMinute: "00",
       },
       {
-        eventDate: 19, 
-        eventDay:"17", 
-        eventName: "Cry because you don’t understand", 
-        eventTime:"5:30 PM - 6:00 PM", 
-        uid:""
+        uid:"",
+        eventName: "Cry because you don’t understand",
+        eventMonth: "3",
+        eventDay: "17",
+        eventStartHour: "5",
+        eventStartMinute: "30",
+        eventEndHour: "6",
+        eventEndMinute: "00",
       },
       {
-        eventDate: 19, 
-        eventDay:"17", 
-        eventName: "Cry because you don’t understand", 
-        eventTime:"5:30 PM - 6:00 PM", 
-        uid:""
-      },
-      {
-        eventDate: 19, 
-        eventDay:"17", 
-        eventName: "Cry because you don’t understand", 
-        eventTime:"5:30 PM - 6:00 PM", 
-        uid:""
+        uid:"",
+        eventName: "Cry because you don’t understand",
+        eventMonth: "3",
+        eventDay: "17",
+        eventStartHour: "5",
+        eventStartMinute: "30",
+        eventEndHour: "6",
+        eventEndMinute: "00",
       },
     ]
     return(<>
@@ -306,9 +305,12 @@ export default class Calendar extends React.Component {
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
       <link href="https://fonts.googleapis.com/css?family=Kanit:300,700" rel="stylesheet" />
 
+
       <div className="container">
+      <button className="logout-button" onClick={this.logout.bind(this)}>Logout</button>
         <div className="calendar-base">
           <div className="year">2021</div>
+
           {/* year */}
           <div className="months">
             <span className="month-hover">Jan </span>
@@ -347,7 +349,7 @@ export default class Calendar extends React.Component {
             <ul>
               {/*eventArray = this.displayEvents(this.state.currentDate)*/}
               {eventArray.map(item => (
-                <li><strong className="white">{item.eventTime}</strong>  {item.eventName}</li>
+                <li><strong className="white">{item.eventStartHour + ":" + item.eventStartMinute + " - " + item.eventEndHour + ":" + item.eventEndMinute}</strong>  {item.eventName}</li>
               ))}
             </ul>
             <span className="posts"> </span></div>
@@ -365,8 +367,7 @@ export default class Calendar extends React.Component {
                onChange={({target}) => this.setState({eventName: target.value})} required></input>
               
               <input type="date_text" placeholder="Month" name="month" autoComplete="off" maxlength="2"
-               onChange={({target}) => target.value = this.setEventInfo("eventMonth", target.value)} required></input>      
-              <input type="date_text" placeholder="Day" name="day" autoComplete="off" maxlength="2"
+               onChange={({target}) => target.value = this.setEventInfo("eventMonth", target.value)} required></input>      <input type="date_text" placeholder="Day" name="day" autoComplete="off" maxlength="2"
                onChange={({target}) => target.value = this.setEventInfo("eventDay", target.value)} required></input>
                
               <input type="time_text" placeholder="hour" name="time" autoComplete="off" maxlength="2"

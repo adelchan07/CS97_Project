@@ -17,13 +17,45 @@ body {
 }
 
 .year {
-  color: #E8E8E8;
+  color: #1b50b1;
   font-size: 30px;
   float: right;
   position: relative;
   right: 75px;
   top: 20px;
   font-weight: bold;
+}
+
+.logout {
+  color:#d0dcf3;
+  font-size: 25px;
+  float: inline-start;
+  position: relative;
+  left: 65px;
+  top: 65px;
+  font-weight: bold;
+  z-index: 10000;
+}
+
+.logout-button {
+  color: #6495ED;
+  background-color: #ffffff;
+  position: absolute;
+  font-size: 15px;
+  font-weight: 600;
+  top: 43px;
+  right: 490px;
+  z-index: 1;
+  border: 1px solid #c5ced8;
+  border-radius: 7px;
+  float: left;
+  height: 40px;
+  margin-right: 13px;
+  margin-top: 10px;
+  padding: 0;
+  text-align: center;
+  width: 63px;
+  border:none;
 }
 
 .triangle-left {
