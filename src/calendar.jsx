@@ -76,7 +76,7 @@ export default class Calendar extends React.Component {
     super(props);
     console.log('OPEN CAL:');
     this.state = {
-      currentDate: 0,
+      dateIndex: 0,
       calendarDate: 0,
       eventName: null,
       eventMonth: null,
@@ -85,18 +85,9 @@ export default class Calendar extends React.Component {
       eventStartMinute: null,
       eventEndHour: null,
       eventEndMinute: null,
-      eventArray: [{
-          uid:"",
-          eventName: "CS97 Lecture",
-          eventMonth: "3",
-          eventDay: "17",
-          eventStartHour: "4",
-          eventStartMinute: "00",
-          eventEndHour: "5",
-          eventEndMinute: "00",
-        }
-      ]
+      eventArray: []
     };
+    this.displayEvents(this.state.dateIndex)
     fb.auth().onAuthStateChanged((user) => {
       if (user) {
         this.setState({
@@ -114,10 +105,16 @@ export default class Calendar extends React.Component {
     event.preventDefault();
 
     // format minutes if less than 10
-    if (parseInt(this.state.eventStartMinute) < 10)
-      this.setState({eventStartMinute: "0" + this.state.eventStartMinute})
-    if (parseInt(this.state.eventEndMinute) < 10)
-      this.setState({eventEndMinute: "0" + this.state.eventEndMinute})
+    let startMin = "";
+    let endMin = "";
+    if (this.state.eventStartMinute == "0")
+      startMin = "00"
+    else if (parseInt(this.state.eventStartMinute) < 10)
+      startMin = "0" + this.state.eventStartMinute;
+    if (this.state.eventEndMinute == "0")
+      endMin = "00"
+    else if (parseInt(this.state.eventEndMinute) < 10)
+      endMin = "0" + this.state.eventStartMinute;
 
     const eventData = {
       uid: this.state.uid,
@@ -125,9 +122,9 @@ export default class Calendar extends React.Component {
       eventMonth: this.state.eventMonth,
       eventDay: this.state.eventDay,
       eventStartHour: this.state.eventStartHour,
-      eventStartMinute: this.state.eventStartMinute  == "0" ? "00" : this.state.eventStartMinute,
+      eventStartMinute: startMin,
       eventEndHour: this.state.eventEndHour,
-      eventEndMinute: this.state.eventEndMinute == "0" ? "00" : this.state.eventEndMinute,
+      eventEndMinute: endMin,
       //calendar: req.body.calendar,
 
       //notificationMinute: req.body.notificationMinute,             
@@ -209,7 +206,7 @@ export default class Calendar extends React.Component {
       21, 22, 23, 24, 25, 26, 27, 
       28, 29, 30, 31, 1, 2, 3];
     await this.setState({
-      currentDate: i,
+      dateIndex: i,
       calendarDate: dateArray[i]
     });
     this.displayEvents();
@@ -335,14 +332,13 @@ export default class Calendar extends React.Component {
         {/* calendar-base */}
         <div className="calendar-left">
           {/* hamburger */}
-          <div className="num-date">{dateArray[this.state.currentDate]}</div>
+          <div className="num-date">{dateArray[this.state.dateIndex]}</div>
           {/*num-date */}
-          <div className="day">{this.getDayOfWeek(this.state.currentDate)}</div>
+          <div className="day">{this.getDayOfWeek(this.state.dateIndex)}</div>
           {/*day */}
           <div className="current-events">{/*Current Events*/}
             <br />
             <ul>
-              {/*eventArray = this.displayEvents(this.state.currentDate)*/}
               {this.state.eventArray.map(item => (
                 <li><strong className="white">{item.eventStartHour + ":" + item.eventStartMinute + " - " + item.eventEndHour + ":" + item.eventEndMinute}</strong>  {item.eventName}</li>
               ))}
