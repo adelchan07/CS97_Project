@@ -99,9 +99,13 @@ export default class Calendar extends React.Component {
   }
 
   async onSubmit(event) {
-    //TODO: validate input
-
     event.preventDefault();
+
+    // format minutes if less than 10
+    if (parseInt(this.state.eventStartMinute) < 10)
+      this.setState({eventStartMinute: "0" + this.state.eventStartMinute})
+    if (parseInt(this.state.eventEndMinute) < 10)
+      this.setState({eventEndMinute: "0" + this.state.eventEndMinute})
 
     const eventData = {
       uid: this.state.uid,
@@ -109,16 +113,16 @@ export default class Calendar extends React.Component {
       eventMonth: this.state.eventMonth,
       eventDay: this.state.eventDay,
       eventStartHour: this.state.eventStartHour,
-      eventStartMinute: this.state.eventStartMinute,
+      eventStartMinute: this.state.eventStartMinute  == "0" ? "00" : this.state.eventStartMinute,
       eventEndHour: this.state.eventEndHour,
-      eventEndMinute: this.state.eventEndMinute,
+      eventEndMinute: this.state.eventEndMinute == "0" ? "00" : this.state.eventEndMinute,
       //calendar: req.body.calendar,
 
       //notificationMinute: req.body.notificationMinute,             
       //location: req.body.location,
       //description: req.body.description,
     };
-
+    console.log(eventData)
     const res = await fetch('http://localhost:3200/events', {
       method: 'POST',
       headers: {
@@ -207,7 +211,7 @@ export default class Calendar extends React.Component {
       }
       break;
       case "eventStartMinute": 
-      if (this.validateInput(input, 59)) {
+      if (this.validateInputMinute(input, 59)) {
         this.setState({eventStartMinute: input})
         return input;
       }
@@ -219,7 +223,7 @@ export default class Calendar extends React.Component {
       }
       break;
       case "eventEndMinute": 
-      if (this.validateInput(input, 59)) {
+      if (this.validateInputMinute(input, 59)) {
         this.setState({eventEndMinute: input})
         return input;
       }
@@ -229,6 +233,14 @@ export default class Calendar extends React.Component {
   }
 
   validateInput(input, num) {
+    console.log(input)
+    if (isNaN(input))
+      return false;
+    if (parseInt(input) > num || input == "0")
+      return false;
+    return true;
+  }
+  validateInputMinute(input, num) {
     console.log(input)
     if (isNaN(input))
       return false;
