@@ -4,17 +4,28 @@ import fb from '../src/firebase_config'
 
 class Dates extends React.Component {
   renderDay(i) {
+    if (this.props.dateArray[i] === null) {
+      return (
+        /*TODO: remove hover for button*/
+        <button className="day-button" disabled="true"></button>
+      );
+    }
     return (
       <button className="day-button" onClick={() => this.props.onClick(i)} >
       {this.props.dateArray[i]}
     </button>
     );
   }
-  renderGreyDay(i) {
+
+  renderWeeks(startIndex) {
+    let weekArray = [];
+    for (var i = 0; i < 7; i++) {
+      weekArray[i] = startIndex + i;
+    }
     return (
-      <button className="day-button grey" onClick={() => this.props.onClick(i)} >
-      {this.props.dateArray[i]}
-    </button>
+      <div className="dates-row">
+          {weekArray.map(item => (this.renderDay(item)))}
+        </div>
     );
   }
 
@@ -22,49 +33,19 @@ class Dates extends React.Component {
     return (
       <div>
         <div className="dates-row">
-          {this.renderGreyDay(0)}
-          {this.renderDay(1)}
-          {this.renderDay(2)}
-          {this.renderDay(3)}
-          {this.renderDay(4)}
-          {this.renderDay(5)}
-          {this.renderDay(6)}
+          {this.renderWeeks(0)}
         </div>
         <div className="dates-row">
-          {this.renderDay(7)}
-          {this.renderDay(8)}
-          {this.renderDay(9)}
-          {this.renderDay(10)}
-          {this.renderDay(11)}
-          {this.renderDay(12)}
-          {this.renderDay(13)}
+          {this.renderWeeks(7)}
         </div>
         <div className="dates-row">
-          {this.renderDay(14)}
-          {this.renderDay(15)}
-          {this.renderDay(16)}
-          {this.renderDay(17)}
-          {this.renderDay(18)}
-          {this.renderDay(19)}
-          {this.renderDay(20)}
+        {this.renderWeeks(14)}
         </div>
         <div className="dates-row">
-          {this.renderDay(21)}
-          {this.renderDay(22)}
-          {this.renderDay(23)}
-          {this.renderDay(24)}
-          {this.renderDay(25)}
-          {this.renderDay(26)}
-          {this.renderDay(27)}
+          {this.renderWeeks(21)}
         </div>
         <div className="dates-row">
-          {this.renderDay(28)}
-          {this.renderDay(29)}
-          {this.renderDay(30)}
-          {this.renderDay(31)}
-          {this.renderGreyDay(32)}
-          {this.renderGreyDay(33)}
-          {this.renderGreyDay(34)}
+        {this.renderWeeks(28)}
         </div>
       </div>
     );
@@ -76,7 +57,7 @@ export default class Calendar extends React.Component {
     super(props);
     console.log('OPEN CAL:');
     this.state = {
-      dateIndex: 0,
+      dateIndex: 1,
       calendarMonth: 3,
       eventName: null,
       eventMonth: null,
@@ -86,13 +67,13 @@ export default class Calendar extends React.Component {
       eventEndHour: null,
       eventEndMinute: null,
       eventArray: [],
-      dateArray: [28, 1, 2, 3, 4, 5, 6, 
+      dateArray: [null, 1, 2, 3, 4, 5, 6, 
         7, 8, 9, 10, 11, 12, 13, 
         14, 15, 16, 17, 18, 19, 20, 
         21, 22, 23, 24, 25, 26, 27, 
-        28, 29, 30, 31, 1, 2, 3],
+        28, 29, 30, 31, null, null, null],
     };
-    this.displayEvents(this.state.dateIndex)
+    this.getEventsOfCurrentDate(this.state.dateIndex)
     fb.auth().onAuthStateChanged((user) => {
       if (user) {
         this.setState({
@@ -154,7 +135,7 @@ export default class Calendar extends React.Component {
 
 //https://c0ad8586d629.ngrok.io
 
-  async displayEvents() {
+  async getEventsOfCurrentDate() {
     console.log('http://localhost:3200/events/' + this.state.uid + '/' + this.state.dateArray[this.state.dateIndex]);
     fetch('http://localhost:3200/events/' + this.state.uid + '/' + this.state.dateArray[this.state.dateIndex], {
       method: 'GET',
@@ -203,7 +184,7 @@ export default class Calendar extends React.Component {
     await this.setState({
       dateIndex: i,
     });
-    this.displayEvents();
+    this.getEventsOfCurrentDate();
   }
 
   setEventInfo(type, input) {
@@ -222,25 +203,25 @@ export default class Calendar extends React.Component {
       }
       break;
       case "eventStartHour": 
-      if (this.validateInput(input, 24)) {
+      if (this.validateInputWithZero(input, 24)) {
         this.setState({eventStartHour: input})
         return input;
       }
       break;
       case "eventStartMinute": 
-      if (this.validateInputMinute(input, 59)) {
+      if (this.validateInputWithZero(input, 59)) {
         this.setState({eventStartMinute: input})
         return input;
       }
       break;
       case "eventEndHour": 
-      if (this.validateInput(input, 24)) {
+      if (this.validateInputWithZero(input, 24)) {
         this.setState({eventEndHour: input})
         return input;
       }
       break;
       case "eventEndMinute": 
-      if (this.validateInputMinute(input, 59)) {
+      if (this.validateInputWithZero(input, 59)) {
         this.setState({eventEndMinute: input})
         return input;
       }
@@ -260,7 +241,7 @@ export default class Calendar extends React.Component {
       return false;
     return true;
   }
-  validateInputMinute(input, num) {
+  validateInputWithZero(input, num) {
     console.log(input)
     if (isNaN(input))
       return false;
