@@ -36,10 +36,10 @@ form {
     cursor: pointer;
     width: 20%;
     font-family: 'Kanit', sans-serif;
-    outline: #6495ED;
+    border: none;
   }
   
   /* Add a hover effect for buttons */
   button:hover {
-    opacity: 0.8;
+    background-color: blue;
   }
