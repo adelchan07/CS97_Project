@@ -114,10 +114,16 @@ export default class Calendar extends React.Component {
     event.preventDefault();
 
     // format minutes if less than 10
-    if (parseInt(this.state.eventStartMinute) < 10)
-      this.setState({eventStartMinute: "0" + this.state.eventStartMinute})
-    if (parseInt(this.state.eventEndMinute) < 10)
-      this.setState({eventEndMinute: "0" + this.state.eventEndMinute})
+    let startMin = "";
+    let endMin = "";
+    if (this.state.eventStartMinute == "0")
+      startMin = "00"
+    else if (parseInt(this.state.eventStartMinute) < 10)
+      startMin = "0" + this.state.eventStartMinute;
+    if (this.state.eventEndMinute == "0")
+      endMin = "00"
+    else if (parseInt(this.state.eventEndMinute) < 10)
+      endMin = "0" + this.state.eventStartMinute;
 
     const eventData = {
       uid: this.state.uid,
@@ -125,9 +131,9 @@ export default class Calendar extends React.Component {
       eventMonth: this.state.eventMonth,
       eventDay: this.state.eventDay,
       eventStartHour: this.state.eventStartHour,
-      eventStartMinute: this.state.eventStartMinute  == "0" ? "00" : this.state.eventStartMinute,
+      eventStartMinute: startMin,
       eventEndHour: this.state.eventEndHour,
-      eventEndMinute: this.state.eventEndMinute == "0" ? "00" : this.state.eventEndMinute,
+      eventEndMinute: endMin,
       //calendar: req.body.calendar,
 
       //notificationMinute: req.body.notificationMinute,             
