@@ -96,7 +96,7 @@ app.get('/events/:uid', async (req, res) => {
 app.get('/events/:uid/:eventDay', async (req, res) => {
     const uid = req.params.uid;
     const dayOfWeek = req.params.eventDay;
-    const allEventRefs = await events.where('eventDay', '==', dayOfWeek).where('uid', '==', uid).get();
+    const allEventRefs = await events.where('eventDay', '==', dayOfWeek).where('uid', '==', uid).orderBy('eventStartHour').orderBy('eventStartMinute').orderBy('eventEndHour').orderBy('eventEndMinute').orderBy('eventName').get();
     const allEvents = [];
 
     allEventRefs.forEach(doc => {
@@ -163,7 +163,6 @@ app.post('/events', async (req, res) => {
 
     res.status(201);
     res.json({ message: 'Event created' });
-    console.log(res);
 });
 
 
