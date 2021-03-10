@@ -304,7 +304,7 @@ body {
   position: relative;
   width: 240px;
   font-size: 17px;
-  bottom: 105px;
+  bottom: 125px;
   align-items: center;
   border: none;
 }
@@ -443,7 +443,7 @@ body {
   cursor: pointer; /* Mouse pointer on hover */
   position: relative;
   left:12px;
-  bottom: 440px;
+  bottom: 460px;
   width:60px;
 }
 
