@@ -366,8 +366,7 @@ export default class Calendar extends React.Component {
                onChange={({target}) => this.setState({eventName: target.value})} required></input>
               
               <input type="date_text" placeholder="Month" name="month" autoComplete="off" maxlength="2"
-               onChange={({target}) => target.value = this.setEventInfo("eventMonth", target.value)} required></input>      
-              <input type="date_text" placeholder="Day" name="day" autoComplete="off" maxlength="2"
+               onChange={({target}) => target.value = this.setEventInfo("eventMonth", target.value)} required></input>      <input type="date_text" placeholder="Day" name="day" autoComplete="off" maxlength="2"
                onChange={({target}) => target.value = this.setEventInfo("eventDay", target.value)} required></input>
                
               <input type="time_text" placeholder="hour" name="time" autoComplete="off" maxlength="2"
