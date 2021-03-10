@@ -198,6 +198,11 @@ body {
   text-align: center;
   width: 63px;
   border:none;
+  cursor: default;
+}
+
+.day-button-unclickable:hover {
+  background-color: white;
 }
 
 .white {

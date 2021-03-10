@@ -7,7 +7,7 @@ class Dates extends React.Component {
     if (this.props.dateArray[i] === null) {
       return (
         /*TODO: remove hover for button*/
-        <button className="day-button" disabled="true"></button>
+        <button className="day-button-unclickable" disabled="true"></button>
       );
     }
     return (
