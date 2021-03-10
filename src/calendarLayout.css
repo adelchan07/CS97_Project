@@ -421,16 +421,16 @@ body {
 }
 
 .form-container .btn:hover {
-  background-color: darkgreen;
+  background-color:#26aa5d;
 }
 
 /* Add a red background color to the cancel button */
 .form-container .cancel {
-  background-color: rgb(248, 39, 39);
+  background-color: rgb(252, 26, 26);
 }
 
 .form-container .cancel:hover {
-  background-color: darkred;
+  background-color: rgb(194, 11, 11);
 }
 
 /* Add some hover effects to buttons */

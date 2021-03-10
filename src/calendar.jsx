@@ -246,7 +246,10 @@ export default class Calendar extends React.Component {
         this.setState({eventEndMinute: input})
         return input;
       }
+      break;
+      default: return;
     }
+    
     alert("Input Invalid!")
     return input.substring(0, input.length - 1);
   }
@@ -255,7 +258,7 @@ export default class Calendar extends React.Component {
     console.log(input)
     if (isNaN(input))
       return false;
-    if (parseInt(input) > num || input == "0")
+    if (parseInt(input) > num || input === "0")
       return false;
     return true;
   }
@@ -277,6 +280,7 @@ export default class Calendar extends React.Component {
       case 4: return "THURSDAY";
       case 5: return "FRIDAY";
       case 6: return "SATURDAY";
+      default: return;
     }
   }
   getMonth(i) {
@@ -293,6 +297,7 @@ export default class Calendar extends React.Component {
       case 10: return "OCTOBER";
       case 11: return "NOVEMBER";
       case 12: return "DECEMBER";
+      default: return;
     }
   }
 
