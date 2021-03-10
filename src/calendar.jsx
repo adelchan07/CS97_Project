@@ -76,7 +76,7 @@ export default class Calendar extends React.Component {
     super(props);
     console.log('OPEN CAL:');
     this.state = {
-      currentDate: 0,
+      dateIndex: 0,
       calendarDate: 0,
       eventName: null,
       eventMonth: null,
@@ -85,18 +85,9 @@ export default class Calendar extends React.Component {
       eventStartMinute: null,
       eventEndHour: null,
       eventEndMinute: null,
-      eventArray: [{
-          uid:"",
-          eventName: "CS97 Lecture",
-          eventMonth: "3",
-          eventDay: "17",
-          eventStartHour: "4",
-          eventStartMinute: "00",
-          eventEndHour: "5",
-          eventEndMinute: "00",
-        }
-      ]
+      eventArray: []
     };
+    this.displayEvents(this.state.dateIndex)
     fb.auth().onAuthStateChanged((user) => {
       if (user) {
         this.setState({
@@ -211,7 +202,7 @@ export default class Calendar extends React.Component {
       21, 22, 23, 24, 25, 26, 27, 
       28, 29, 30, 31, 1, 2, 3];
     await this.setState({
-      currentDate: i,
+      dateIndex: i,
       calendarDate: dateArray[i]
     });
     this.displayEvents();
@@ -337,14 +328,13 @@ export default class Calendar extends React.Component {
         {/* calendar-base */}
         <div className="calendar-left">
           {/* hamburger */}
-          <div className="num-date">{dateArray[this.state.currentDate]}</div>
+          <div className="num-date">{dateArray[this.state.dateIndex]}</div>
           {/*num-date */}
-          <div className="day">{this.getDayOfWeek(this.state.currentDate)}</div>
+          <div className="day">{this.getDayOfWeek(this.state.dateIndex)}</div>
           {/*day */}
           <div className="current-events">{/*Current Events*/}
             <br />
             <ul>
-              {/*eventArray = this.displayEvents(this.state.currentDate)*/}
               {this.state.eventArray.map(item => (
                 <li><strong className="white">{item.eventStartHour + ":" + item.eventStartMinute + " - " + item.eventEndHour + ":" + item.eventEndMinute}</strong>  {item.eventName}</li>
               ))}
