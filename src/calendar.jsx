@@ -32,21 +32,7 @@ class Dates extends React.Component {
   render() {
     return (
       <div>
-        <div className="dates-row">
-          {this.renderWeeks(0)}
-        </div>
-        <div className="dates-row">
-          {this.renderWeeks(7)}
-        </div>
-        <div className="dates-row">
-        {this.renderWeeks(14)}
-        </div>
-        <div className="dates-row">
-          {this.renderWeeks(21)}
-        </div>
-        <div className="dates-row">
-        {this.renderWeeks(28)}
-        </div>
+        {[0, 7, 14, 21, 28].map(item => (this.renderWeeks(item)))}
       </div>
     );
   }
