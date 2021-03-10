@@ -77,6 +77,7 @@ export default class Calendar extends React.Component {
     console.log('OPEN CAL:');
     this.state = {
       currentDate: 0,
+      calendarDate: 0,
       eventName: null,
       eventMonth: null,
       eventDay: null,
@@ -134,16 +135,20 @@ export default class Calendar extends React.Component {
     return res;
   }
 
-  displayEvents(currentDate) {
-    const res = fetch('http://localhost:3200/events', {
+//https://c0ad8586d629.ngrok.io
+
+  async displayEvents() {
+    console.log('http://localhost:3200/events/' + this.state.uid + '/' + this.state.calendarDate.toString());
+    await fetch('http://localhost:3200/events/' + this.state.uid + '/' + this.state.calendarDate.toString(), {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
-    });
-    console.log(res)
-    /*TODO: return an array with correct info */
-    return res;
+    })
+    .then((res) => res.json())
+    .then((data) => {console.log(data);});
+    /* TODO: return an array with correct info */
+
   }
 
   displayUser = () => {
@@ -179,11 +184,17 @@ export default class Calendar extends React.Component {
     document.getElementById("eventForm").style.display = "none";
   }
 
-  handleClick(i) {
-    this.setState({
+  async handleClick(i) {
+    let dateArray = [28, 1, 2, 3, 4, 5, 6, 
+      7, 8, 9, 10, 11, 12, 13, 
+      14, 15, 16, 17, 18, 19, 20, 
+      21, 22, 23, 24, 25, 26, 27, 
+      28, 29, 30, 31, 1, 2, 3];
+    await this.setState({
       currentDate: i,
+      calendarDate: dateArray[i]
     });
-    return this.displayEvents(i);
+    return this.displayEvents();
   }
 
   setEventInfo(type, input) {
