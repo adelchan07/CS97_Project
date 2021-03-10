@@ -78,6 +78,7 @@ export default class Calendar extends React.Component {
     this.state = {
       dateIndex: 0,
       calendarDate: 0,
+      calendarMonth: 3,
       eventName: null,
       eventMonth: null,
       eventDay: null,
@@ -151,19 +152,14 @@ export default class Calendar extends React.Component {
 
   async displayEvents() {
     console.log('http://localhost:3200/events/' + this.state.uid + '/' + this.state.calendarDate.toString());
-    const res = await fetch('http://localhost:3200/events/' + this.state.uid + '/' + this.state.calendarDate.toString(), {
+    fetch('http://localhost:3200/events/' + this.state.uid + '/' + this.state.calendarDate.toString(), {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
     })
-    const data = await res.json();
-    console.log(data);
-    /* TODO: data is the array of events (each event is a JSON object) */
-    this.setState({eventArray: data});
-    // .then((res) => res.json())
-    // .then((data) => {this.setState({eventArray: data});});
-    // /* TODO: return an array with correct info */
+    .then((res) => res.json())
+    .then((data) => {this.setState({eventArray: data});});
   }
 
   displayUser = () => {
@@ -283,6 +279,22 @@ export default class Calendar extends React.Component {
       case 6: return "SATURDAY";
     }
   }
+  getMonth(i) {
+    switch(i) {
+      case 1: return "JANUARY";
+      case 2: return "FEBRUARY";
+      case 3: return "MARCH";
+      case 4: return "APRIL";
+      case 5: return "MAY";
+      case 6: return "JUNE";
+      case 7: return "JULY";
+      case 8: return "AUGUST";
+      case 9: return "SEPTEMBER";
+      case 10: return "OCTOBER";
+      case 11: return "NOVEMBER";
+      case 12: return "DECEMBER";
+    }
+  }
 
   render() {
     let dateArray = [28, 1, 2, 3, 4, 5, 6, 
@@ -305,18 +317,18 @@ export default class Calendar extends React.Component {
 
           {/* year */}
           <div className="months">
-            <span className="month-hover">Jan </span>
-            <span className="month-hover">Feb </span> 
-            <strong className="month-color">Mar </strong>
-            <span className="month-hover">Apr </span>
-            <span className="month-hover">May </span>
-            <span className="month-hover">Jun </span>
-            <span className="month-hover">July </span> 
-            <span className="month-hover">Aug </span> 
-            <span className="month-hover">Sep </span> 
-            <span className="month-hover">Oct </span> 
-            <span className="month-hover">Nov </span> 
-            <span className="month-hover">Dec </span>
+            <button className="month-button" onClick={() => this.setState({calendarMonth: 1})} >Jan</button>
+            <button className="month-button" onClick={() => this.setState({calendarMonth: 2})} >Feb</button>
+            <button className="month-button" onClick={() => this.setState({calendarMonth: 3})} >Mar</button>
+            <button className="month-button" onClick={() => this.setState({calendarMonth: 4})} >Apr</button>
+            <button className="month-button" onClick={() => this.setState({calendarMonth: 5})} >May</button>
+            <button className="month-button" onClick={() => this.setState({calendarMonth: 6})} >Jun</button>
+            <button className="month-button" onClick={() => this.setState({calendarMonth: 7})} >Jul</button>
+            <button className="month-button" onClick={() => this.setState({calendarMonth: 8})} >Aug</button>
+            <button className="month-button" onClick={() => this.setState({calendarMonth: 9})} >Sep</button>
+            <button className="month-button" onClick={() => this.setState({calendarMonth: 10})} >Oct</button>
+            <button className="month-button" onClick={() => this.setState({calendarMonth: 11})} >Nov</button>
+            <button className="month-button" onClick={() => this.setState({calendarMonth: 12})} >Dec</button>
           </div>{/* months */}
           <hr className="month-line" />
           <div className="days-line"><span className="white"> </span>SUN MON TUE WED THU FRI SAT</div>
@@ -333,6 +345,8 @@ export default class Calendar extends React.Component {
         <div className="calendar-left">
           {/* hamburger */}
           <div className="num-date">{dateArray[this.state.dateIndex]}</div>
+          {/*month */}
+          <div className="month">{this.getMonth(this.state.calendarMonth)}</div>
           {/*num-date */}
           <div className="day">{this.getDayOfWeek(this.state.dateIndex)}</div>
           {/*day */}

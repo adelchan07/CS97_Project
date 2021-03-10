@@ -91,8 +91,30 @@ body {
 .month-color {
   color: #6495ED;
 }
-.month-hover:hover{
-  color:#6495ED !important;
+/* for each month's button */
+.month-button {
+  color: #92b0e9;
+  background-color: #ffffff;
+  position: relative;
+  font-size: 16px;
+  font-weight: 600;
+  position: relative;
+  top: -20px;
+  left: 150px;
+  z-index: 1;
+  border: 1px solid #c5ced8;
+  border-radius: 7px;
+  float: left;
+  height: 30px;
+  margin-right: 10px;
+  margin-top: 10px;
+  padding: 0;
+  text-align: center;
+  width: 35px;
+  border:none;
+}
+.month-button:hover{
+  background-color: lightgrey;
 }
 
 /* for the line that says Jan Feb ...*/
@@ -108,9 +130,9 @@ body {
 .month-line {
   border-color: #E8E8E8;
   position: relative;
-  top: 85px;
+  top: 75px;
   width: 57%;
-  left: 178px;
+  left: 140px;
 }
 
 /* for the line that says SUN MON ...*/
@@ -118,7 +140,7 @@ body {
   color: #9ecfff;
   position: relative;
   font-size: 18px;
-  left: 177px;
+  left: 145px;
   top: 80px;
   word-spacing: 38px;
   font-weight: 600;
@@ -207,6 +229,10 @@ body {
   font-size: 30px;
   position: relative;
   bottom: 60px;
+}
+
+.month {
+  /*TODO*/
 }
 
 .current-events {
