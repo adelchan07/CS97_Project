@@ -40,11 +40,11 @@ body {
 .logout-button {
   color: white;
   background-color: #6495ED;
-  position: absolute;
+  position: relative;
   font-size: 15px;
   font-weight: 600;
-  top:115px;
-  right:265px;
+  top:20px;
+  left:810px;
   z-index: 1;
   border: 1px solid #c5ced8;
   border-radius: 7px;
@@ -121,7 +121,7 @@ body {
 .months {
   color: #AAAAAA;
   position: relative;
-  left: 175px;
+  left: 110px;
   top: 90px;
   word-spacing: 12px;
 }
@@ -132,7 +132,7 @@ body {
   position: relative;
   top: 75px;
   width: 57%;
-  left: 140px;
+  left: 110px;
 }
 
 /* for the line that says SUN MON ...*/
