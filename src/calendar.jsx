@@ -132,6 +132,7 @@ export default class Calendar extends React.Component {
     this.closeForm(event);
     //this.refreshPage();
     console.log(eventData)
+    console.log(res);
     return res;
   }
 

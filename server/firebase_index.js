@@ -15,8 +15,9 @@ const bodyParser = require('body-parser');
 
 // create server object with express library
 const app = express();
-app.use(cors());
 app.use(bodyParser.json());
+app.use(cors());
+
 
 // import the Firebase library.
 const admin = require('firebase-admin');
@@ -68,8 +69,6 @@ app.get('/events', async (req, res) => {
     const allEvents = [];
     const allEventRefs = await events.get();
     
-    console.log(allEventRefs);
-
     allEventRefs.forEach(doc => {
         allEvents.push(doc.data());
     });
@@ -164,7 +163,7 @@ app.post('/events', async (req, res) => {
 
     res.status(201);
     res.json({ message: 'Event created' });
-    res.send("Event created")
+    console.log(res);
 });
 
 
