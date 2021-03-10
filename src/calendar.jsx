@@ -139,16 +139,16 @@ export default class Calendar extends React.Component {
 
   async displayEvents() {
     console.log('http://localhost:3200/events/' + this.state.uid + '/' + this.state.calendarDate.toString());
-    await fetch('http://localhost:3200/events/' + this.state.uid + '/' + this.state.calendarDate.toString(), {
+    const res = await fetch('http://localhost:3200/events/' + this.state.uid + '/' + this.state.calendarDate.toString(), {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
     })
-    .then((res) => res.json())
-    .then((data) => {console.log(data);});
-    /* TODO: return an array with correct info */
-
+    const data = await res.json();
+    console.log(data);
+    /* TODO: data is the array of events (each event is a JSON object) */
+    
   }
 
   displayUser = () => {
