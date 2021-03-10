@@ -77,7 +77,6 @@ export default class Calendar extends React.Component {
     console.log('OPEN CAL:');
     this.state = {
       dateIndex: 0,
-      calendarDate: 0,
       calendarMonth: 3,
       eventName: null,
       eventMonth: null,
@@ -86,7 +85,12 @@ export default class Calendar extends React.Component {
       eventStartMinute: null,
       eventEndHour: null,
       eventEndMinute: null,
-      eventArray: []
+      eventArray: [],
+      dateArray: [28, 1, 2, 3, 4, 5, 6, 
+        7, 8, 9, 10, 11, 12, 13, 
+        14, 15, 16, 17, 18, 19, 20, 
+        21, 22, 23, 24, 25, 26, 27, 
+        28, 29, 30, 31, 1, 2, 3],
     };
     this.displayEvents(this.state.dateIndex)
     fb.auth().onAuthStateChanged((user) => {
@@ -151,8 +155,8 @@ export default class Calendar extends React.Component {
 //https://c0ad8586d629.ngrok.io
 
   async displayEvents() {
-    console.log('http://localhost:3200/events/' + this.state.uid + '/' + this.state.calendarDate.toString());
-    fetch('http://localhost:3200/events/' + this.state.uid + '/' + this.state.calendarDate.toString(), {
+    console.log('http://localhost:3200/events/' + this.state.uid + '/' + this.state.dateArray[this.state.dateIndex]);
+    fetch('http://localhost:3200/events/' + this.state.uid + '/' + this.state.dateArray[this.state.dateIndex], {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -196,14 +200,8 @@ export default class Calendar extends React.Component {
   }
 
   async handleClick(i) {
-    let dateArray = [28, 1, 2, 3, 4, 5, 6, 
-      7, 8, 9, 10, 11, 12, 13, 
-      14, 15, 16, 17, 18, 19, 20, 
-      21, 22, 23, 24, 25, 26, 27, 
-      28, 29, 30, 31, 1, 2, 3];
     await this.setState({
       dateIndex: i,
-      calendarDate: dateArray[i]
     });
     this.displayEvents();
   }
@@ -302,11 +300,6 @@ export default class Calendar extends React.Component {
   }
 
   render() {
-    let dateArray = [28, 1, 2, 3, 4, 5, 6, 
-      7, 8, 9, 10, 11, 12, 13, 
-      14, 15, 16, 17, 18, 19, 20, 
-      21, 22, 23, 24, 25, 26, 27, 
-      28, 29, 30, 31, 1, 2, 3];
     return(<>
       <meta charSet="UTF-8" />
       <title>My Calendar</title>
@@ -340,7 +333,7 @@ export default class Calendar extends React.Component {
           {/* days */}
           <div className="dates-grid">
             <Dates
-              dateArray={dateArray}
+              dateArray={this.state.dateArray}
               onClick={(i) => this.handleClick(i)}
             />
           </div>
@@ -349,7 +342,7 @@ export default class Calendar extends React.Component {
         {/* calendar-base */}
         <div className="calendar-left">
           {/* hamburger */}
-          <div className="num-date">{dateArray[this.state.dateIndex]}</div>
+          <div className="num-date">{this.state.dateArray[this.state.dateIndex]}</div>
           {/*month */}
           <div className="month">{this.getMonth(this.state.calendarMonth)}</div>
           {/*num-date */}
