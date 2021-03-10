@@ -3,7 +3,6 @@ body {
   margin: 100px auto;
   background-color: lightgray;
   font-family: 'Kanit', sans-serif;
-  /*overflow: hidden; */
 }
 
 .calendar-base {
@@ -12,7 +11,6 @@ body {
   border-radius: 20px;
   background-color: white;
   position: relative;
-  /*z-index: -1;*/
   color: black;
 }
 
@@ -200,9 +198,7 @@ body {
   text-align: center;
   width: 63px;
   border:none;
-  hover: none;
 }
-
 
 .white {
   color: white;
@@ -334,7 +330,6 @@ body {
   border-color: #6495ED !important;
 }
 
-
  * {
   box-sizing: border-box;
 }
@@ -368,7 +363,6 @@ body {
   border: 3px solid #f1f1f1;
   z-index: 9;
   height:500px;
-  overflow-y: scroll;
   color: darkgray;
   border-radius: 10px;
   border: none;

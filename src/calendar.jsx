@@ -103,6 +103,23 @@ export default class Calendar extends React.Component {
       //eventEndMinute: endMin,
       
     };
+    
+    if (parseInt(this.state.eventStartHour) > parseInt(this.state.eventEndHour)) {
+      alert('Start hour must be before end hour');
+      return;
+    }
+    if (parseInt(this.state.eventStartHour) === parseInt(this.state.eventEndHour)) {
+      if (parseInt(this.state.eventStartMinute) > parseInt(this.state.eventEndMinute)) {
+        alert('Start minute must be before end minute');
+        return;
+      }
+    }
+    if (parseInt(this.state.eventStartHour) === parseInt(this.state.eventEndHour)
+       && parseInt(this.state.eventStartMinute) === parseInt(this.state.eventEndMinute)) {
+          alert('Give yourself some time! Event must be at least one minute long');
+          return;
+        }
+
     console.log(eventData)
     const res = await fetch('http://localhost:3200/events', {
       method: 'POST',
