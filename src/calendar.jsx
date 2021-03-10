@@ -85,6 +85,17 @@ export default class Calendar extends React.Component {
       eventStartMinute: null,
       eventEndHour: null,
       eventEndMinute: null,
+      eventArray: [{
+          uid:"",
+          eventName: "CS97 Lecture",
+          eventMonth: "3",
+          eventDay: "17",
+          eventStartHour: "4",
+          eventStartMinute: "00",
+          eventEndHour: "5",
+          eventEndMinute: "00",
+        }
+      ]
     };
     fb.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -146,9 +157,8 @@ export default class Calendar extends React.Component {
       },
     })
     .then((res) => res.json())
-    .then((data) => {console.log(data);});
+    .then((data) => {this.setState({eventArray: data});});
     /* TODO: return an array with correct info */
-
   }
 
   displayUser = () => {
@@ -194,7 +204,7 @@ export default class Calendar extends React.Component {
       currentDate: i,
       calendarDate: dateArray[i]
     });
-    return this.displayEvents();
+    this.displayEvents();
   }
 
   setEventInfo(type, input) {
@@ -267,48 +277,6 @@ export default class Calendar extends React.Component {
       14, 15, 16, 17, 18, 19, 20, 
       21, 22, 23, 24, 25, 26, 27, 
       28, 29, 30, 31, 1, 2, 3];
-    let eventArray = [
-      {
-        uid:"",
-        eventName: "CS97 Lecture",
-        eventMonth: "3",
-        eventDay: "17",
-        eventStartHour: "4",
-        eventStartMinute: "00",
-        eventEndHour: "5",
-        eventEndMinute: "00",
-      },
-      {
-        uid:"",
-        eventName: "Cry because you don’t understand",
-        eventMonth: "3",
-        eventDay: "17",
-        eventStartHour: "5",
-        eventStartMinute: "30",
-        eventEndHour: "6",
-        eventEndMinute: "00",
-      },
-      {
-        uid:"",
-        eventName: "Cry because you don’t understand",
-        eventMonth: "3",
-        eventDay: "17",
-        eventStartHour: "5",
-        eventStartMinute: "30",
-        eventEndHour: "6",
-        eventEndMinute: "00",
-      },
-      {
-        uid:"",
-        eventName: "Cry because you don’t understand",
-        eventMonth: "3",
-        eventDay: "17",
-        eventStartHour: "5",
-        eventStartMinute: "30",
-        eventEndHour: "6",
-        eventEndMinute: "00",
-      },
-    ]
     return(<>
       <meta charSet="UTF-8" />
       <title>My Calendar</title>
@@ -343,7 +311,7 @@ export default class Calendar extends React.Component {
           <div className="dates-grid">
             <Dates
               dateArray={dateArray}
-              onClick={(i) => eventArray = this.handleClick(i)}
+              onClick={(i) => this.handleClick(i)}
             />
           </div>
           {/* num-dates */}
@@ -359,7 +327,7 @@ export default class Calendar extends React.Component {
             <br />
             <ul>
               {/*eventArray = this.displayEvents(this.state.currentDate)*/}
-              {eventArray.map(item => (
+              {this.state.eventArray.map(item => (
                 <li><strong className="white">{item.eventStartHour + ":" + item.eventStartMinute + " - " + item.eventEndHour + ":" + item.eventEndMinute}</strong>  {item.eventName}</li>
               ))}
             </ul>
