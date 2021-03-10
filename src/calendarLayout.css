@@ -221,6 +221,9 @@ body {
   width: 50%;
   margin: 0 auto;
   font-weight: 700;
+  position:relative;
+  text-align:center;
+  top:18px;
 }
 
 .day {
@@ -228,11 +231,14 @@ body {
   margin: 0px auto;
   font-size: 30px;
   position: relative;
-  bottom: 60px;
+  bottom: 64px;
+  text-align:center;
 }
 
 .month {
-  /*TODO*/
+  position:relative;
+  bottom:178px;
+  font-size: 19px;
 }
 
 .current-events {
