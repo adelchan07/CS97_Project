@@ -150,6 +150,20 @@ export default class Calendar extends React.Component {
     popup.classList.toggle("show");
   }
 
+  logout(event) {
+    event.preventDefault();
+    fb.auth().signOut().then(() => {
+      this.setState({
+        currentUserEmail: null,
+        uid: null
+      });
+    }).catch(function(error) {
+      console.log('Could not log on');
+    });
+
+    window.location.replace('/')    //welcome page
+  }
+
   /*refreshPage() { 
     window.location.reload(); 
   }*/
@@ -290,9 +304,12 @@ export default class Calendar extends React.Component {
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
       <link href="https://fonts.googleapis.com/css?family=Kanit:300,700" rel="stylesheet" />
 
+
       <div className="container">
+      <button className="logout-button" onClick={this.logout.bind(this)}>Logout</button>
         <div className="calendar-base">
           <div className="year">2021</div>
+
           {/* year */}
           <div className="months">
             <span className="month-hover">Jan </span>
