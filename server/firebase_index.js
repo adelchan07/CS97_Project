@@ -39,156 +39,75 @@ const events = db.collection('events');
 
 /* GET REQUESTS */
 
-// retrieve all upcoming users:
-// app.get('/users', async (req, res) => {
-//     const allUsers = [];
-//     const allUserRefs = await users.get();
-
-//     allUserRefs.forEach(doc => {
-//         allUsers.push(doc.data());
-//     });
-
-//     res.status(200);
-//     res.json(allUsers);
-// });
-
-// retrieve specific user info:
-// app.get('/:username', async (req, res) => {
-//     const username = req.params.email;
-//     const userRef = await users.doc(username).get();
-//     if(!userRef.exists) {
-//         res.status(404);
-//         res.json({ message: 'User does not exist'});
-//         return;
-//     }
-//     res.json(userRef.data());
-// });
-
-// retrieve list ALL user events (for DEBUG):
-app.get('/events', async (req, res) => {
-    const allEvents = [];
-    const allEventRefs = await events.get();
-    
-    allEventRefs.forEach(doc => {
-        allEvents.push(doc.data());
-    });
-
-    res.status(200);
-    res.json(allEvents);
-});
-
-// retrieve events on specific users (for DEBUG)
-app.get('/events/:uid', async (req, res) => {
-    const uid = req.params.uid;
-    const dayOfWeek = req.body.eventDay;
-    const allEventRefs = await events.where('uid', '==', uid).get();
-    const allEvents = [];    
-
-    allEventRefs.forEach(doc => {
-        allEvents.push(doc.data());
-    });
-
-    res.status(200);
-    res.json(allEvents);
-});
 
 // retrieve events of spec user on spec day
 app.get('/events/:uid/:eventDay', async (req, res) => {
     const uid = req.params.uid;
-    const dayOfWeek = req.params.eventDay;
-    const allEventRefs = await events.where('eventDay', '==', dayOfWeek).where('uid', '==', uid).orderBy('eventStartHour').orderBy('eventStartMinute').orderBy('eventEndHour').orderBy('eventEndMinute').orderBy('eventName').get();
+    const eventDay = parseInt(req.params.eventDay, 10);
+    const allEventRefs = await events.where('eventDay', '==', eventDay).where('uid', '==', uid)
+                                .orderBy('eventStartHour').orderBy('eventStartMinute')
+                                .orderBy('eventEndHour').orderBy('eventEndMinute')
+                                .orderBy('eventName').get();
     const allEvents = [];
+    const allEventsStr = [];
 
     allEventRefs.forEach(doc => {
         allEvents.push(doc.data());
     });
 
+    allEvents.forEach(doc => {
+        var docStrCpy = {
+            uid: doc.uid, 
+            eventName: doc.eventName,
+            eventMonth: doc.eventMonth +'',
+            eventDay: doc.eventDay+'',
+            eventStartHour: doc.eventStartHour+'',
+            eventStartMinute: doc.eventStartMinute+'',
+            eventEndHour: doc.eventEndHour+'',
+            eventEndMinute: doc.eventEndMinute+'',
+        }
+        // if(docStrCpy.eventStartHour.length === 1) {
+        //     docStrCpy.eventStartHour = '0' + docStrCpy.eventStartHour;
+        // }
+        if(docStrCpy.eventStartMinute.length === 1) {
+            docStrCpy.eventStartMinute = '0' + docStrCpy.eventStartMinute;
+        }
+        // if(docStrCpy.eventEndHour.length === 1) {
+        //     docStrCpy.eventEndHour = '0' + docStrCpy.eventEndHour;
+        // }
+        if(docStrCpy.eventEndMinute.length === 1) {
+            docStrCpy.eventEndMinute = '0' + docStrCpy.eventEndMinute;
+        }
+
+
+        allEventsStr.push(docStrCpy);
+    });
+
     res.status(200);
-    res.json(allEvents);
+    res.json(allEventsStr);
 });
 
-// app.get('/:username/events/:day/search', async (req, res) => {
-//     const username = req.params.username;
-//     const dayOfWeek = req.params.day;
-//     const fieldName = req.body.fieldname;
-//     const fieldValue = req.body.fieldvalue;
-//     const events = users.doc(username).collection('events');
-//     const allEventRefs = await events.where('day', '==', dayOfWeek).where(fieldName, '==', fieldValue).get();
-//     const allEvents = [];
 
-//     allEventRefs.forEach(doc => {
-//         allEvents.push(doc.data());
-//     });
-
-//     res.status(200);
-//     res.json(allEvents);
-// });
 
 /* POST REQUESTS */
-
-// create a new user
-// app.post('/users', async (req, res) => {  
-//     const username = req.body.username;
-//     const checkUserExists = await users.doc(username).get();
-//     if (checkUserExists.exists) {
-//         res.status(400);
-//         res.json({ message : "User already exists, try a different username" });
-//     }
-//     else {
-//         const newUser = {
-//            username: req.body.username,
-//            password: req.body.password,
-//         }
-//         await users.doc(username).set(newUser);
-
-//         res.status(201);
-//         res.json({ message : "New user created" });
-//     }
-// });
 
 // create a new event
 app.post('/events', async (req, res) => {  
 
     const newEvent = {
         uid: req.body.uid, 
-        eventName: req.body.eventName,
-        eventMonth: req.body.eventMonth,
-        eventDay: req.body.eventDay,
-        eventStartHour: req.body.eventStartHour,
-        eventStartMinute: req.body.eventStartMinute,
-        eventEndHour: req.body.eventEndHour,
-        eventEndMinute: req.body.eventEndMinute,
+        eventName:  req.body.eventName,
+        eventMonth: parseInt(req.body.eventMonth, 10),
+        eventDay: parseInt(req.body.eventDay, 10),
+        eventStartHour: parseInt(req.body.eventStartHour, 10),
+        eventStartMinute: parseInt(req.body.eventStartMinute, 10),
+        eventEndHour: parseInt(req.body.eventEndHour, 10),
+        eventEndMinute: parseInt(req.body.eventEndMinute, 10),
     };
     await events.doc().set(newEvent);
-
     res.status(201);
     res.json({ message: 'Event created' });
 });
-
-
-/* DELETE REQUESTS */
-
-// app.delete('/events/:eventId', (req, res)=> {
-//     const eventId = parseInt(req.params.eventId)  // returns some ID: '0'
-//     for (let i = 0; i < events.length; i++) {
-//         if (events[i].id === eventId) {
-//             events.splice(i,1);
-//             res.send({ success: true });
-//         }
-//     }
-// });
-
-/* PATCH REQUESTS (to edit) */
-
-// app.patch('/events/:eventId', (req, res)=> {
-//     const eventId = parseInt(req.params.eventId)  // returns some ID: '0'
-//     for (let i = 0; i < events.length; i++) {
-//         if (events[i].id === eventId) {
-//             Object.assign(events[i], req.body);
-//             res.send({ success: true });
-//         }
-//     }
-// });
 
 
 // Starting up the server

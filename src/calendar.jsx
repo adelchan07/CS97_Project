@@ -105,16 +105,16 @@ export default class Calendar extends React.Component {
     event.preventDefault();
 
     // format minutes if less than 10
-    let startMin = "";
-    let endMin = "";
-    if (this.state.eventStartMinute == "0")
-      startMin = "00"
-    else if (parseInt(this.state.eventStartMinute) < 10)
-      startMin = "0" + this.state.eventStartMinute;
-    if (this.state.eventEndMinute == "0")
-      endMin = "00"
-    else if (parseInt(this.state.eventEndMinute) < 10)
-      endMin = "0" + this.state.eventStartMinute;
+    // let startMin = "";
+    // let endMin = "";
+    // if (this.state.eventStartMinute == "0")
+    //   startMin = "00"
+    // else if (parseInt(this.state.eventStartMinute) < 10)
+    //   startMin = "0" + this.state.eventStartMinute;
+    // if (this.state.eventEndMinute == "0")
+    //   endMin = "00"
+    // else if (parseInt(this.state.eventEndMinute) < 10)
+    //   endMin = "0" + this.state.eventEndMinute;
 
     const eventData = {
       uid: this.state.uid,
@@ -122,14 +122,14 @@ export default class Calendar extends React.Component {
       eventMonth: this.state.eventMonth,
       eventDay: this.state.eventDay,
       eventStartHour: this.state.eventStartHour,
-      eventStartMinute: startMin,
+      //eventStartMinute: startMin,
+      eventStartMinute: this.state.eventStartMinute,
+      
       eventEndHour: this.state.eventEndHour,
-      eventEndMinute: endMin,
-      //calendar: req.body.calendar,
+      eventEndMinute: this.state.eventEndMinute,
 
-      //notificationMinute: req.body.notificationMinute,             
-      //location: req.body.location,
-      //description: req.body.description,
+      //eventEndMinute: endMin,
+      
     };
     console.log(eventData)
     const res = await fetch('http://localhost:3200/events', {
