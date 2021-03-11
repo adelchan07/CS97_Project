@@ -81,6 +81,7 @@ export default class Calendar extends React.Component {
       eventEndMinute: this.state.eventEndMinute,
     };
     
+    // input validation for event form
     if (parseInt(this.state.eventStartHour) > parseInt(this.state.eventEndHour)) {
       alert('Start hour must be before end hour');
       return;
@@ -96,7 +97,7 @@ export default class Calendar extends React.Component {
         alert('Give yourself some time! Event must be at least one minute long');
         return;
     }
-    if (parseInt(this.state.eventDay) > this.getMaxDays(parseInt(this.state.eventMonth))) {
+    if (parseInt(this.state.eventDay) > new Date(2021, this.state.eventMonth, 0).getDate()) {
       alert('Invalid Date!');
       return;
     }
@@ -266,57 +267,24 @@ export default class Calendar extends React.Component {
     }
   }
 
-  getMaxDays(i) {
-    switch(i) {
-      case 1: return 31;
-      case 2: return 28;
-      case 3: return 31;
-      case 4: return 30;
-      case 5: return 31;
-      case 6: return 30;
-      case 7: return 31;
-      case 8: return 31;
-      case 9: return 30;
-      case 10: return 31;
-      case 11: return 30;
-      case 12: return 31;
-      default: return;
-    }
-  }
-
-  setDatesToCurrentMonth(i) {
-    let tempCalendarMonth = i;
+  setDatesToCurrentMonth(month, date) {
+    let tempCalendarMonth = month;
     let tempDateArray = [];
     let tempDateIndex = 0;
-    switch(i) {
-      case 1: tempDateArray = [null, null, null, null, null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, null, null, null, null, null, null];
-      break;
-      case 2: tempDateArray = [null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, null, null, null, null, null, null, null, null, null, null, null, null, null];
-      break;
-      case 3: tempDateArray = [null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, null, null, null, null, null, null, null, null, null, null];
-      break;
-      case 4: tempDateArray = [null, null, null, null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, null, null, null, null, null, null, null, null];
-      break;
-      case 5: tempDateArray = [null, null, null, null, null, null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, null, null, null, null, null];
-      break;
-      case 6: tempDateArray = [null, null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, null, null, null, null, null, null, null, null, null, null];
-      break;
-      case 7: tempDateArray = [null, null, null, null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, null, null, null, null, null, null, null];
-      break;
-      case 8: tempDateArray =  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, null, null, null, null, null, null, null, null, null, null, null];
-      break;
-      case 9: tempDateArray = [null, null, null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, null, null, null, null, null, null, null, null, null];
-      break;
-      case 10: tempDateArray = [null, null, null, null, null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, null, null, null, null, null, null];
-      break;
-      case 11: tempDateArray = [null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, null, null, null, null, null, null, null, null, null, null, null];
-      break;
-      case 12: tempDateArray = [null, null, null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, null, null, null, null, null, null, null, null];
-      break;
-      default: return;
+    let tempDay = new Date(2021, month - 1, 1);
+    console.log("de", tempDay.getDate(), tempDay.getMonth() + 1);
+    // fill date array
+    let i = 0;
+    for (; i < tempDay.getDay(); i++)
+      tempDateArray.push(null)
+    for (; i < new Date(2021, month, 0).getDate() + tempDay.getDay(); i++) {
+      tempDateArray.push(i - tempDay.getDay() + 1)
+      if (tempDateArray[i] === date)
+        tempDateIndex = i;
     }
-    while (tempDateArray[tempDateIndex] === null) 
-      tempDateIndex++;
+    for (; i < 42; i++)
+      tempDateArray.push(null)
+
     this.setState({calendarMonth: tempCalendarMonth,
       dateArray: tempDateArray,
       dateIndex: tempDateIndex});
@@ -325,10 +293,14 @@ export default class Calendar extends React.Component {
 
   render() {
     if (!this.state.initialized) {
+      // initialize to current day
+      let today = new Date();
+      let todayDate = today.getDate();
+      let todayMonth = today.getMonth() + 1;
       // initialize dateArray
-      this.setDatesToCurrentMonth(3);
+      this.setDatesToCurrentMonth(todayMonth, todayDate);
       // initialize eventArray
-      this.getEventsOfCurrentDate(3, 1);
+      //this.getEventsOfCurrentDate(todayMonth, todayDate);
       this.setState({initialized: true});
     }
     return(<>
@@ -346,18 +318,18 @@ export default class Calendar extends React.Component {
 
           {/* year */}
           <div className="months">
-          <button className="month-button" onClick={() => this.setDatesToCurrentMonth(1)} >Jan</button>
-            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(2)} >Feb</button>
-            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(3)} >Mar</button>
-            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(4)} >Apr</button>
-            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(5)} >May</button>
-            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(6)} >Jun</button>
-            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(7)} >Jul</button>
-            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(8)} >Aug</button>
-            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(9)} >Sep</button>
-            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(10)} >Oct</button>
-            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(11)} >Nov</button>
-            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(12)} >Dec</button>
+          <button className="month-button" onClick={() => this.setDatesToCurrentMonth(1, 1)} >Jan</button>
+            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(2, 1)} >Feb</button>
+            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(3, 1)} >Mar</button>
+            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(4, 1)} >Apr</button>
+            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(5, 1)} >May</button>
+            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(6, 1)} >Jun</button>
+            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(7, 1)} >Jul</button>
+            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(8, 1)} >Aug</button>
+            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(9, 1)} >Sep</button>
+            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(10, 1)} >Oct</button>
+            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(11, 1)} >Nov</button>
+            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(12, 1)} >Dec</button>
             </div>{/* months */}
           <hr className="month-line" />
           <div className="days-line"><span className="white"> </span>SUN MON TUE WED THU FRI SAT</div>
