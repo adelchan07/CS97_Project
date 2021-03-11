@@ -10,7 +10,6 @@ export default class WelcomePage extends React.Component {
       </div>
       <link rel="stylesheet" href="forms.css" />
 
-      <div className="header_description">welcome to my calendar</div>    
       <div className="main_title"> <strong className="white"></strong>WELCOME TO GOCAL</div>   
       <div className="description"> a new way to plan your life </div>   
     
