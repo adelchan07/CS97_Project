@@ -41,12 +41,12 @@ const events = db.collection('events');
 
 
 // retrieve events of spec user on spec day
-app.get('/events/:uid/:eventMonth/:eventDay', async (req, res) => {
+app.get('/events/:uid/:calendarMonth/:calendarDay', async (req, res) => {
     const uid = req.params.uid;
-    const eventMonth = parseInt(req.params.eventMonth, 10);
-    const eventDay = parseInt(req.params.eventDay, 10);
+    const calendarMonth = parseInt(req.params.calendarMonth, 10);
+    const calendarDay = parseInt(req.params.calendarDay, 10);
 
-    const allEventRefs = await events.where('eventMonth', '==', eventMonth).where('eventDay', '==', eventDay).where('uid', '==', uid)
+    const allEventRefs = await events.where('eventMonth', '==', calendarMonth).where('eventDay', '==', calendarDay).where('uid', '==', uid)
                                 .orderBy('eventStartHour').orderBy('eventStartMinute')
                                 .orderBy('eventEndHour').orderBy('eventEndMinute')
                                 .orderBy('eventName').get();
@@ -68,19 +68,12 @@ app.get('/events/:uid/:eventMonth/:eventDay', async (req, res) => {
             eventEndHour: doc.eventEndHour+'',
             eventEndMinute: doc.eventEndMinute+'',
         }
-        // if(docStrCpy.eventStartHour.length === 1) {
-        //     docStrCpy.eventStartHour = '0' + docStrCpy.eventStartHour;
-        // }
         if(docStrCpy.eventStartMinute.length === 1) {
             docStrCpy.eventStartMinute = '0' + docStrCpy.eventStartMinute;
         }
-        // if(docStrCpy.eventEndHour.length === 1) {
-        //     docStrCpy.eventEndHour = '0' + docStrCpy.eventEndHour;
-        // }
         if(docStrCpy.eventEndMinute.length === 1) {
             docStrCpy.eventEndMinute = '0' + docStrCpy.eventEndMinute;
         }
-
 
         allEventsStr.push(docStrCpy);
     });

@@ -139,8 +139,8 @@ export default class Calendar extends React.Component {
 //https://c0ad8586d629.ngrok.io
 
   async getEventsOfCurrentDate() {
-    console.log('http://localhost:3200/events/' + this.state.uid + '/' + this.state.eventMonth + '/' + this.state.dateArray[this.state.dateIndex]);
-    fetch('http://localhost:3200/events/' + this.state.uid + '/' + this.state.eventMonth + '/' + this.state.dateArray[this.state.dateIndex], {
+    console.log('http://localhost:3200/events/' + this.state.uid + '/' + this.state.calendarMonth + '/' + this.state.dateArray[this.state.dateIndex]);
+    fetch('http://localhost:3200/events/' + this.state.uid + '/' + this.state.calendarMonth + '/' + this.state.dateArray[this.state.dateIndex], {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
