@@ -83,6 +83,7 @@ export default class Calendar extends React.Component {
       eventEndMinute: this.state.eventEndMinute,
     };
     
+    // input validation for event form
     if (parseInt(this.state.eventStartHour) > parseInt(this.state.eventEndHour)) {
       alert('Start hour must be before end hour');
       return;
@@ -98,7 +99,7 @@ export default class Calendar extends React.Component {
         alert('Give yourself some time! Event must be at least one minute long');
         return;
     }
-    if (parseInt(this.state.eventDay) > this.getMaxDays(parseInt(this.state.eventMonth))) {
+    if (parseInt(this.state.eventDay) > new Date(2021, this.state.eventMonth, 0).getDate()) {
       alert('Invalid Date!');
       return;
     }
@@ -278,24 +279,6 @@ export default class Calendar extends React.Component {
     }
   }
 
-  getMaxDays(i) {
-    switch(i) {
-      case 1: return 31;
-      case 2: return 28;
-      case 3: return 31;
-      case 4: return 30;
-      case 5: return 31;
-      case 6: return 30;
-      case 7: return 31;
-      case 8: return 31;
-      case 9: return 30;
-      case 10: return 31;
-      case 11: return 30;
-      case 12: return 31;
-      default: return;
-    }
-  }
-
   setDatesToCurrentMonth(month, date) {
     let tempCalendarMonth = month;
     let tempDateArray = [];
@@ -306,7 +289,7 @@ export default class Calendar extends React.Component {
     let i = 0;
     for (; i < tempDay.getDay(); i++)
       tempDateArray.push(null)
-    for (; i < this.getMaxDays(month) + tempDay.getDay(); i++) {
+    for (; i < new Date(2021, month, 0).getDate() + tempDay.getDay(); i++) {
       tempDateArray.push(i - tempDay.getDay() + 1)
       if (tempDateArray[i] === date)
         tempDateIndex = i;
