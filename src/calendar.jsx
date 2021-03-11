@@ -111,7 +111,17 @@ export default class Calendar extends React.Component {
       },
       body: JSON.stringify(eventData),
     })
-    
+    // clear form
+    this.setState({
+      eventName: "", 
+      eventMonth: "",
+      eventDay: "",
+      eventStartHour: "",
+      eventStartMinute: "",
+      eventEndHour: "",
+      eventEndMinute: "",
+    });
+
     this.closeForm(event);
     console.log(eventData)
     console.log(res);
@@ -213,14 +223,14 @@ export default class Calendar extends React.Component {
   }
 
   validateInput(input, num) {
-    if (isNaN(input) || input[0] == '-')
+    if (isNaN(input) || input[0] === '-')
       return false;
     if (parseInt(input) > num || input === "0")
       return false;
     return true;
   }
   validateInputWithZero(input, num) {
-    if (isNaN(input) || input[0] == '-')
+    if (isNaN(input) || input[0] === '-')
       return false;
     if (parseInt(input) > num)
       return false;
@@ -390,17 +400,17 @@ export default class Calendar extends React.Component {
           <button class="open-button" onClick={this.openForm.bind(this)}>Create an Event</button>
           <div class="popup-form" id="eventForm">
             <form onSubmit={this.onSubmit.bind(this)} class="form-container">
-              <input type="event_text" placeholder="Event name" name="event" autoComplete="off"
+              <input type="event_text" placeholder="Event name" name="event" autoComplete="off" value={this.state.eventName}
                onChange={({target}) => this.setState({eventName: target.value})} required></input>
               
-              <input type="date_text" placeholder="Month" name="month" autoComplete="off" maxlength="2"
-               onChange={({target}) => target.value = this.setEventInfo("eventMonth", target.value)} required></input>      <input type="date_text" placeholder="Day" name="day" autoComplete="off" maxlength="2"
+              <input type="date_text" placeholder="Month" name="month" autoComplete="off" maxlength="2" value={this.state.eventMonth}
+               onChange={({target}) => target.value = this.setEventInfo("eventMonth", target.value)} required></input>      <input type="date_text" placeholder="Day" name="day" autoComplete="off" maxlength="2" value={this.state.eventDay}
                onChange={({target}) => target.value = this.setEventInfo("eventDay", target.value)} required></input>
                
-              <input type="time_text" placeholder="hour" name="time" autoComplete="off" maxlength="2"
-               onChange={({target}) => target.value = this.setEventInfo("eventStartHour", target.value)} required></input> : <input type="time_text" placeholder="min" name="time" autoComplete="off" maxlength="2"
-               onChange={({target}) => target.value = this.setEventInfo("eventStartMinute", target.value)} required></input>   -   <input type="time_text" placeholder="hour" name="time" autoComplete="off" maxlength="2"
-               onChange={({target}) => target.value = this.setEventInfo("eventEndHour", target.value)} required></input> : <input type="time_text" placeholder="min" name="time" autoComplete="off" maxlength="2"
+              <input type="time_text" placeholder="hour" name="time" autoComplete="off" maxlength="2" value={this.state.eventStartHour}
+               onChange={({target}) => target.value = this.setEventInfo("eventStartHour", target.value)} required></input> : <input type="time_text" placeholder="min" name="time" autoComplete="off" maxlength="2" value={this.state.eventStartMinute}
+               onChange={({target}) => target.value = this.setEventInfo("eventStartMinute", target.value)} required></input>   -   <input type="time_text" placeholder="hour" name="time" autoComplete="off" maxlength="2" value={this.state.eventEndHour}
+               onChange={({target}) => target.value = this.setEventInfo("eventEndHour", target.value)} required></input> : <input type="time_text" placeholder="min" name="time" autoComplete="off" maxlength="2" value={this.state.eventEndMinute}
                onChange={({target}) => target.value = this.setEventInfo("eventEndMinute", target.value)} required></input>
 
               <button type="submit" class="btn" > Create event </button>
