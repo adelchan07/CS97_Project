@@ -42,7 +42,7 @@ export default class Calendar extends React.Component {
     super(props);
     console.log('OPEN CAL:');
     this.state = {
-      dateIndex: 7,
+      dateIndex: 1,
       calendarMonth: 3,
       eventName: null,
       eventMonth: null,
@@ -54,7 +54,6 @@ export default class Calendar extends React.Component {
       eventArray: [],
       dateArray: [null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, null, null, null, null, null, null, null, null, null, null, null, null, null],
     };
-    this.getEventsOfCurrentDate(this.state.dateIndex)
 
     fb.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -134,9 +133,9 @@ export default class Calendar extends React.Component {
 
 //https://c0ad8586d629.ngrok.io
 
-  async getEventsOfCurrentDate() {
-    console.log('http://localhost:3200/events/' + this.state.uid + '/' + this.state.calendarMonth + '/' + this.state.dateArray[this.state.dateIndex]);
-    fetch('http://localhost:3200/events/' + this.state.uid + '/' + this.state.calendarMonth + '/' + this.state.dateArray[this.state.dateIndex], {
+  async getEventsOfCurrentDate(month, date) {
+    console.log('http://localhost:3200/events/' + this.state.uid + '/' + month + '/' + date);
+    fetch('http://localhost:3200/events/' + this.state.uid + '/' + month + '/' + date, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -183,7 +182,7 @@ export default class Calendar extends React.Component {
     await this.setState({
       dateIndex: i,
     });
-    this.getEventsOfCurrentDate();
+    this.getEventsOfCurrentDate(this.state.calendarMonth, this.state.dateArray[this.state.dateIndex]);
   }
 
   setEventInfo(type, input) {
@@ -316,6 +315,7 @@ export default class Calendar extends React.Component {
     this.setState({calendarMonth: tempCalendarMonth,
       dateArray: tempDateArray,
       dateIndex: tempDateIndex});
+    this.getEventsOfCurrentDate(tempCalendarMonth, tempDateArray[tempDateIndex])
   }
 
   render() {
