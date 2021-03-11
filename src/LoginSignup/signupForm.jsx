@@ -36,18 +36,6 @@ export default class SignupPage extends React.Component {
       console.log('Failure!!!')  
       console.error('Failed');
     });
-
-    // const res = await fetch('http://localhost:3200/users', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(data),
-    // });
-    // if(res.status === 400) {
-    //   alert("Username is taken, please choose a different username.");
-    //   return;
-    // }
   }
 
   render() {

@@ -6,7 +6,6 @@ class Dates extends React.Component {
   renderDay(i) {
     if (this.props.dateArray[i] === null) {
       return (
-        /*TODO: remove hover for button*/
         <button className="day-button-unclickable" disabled="true"></button>
       );
     }
@@ -76,32 +75,17 @@ export default class Calendar extends React.Component {
   async onSubmit(event) {
     event.preventDefault();
 
-    // format minutes if less than 10
-    // let startMin = "";
-    // let endMin = "";
-    // if (this.state.eventStartMinute == "0")
-    //   startMin = "00"
-    // else if (parseInt(this.state.eventStartMinute) < 10)
-    //   startMin = "0" + this.state.eventStartMinute;
-    // if (this.state.eventEndMinute == "0")
-    //   endMin = "00"
-    // else if (parseInt(this.state.eventEndMinute) < 10)
-    //   endMin = "0" + this.state.eventEndMinute;
-
     const eventData = {
       uid: this.state.uid,
       eventName: this.state.eventName, 
       eventMonth: this.state.eventMonth,
       eventDay: this.state.eventDay,
+
       eventStartHour: this.state.eventStartHour,
-      //eventStartMinute: startMin,
       eventStartMinute: this.state.eventStartMinute,
-      
+    
       eventEndHour: this.state.eventEndHour,
       eventEndMinute: this.state.eventEndMinute,
-
-      //eventEndMinute: endMin,
-      
     };
     
     if (parseInt(this.state.eventStartHour) > parseInt(this.state.eventEndHour)) {
@@ -130,7 +114,6 @@ export default class Calendar extends React.Component {
     })
     
     this.closeForm(event);
-    //this.refreshPage();
     console.log(eventData)
     console.log(res);
     return res;
@@ -169,10 +152,6 @@ export default class Calendar extends React.Component {
     window.location.replace('/')    //welcome page
   }
 
-  /*refreshPage() { 
-    window.location.reload(); 
-  }*/
-  
   openForm(event) {
     event.preventDefault();
     document.getElementById("eventForm").style.display = "block";
