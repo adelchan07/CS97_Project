@@ -43,7 +43,7 @@ export default class SignupPage extends React.Component {
       <meta charSet="UTF-8" />
       <title>My Calendar</title>
       <link rel="stylesheet" href="forms.css" />    
-      <a href="/"><h1 id="header"> My Calendar </h1></a>
+      <a href="/"><h1 id="header"> My Calendar </h1></a> <br></br><br></br><br></br>
       <div id="register">
         <form onSubmit={this.onSubmit.bind(this)}>
           <label htmlFor="register_un"> Select an email address: </label>
@@ -56,11 +56,12 @@ export default class SignupPage extends React.Component {
 
           <label htmlFor="confirm_pw"> Confirm password: </label> 
           <input type="signin" name="confirm_pw" placeholder="Confirm password"
-           onChange={({target}) => this.setState({confirm: target.value})} required /><br />
+           onChange={({target}) => this.setState({confirm: target.value})} required /><br /> <br></br><br></br><br></br>
 
           <button type="submit"> Create Account </button>
           
-          <p className="to_register"> Already have an account? <a href="LoginForm" className="to_register">Login Here</a>
+          <p className="to_register"> Already have an account? <a href="LoginForm" className="to_register">Login Here</a><br></br><br></br>
+          
           </p>
         </form>
       </div>

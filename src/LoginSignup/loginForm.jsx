@@ -36,7 +36,7 @@ export default class LoginPage extends React.Component {
       <meta charSet="UTF-8" />
       <title>My Calendar</title>
       <link rel="stylesheet" href="forms.css" />    
-      <a href="/"><h1 className="header"> My Calendar </h1></a>
+      <a href="/"><h1 className="header"> My Calendar </h1></a> <br></br> <br></br><br></br>
       <div id="login">
         <form onSubmit={this.onSubmit.bind(this)}>
 
@@ -48,11 +48,11 @@ export default class LoginPage extends React.Component {
           <input type="password" name="pw" id="pass" placeholder="Password" 
            onChange={({target}) => this.setState({password: target.value})} required /><br />
 
-          <input type="checkbox" onClick={this.passwordVisible.bind(this)} /> Show Password <br /><br />
+          <input type="checkbox" onClick={this.passwordVisible.bind(this)} /> Show Password <br /><br /><br></br><br></br><br></br>
 
           <button type="submit"> Login </button>
 
-          <p className="to_register"> Don't have an account? <a href="SignupForm" className="to_register">Click Here To Register</a>
+          <p className="to_register"> Don't have an account? <a href="SignupForm" className="to_register">Click Here To Register</a><br></br><br></br>
           </p>
         </form>
       </div>
