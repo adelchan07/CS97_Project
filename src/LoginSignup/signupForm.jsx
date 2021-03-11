@@ -57,7 +57,7 @@ export default class SignupPage extends React.Component {
 
           <button type="submit"> Create Account </button>
           
-          <p> Already have an account? <a href="LoginForm" className="to_register">Login Here</a>
+          <p className="to_register"> Already have an account? <a href="LoginForm" className="to_register">Login Here</a>
           </p>
         </form>
       </div>

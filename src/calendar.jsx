@@ -108,17 +108,8 @@ export default class Calendar extends React.Component {
       },
       body: JSON.stringify(eventData),
     })
-    // clear form
-    this.setState({
-      eventName: "", 
-      eventMonth: "",
-      eventDay: "",
-      eventStartHour: "",
-      eventStartMinute: "",
-      eventEndHour: "",
-      eventEndMinute: "",
-    });
 
+    this.clearForm();
     this.closeForm(event);
     return;
   }
@@ -162,7 +153,11 @@ export default class Calendar extends React.Component {
 
   closeForm = (event) => {
     event.preventDefault();
-    // clear form
+    this.clearForm();
+    document.getElementById("eventForm").style.display = "none";
+  }
+
+  clearForm = (event) => {
     this.setState({
       eventName: "", 
       eventMonth: "",
@@ -172,7 +167,6 @@ export default class Calendar extends React.Component {
       eventEndHour: "",
       eventEndMinute: "",
     });
-    document.getElementById("eventForm").style.display = "none";
   }
 
   async handleClick(i) {

@@ -5,8 +5,8 @@ header {
 
 .description{
   font-family: 'Kanit', sans-serif;
-  font-size:30px;
-  top:60px;
+  font-size:33px;
+  top:30px;
   position:relative;
   font-weight:60;
 }
@@ -17,15 +17,15 @@ header {
   width:100%;
   text-align: center;
   position:relative;
-  top:30px;
-  color:lightgray;
+  top:1px;
+  color:rgb(93, 92, 136);
   font-weight:60;
 }
 
 
 body {
     background-color: aliceblue;
-    color: darkgray;
+    color: rgb(34, 31, 63);
     text-align: center;
     font-family: 'Kanit', sans-serif;
     background-image: url(https://preview.redd.it/cdfz5g8yfymz.png?width=960&crop=smart&auto=webp&s=dd7222784b684a046727237512a2221deb764def);
@@ -41,8 +41,7 @@ label { display: inline-block; width: 210px; text-align: center; }
 
 
 form {
-        
-    /*border: 3px solid #f1f1f1;*/
+    
     margin: 0 auto; 
     width: 100%;
     font-family: 'Kanit', sans-serif;
@@ -76,9 +75,6 @@ form {
     position:relative;
     right:10px;
   }
-
-
-  
   
   /* Set a style for all buttons */
   button {
@@ -98,5 +94,10 @@ form {
   
   /* Add a hover effect for buttons */
   button:hover {
-    background-color: blue;
+    background-color:#286dec;
   }
+
+
+.to_register {
+  color:aliceblue;
+}
