@@ -1,12 +1,6 @@
-// index.js - server for project
-// General strategy: 
-// GET /events to retreive events
-// POST /events to create new event
-// DELETE /events/<event id> to delete event
-// PUT/PATCH /events/<event id> to update event
-// CONNECT to login user
+// firebase_index.js - server for project
 
-// import express library (could be http as well but harder)
+// import express library
 const express = require('express');
 
 // Cross Origin Resource Sharing
@@ -29,10 +23,10 @@ admin.initializeApp({
     credential: admin.credential.cert(databasePassword)
 });
 
-// this is our database object.
+// global database constant.
 const db = admin.firestore();
 
-// adding data to firebase
+// global firebase collection constant
 const events = db.collection('events');
 
 
@@ -43,18 +37,21 @@ app.get('/events/:uid/:calendarMonth/:calendarDay', async (req, res) => {
     const uid = req.params.uid;
     const calendarMonth = parseInt(req.params.calendarMonth, 10);
     const calendarDay = parseInt(req.params.calendarDay, 10);
-
+    
+    // retrieve events that fit criteria
     const allEventRefs = await events.where('eventMonth', '==', calendarMonth).where('eventDay', '==', calendarDay).where('uid', '==', uid)
                                 .orderBy('eventStartHour').orderBy('eventStartMinute')
                                 .orderBy('eventEndHour').orderBy('eventEndMinute')
                                 .orderBy('eventName').get();
     const allEvents = [];
     const allEventsStr = [];
-
+    
+    // fill array of events
     allEventRefs.forEach(doc => {
         allEvents.push(doc.data());
     });
 
+    // type conversions to display properly
     allEvents.forEach(doc => {
         var docStrCpy = {
             uid: doc.uid, 
@@ -66,7 +63,7 @@ app.get('/events/:uid/:calendarMonth/:calendarDay', async (req, res) => {
             eventEndHour: doc.eventEndHour+'',
             eventEndMinute: doc.eventEndMinute+'',
         }
-
+    // display formatting modifications
         if(docStrCpy.eventStartMinute.length === 1) {
             docStrCpy.eventStartMinute = '0' + docStrCpy.eventStartMinute;
         }
@@ -87,7 +84,8 @@ app.get('/events/:uid/:calendarMonth/:calendarDay', async (req, res) => {
 
 // create a new event
 app.post('/events', async (req, res) => {  
-
+    
+    // fill new event fields
     const newEvent = {
         uid: req.body.uid, 
         eventName:  req.body.eventName,
@@ -98,6 +96,7 @@ app.post('/events', async (req, res) => {
         eventEndHour: parseInt(req.body.eventEndHour, 10),
         eventEndMinute: parseInt(req.body.eventEndMinute, 10),
     };
+    // place new event in database
     await events.doc().set(newEvent);
     res.status(201);
     res.json({ message: 'Event created' });

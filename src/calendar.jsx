@@ -41,7 +41,6 @@ class Dates extends React.Component {
 export default class Calendar extends React.Component {
   constructor(props) {
     super(props);
-    console.log('OPEN CAL:');
     this.state = {
       dateIndex: 1,
       calendarMonth: 3,
@@ -62,7 +61,6 @@ export default class Calendar extends React.Component {
           currentUserEmail: user.email,
           uid: user.uid
         }); 
-        console.log(user.uid);
       } else {
         console.log('No user signed in');
       }
@@ -103,7 +101,6 @@ export default class Calendar extends React.Component {
       return;
     }
 
-    console.log(eventData)
     const res = await fetch('http://localhost:3200/events', {
       method: 'POST',
       headers: {
@@ -123,15 +120,12 @@ export default class Calendar extends React.Component {
     });
 
     this.closeForm(event);
-    console.log(eventData)
-    console.log(res);
-    return res;
+    return;
   }
 
-//https://c0ad8586d629.ngrok.io
+  // alternate GET req URL: https://c0ad8586d629.ngrok.io
 
   async getEventsOfCurrentDate(month, date) {
-    console.log('http://localhost:3200/events/' + this.state.uid + '/' + month + '/' + date);
     fetch('http://localhost:3200/events/' + this.state.uid + '/' + month + '/' + date, {
       method: 'GET',
       headers: {
@@ -343,7 +337,6 @@ export default class Calendar extends React.Component {
       this.getEventsOfCurrentDate(3, 1);
       this.setState({initialized: true});
     }
-    console.log(this.state.eventArray);
     return(<>
       <meta charSet="UTF-8" />
       <title>My Calendar</title>
