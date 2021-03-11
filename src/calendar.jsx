@@ -268,39 +268,33 @@ export default class Calendar extends React.Component {
   }
 
   setDatesToCurrentMonth(month, date) {
-    let tempCalendarMonth = month;
     let tempDateArray = [];
     let tempDateIndex = 0;
     let tempDay = new Date(2021, month - 1, 1);
-    console.log("de", tempDay.getDate(), tempDay.getMonth() + 1);
     // fill date array
     let i = 0;
     for (; i < tempDay.getDay(); i++)
-      tempDateArray.push(null)
+      tempDateArray.push(null);
     for (; i < new Date(2021, month, 0).getDate() + tempDay.getDay(); i++) {
-      tempDateArray.push(i - tempDay.getDay() + 1)
+      tempDateArray.push(i - tempDay.getDay() + 1);
       if (tempDateArray[i] === date)
         tempDateIndex = i;
     }
     for (; i < 42; i++)
-      tempDateArray.push(null)
+      tempDateArray.push(null);
 
-    this.setState({calendarMonth: tempCalendarMonth,
+    this.setState({calendarMonth: month,
       dateArray: tempDateArray,
       dateIndex: tempDateIndex});
-    this.getEventsOfCurrentDate(tempCalendarMonth, tempDateArray[tempDateIndex])
+    this.getEventsOfCurrentDate(month, date);
   }
 
   render() {
     if (!this.state.initialized) {
       // initialize to current day
       let today = new Date();
-      let todayDate = today.getDate();
-      let todayMonth = today.getMonth() + 1;
       // initialize dateArray
-      this.setDatesToCurrentMonth(todayMonth, todayDate);
-      // initialize eventArray
-      //this.getEventsOfCurrentDate(todayMonth, todayDate);
+      this.setDatesToCurrentMonth(today.getMonth() + 1, today.getDate());
       this.setState({initialized: true});
     }
     return(<>
