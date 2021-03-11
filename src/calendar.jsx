@@ -139,8 +139,8 @@ export default class Calendar extends React.Component {
 //https://c0ad8586d629.ngrok.io
 
   async getEventsOfCurrentDate() {
-    console.log('http://localhost:3200/events/' + this.state.uid + '/' + this.state.dateArray[this.state.dateIndex]);
-    fetch('http://localhost:3200/events/' + this.state.uid + '/' + this.state.dateArray[this.state.dateIndex], {
+    console.log('http://localhost:3200/events/' + this.state.uid + '/' + this.state.eventMonth + '/' + this.state.dateArray[this.state.dateIndex]);
+    fetch('http://localhost:3200/events/' + this.state.uid + '/' + this.state.eventMonth + '/' + this.state.dateArray[this.state.dateIndex], {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -206,7 +206,7 @@ export default class Calendar extends React.Component {
       }
       break;
       case "eventStartHour": 
-      if (this.validateInputWithZero(input, 24)) {
+      if (this.validateInputWithZero(input, 23)) {
         this.setState({eventStartHour: input})
         return input;
       }
@@ -218,7 +218,7 @@ export default class Calendar extends React.Component {
       }
       break;
       case "eventEndHour": 
-      if (this.validateInputWithZero(input, 24)) {
+      if (this.validateInputWithZero(input, 23)) {
         this.setState({eventEndHour: input})
         return input;
       }
