@@ -7,7 +7,7 @@ class Dates extends React.Component {
   renderDay(i) {
     if (this.props.dateArray[i] === null) {
       return (
-        <button className="day-button-unclickable" disabled="true"></button>
+        <button className="day-button-unclickable" disabled={true}></button>
       );
     }
     return (
@@ -44,13 +44,13 @@ export default class Calendar extends React.Component {
     this.state = {
       dateIndex: 1,
       calendarMonth: 3,
-      eventName: null,
-      eventMonth: null,
-      eventDay: null,
-      eventStartHour: null,
-      eventStartMinute: null,
-      eventEndHour: null,
-      eventEndMinute: null,
+      eventName: "",
+      eventMonth: "",
+      eventDay: "",
+      eventStartHour: "",
+      eventStartMinute: "",
+      eventEndHour: "",
+      eventEndMinute: "",
       eventArray: [],
       dateArray: [],
       initialized: false,
@@ -304,7 +304,6 @@ export default class Calendar extends React.Component {
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
       <link href="https://fonts.googleapis.com/css?family=Kanit:300,700" rel="stylesheet" />
 
-
       <div className="container">
       <button className="logout-button" onClick={this.logout.bind(this)}>Logout</button>
         <div className="calendar-base">
@@ -355,29 +354,29 @@ export default class Calendar extends React.Component {
             <span className="posts"> </span></div>
           
           {/* display user info */}
-          <div class="popup" onClick={() => this.displayUser()}><i class="fa fa-bars"></i> 
-              <span class="popuptext" id="myPopup"> <strong className="gray">User:</strong> {this.state.currentUserEmail}</span>
+          <div className="popup" onClick={() => this.displayUser()}><i className="fa fa-bars"></i> 
+              <span className="popuptext" id="myPopup"> <strong className="gray">User:</strong> {this.state.currentUserEmail}</span>
           </div>
 
           {/* create-event */}
-          <button class="open-button" onClick={this.openForm.bind(this)}>Create an Event</button>
-          <div class="popup-form" id="eventForm">
-            <form onSubmit={this.onSubmit.bind(this)} class="form-container">
+          <button className="open-button" onClick={this.openForm.bind(this)}>Create an Event</button>
+          <div className="popup-form" id="eventForm">
+            <form onSubmit={this.onSubmit.bind(this)} className="form-container">
               <input type="event_text" placeholder="Event name" name="event" autoComplete="off" value={this.state.eventName}
                onChange={({target}) => this.setState({eventName: target.value})} required></input>
               
-              <input type="date_text" placeholder="Month" name="month" autoComplete="off" maxlength="2" value={this.state.eventMonth}
-               onChange={({target}) => target.value = this.setEventInfo("eventMonth", target.value)} required></input>      <input type="date_text" placeholder="Day" name="day" autoComplete="off" maxlength="2" value={this.state.eventDay}
+              <input type="date_text" placeholder="Month" name="month" autoComplete="off" maxLength="2" value={this.state.eventMonth}
+               onChange={({target}) => target.value = this.setEventInfo("eventMonth", target.value)} required></input>      <input type="date_text" placeholder="Day" name="day" autoComplete="off" maxLength="2" value={this.state.eventDay}
                onChange={({target}) => target.value = this.setEventInfo("eventDay", target.value)} required></input>
                
-              <input type="time_text" placeholder="hour" name="time" autoComplete="off" maxlength="2" value={this.state.eventStartHour}
-               onChange={({target}) => target.value = this.setEventInfo("eventStartHour", target.value)} required></input> : <input type="time_text" placeholder="min" name="time" autoComplete="off" maxlength="2" value={this.state.eventStartMinute}
-               onChange={({target}) => target.value = this.setEventInfo("eventStartMinute", target.value)} required></input>   -   <input type="time_text" placeholder="hour" name="time" autoComplete="off" maxlength="2" value={this.state.eventEndHour}
-               onChange={({target}) => target.value = this.setEventInfo("eventEndHour", target.value)} required></input> : <input type="time_text" placeholder="min" name="time" autoComplete="off" maxlength="2" value={this.state.eventEndMinute}
+              <input type="time_text" placeholder="hour" name="time" autoComplete="off" maxLength="2" value={this.state.eventStartHour}
+               onChange={({target}) => target.value = this.setEventInfo("eventStartHour", target.value)} required></input> : <input type="time_text" placeholder="min" name="time" autoComplete="off" maxLength="2" value={this.state.eventStartMinute}
+               onChange={({target}) => target.value = this.setEventInfo("eventStartMinute", target.value)} required></input>   -   <input type="time_text" placeholder="hour" name="time" autoComplete="off" maxLength="2" value={this.state.eventEndHour}
+               onChange={({target}) => target.value = this.setEventInfo("eventEndHour", target.value)} required></input> : <input type="time_text" placeholder="min" name="time" autoComplete="off" maxLength="2" value={this.state.eventEndMinute}
                onChange={({target}) => target.value = this.setEventInfo("eventEndMinute", target.value)} required></input>
 
-              <button type="submit" class="btn" > Create event </button>
-              <button class="btn cancel" onClick={this.closeForm.bind(this)}>Cancel</button>
+              <button type="submit" className="btn" > Create event </button>
+              <button className="btn cancel" onClick={this.closeForm.bind(this)}>Cancel</button>
             </form>
           </div>
           
