@@ -296,11 +296,11 @@ export default class Calendar extends React.Component {
     }
   }
 
-  setDatesToCurrentMonth(i) {
-    let tempCalendarMonth = i;
+  setDatesToCurrentMonth(month, date) {
+    let tempCalendarMonth = month;
     let tempDateArray = [];
     let tempDateIndex = 0;
-    switch(i) {
+    switch(month) {
       case 1: tempDateArray = [null, null, null, null, null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, null, null, null, null, null, null];
       break;
       case 2: tempDateArray = [null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, null, null, null, null, null, null, null, null, null, null, null, null, null];
@@ -327,7 +327,7 @@ export default class Calendar extends React.Component {
       break;
       default: return;
     }
-    while (tempDateArray[tempDateIndex] === null) 
+    while (tempDateArray[tempDateIndex] === null || tempDateArray[tempDateIndex] < date) 
       tempDateIndex++;
     this.setState({calendarMonth: tempCalendarMonth,
       dateArray: tempDateArray,
@@ -337,10 +337,15 @@ export default class Calendar extends React.Component {
 
   render() {
     if (!this.state.initialized) {
+      // initialize to current day
+      var today = new Date();
+      var todayDate = today.getDate();
+      var todayMonth = today.getMonth() + 1;
+      console.log(todayDate, todayMonth)
       // initialize dateArray
-      this.setDatesToCurrentMonth(3);
+      this.setDatesToCurrentMonth(todayMonth, todayDate);
       // initialize eventArray
-      this.getEventsOfCurrentDate(3, 1);
+      this.getEventsOfCurrentDate(todayMonth, todayDate);
       this.setState({initialized: true});
     }
     console.log(this.state.eventArray);
@@ -359,18 +364,18 @@ export default class Calendar extends React.Component {
 
           {/* year */}
           <div className="months">
-          <button className="month-button" onClick={() => this.setDatesToCurrentMonth(1)} >Jan</button>
-            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(2)} >Feb</button>
-            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(3)} >Mar</button>
-            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(4)} >Apr</button>
-            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(5)} >May</button>
-            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(6)} >Jun</button>
-            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(7)} >Jul</button>
-            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(8)} >Aug</button>
-            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(9)} >Sep</button>
-            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(10)} >Oct</button>
-            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(11)} >Nov</button>
-            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(12)} >Dec</button>
+          <button className="month-button" onClick={() => this.setDatesToCurrentMonth(1, 1)} >Jan</button>
+            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(2, 1)} >Feb</button>
+            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(3, 1)} >Mar</button>
+            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(4, 1)} >Apr</button>
+            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(5, 1)} >May</button>
+            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(6, 1)} >Jun</button>
+            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(7, 1)} >Jul</button>
+            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(8, 1)} >Aug</button>
+            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(9, 1)} >Sep</button>
+            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(10, 1)} >Oct</button>
+            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(11, 1)} >Nov</button>
+            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(12, 1)} >Dec</button>
             </div>{/* months */}
           <hr className="month-line" />
           <div className="days-line"><span className="white"> </span>SUN MON TUE WED THU FRI SAT</div>
