@@ -28,7 +28,13 @@ body {
     color: darkgray;
     text-align: center;
     font-family: 'Kanit', sans-serif;
-    background-image: url(https://images.pexels.com/photos/3255761/pexels-photo-3255761.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260);
+    background-image: url(https://preview.redd.it/cdfz5g8yfymz.png?width=960&crop=smart&auto=webp&s=dd7222784b684a046727237512a2221deb764def);
+    
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 label { display: inline-block; width: 210px; text-align: center; }
