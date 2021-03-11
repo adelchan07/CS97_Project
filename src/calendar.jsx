@@ -76,10 +76,8 @@ export default class Calendar extends React.Component {
       eventName: this.state.eventName, 
       eventMonth: this.state.eventMonth,
       eventDay: this.state.eventDay,
-
       eventStartHour: this.state.eventStartHour,
       eventStartMinute: this.state.eventStartMinute,
-    
       eventEndHour: this.state.eventEndHour,
       eventEndMinute: this.state.eventEndMinute,
     };
@@ -96,9 +94,13 @@ export default class Calendar extends React.Component {
     }
     if (parseInt(this.state.eventStartHour) === parseInt(this.state.eventEndHour)
        && parseInt(this.state.eventStartMinute) === parseInt(this.state.eventEndMinute)) {
-          alert('Give yourself some time! Event must be at least one minute long');
-          return;
-        }
+        alert('Give yourself some time! Event must be at least one minute long');
+        return;
+    }
+    if (parseInt(this.state.eventDay) > this.getMaxDays(parseInt(this.state.eventMonth))) {
+      alert('Invalid Date!');
+      return;
+    }
 
     console.log(eventData)
     const res = await fetch('http://localhost:3200/events', {
@@ -166,7 +168,6 @@ export default class Calendar extends React.Component {
   }
 
   setEventInfo(type, input) {
-    console.log("1: ", input)
     switch(type) {
       case "eventMonth": 
       if (this.validateInput(input, 12)) {
@@ -212,7 +213,6 @@ export default class Calendar extends React.Component {
   }
 
   validateInput(input, num) {
-    console.log(input)
     if (isNaN(input))
       return false;
     if (parseInt(input) > num || input === "0")
@@ -220,7 +220,6 @@ export default class Calendar extends React.Component {
     return true;
   }
   validateInputWithZero(input, num) {
-    console.log(input)
     if (isNaN(input))
       return false;
     if (parseInt(input) > num)
@@ -255,6 +254,24 @@ export default class Calendar extends React.Component {
       case 10: return "OCTOBER";
       case 11: return "NOVEMBER";
       case 12: return "DECEMBER";
+      default: return;
+    }
+  }
+
+  getMaxDays(i) {
+    switch(i) {
+      case 1: return 31;
+      case 2: return 28;
+      case 3: return 31;
+      case 4: return 30;
+      case 5: return 31;
+      case 6: return 30;
+      case 7: return 31;
+      case 8: return 31;
+      case 9: return 30;
+      case 10: return 31;
+      case 11: return 30;
+      case 12: return 31;
       default: return;
     }
   }
