@@ -166,8 +166,18 @@ export default class Calendar extends React.Component {
     document.getElementById("eventForm").style.display = "block";
   }
 
-  closeForm(event) {
+  closeForm = (event) => {
     event.preventDefault();
+    // clear form
+    this.setState({
+      eventName: "", 
+      eventMonth: "",
+      eventDay: "",
+      eventStartHour: "",
+      eventStartMinute: "",
+      eventEndHour: "",
+      eventEndMinute: "",
+    });
     document.getElementById("eventForm").style.display = "none";
   }
 
