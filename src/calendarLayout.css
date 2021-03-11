@@ -3,7 +3,6 @@ body {
   margin: 100px auto;
   background-color: lightgray;
   font-family: 'Kanit', sans-serif;
-  overflow:hidden;
 }
 
 .calendar-base {
