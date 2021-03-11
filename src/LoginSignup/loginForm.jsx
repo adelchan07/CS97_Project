@@ -52,7 +52,7 @@ export default class LoginPage extends React.Component {
 
           <button type="submit"> Login </button>
 
-          <p> Don't have an account? <a href="SignupForm" className="to_register">Click Here To Register</a>
+          <p className="to_register"> Don't have an account? <a href="SignupForm" className="to_register">Click Here To Register</a>
           </p>
         </form>
       </div>
