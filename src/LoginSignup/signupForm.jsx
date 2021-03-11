@@ -29,12 +29,9 @@ export default class SignupPage extends React.Component {
       return;
     }
     await fb.auth().createUserWithEmailAndPassword(userData.email, userData.password).then(()=>{
-      console.log('User Created');
       window.location.replace('LoginForm'); 
     }).catch((error) => {
       alert("Email seems to be registered already");
-      console.log('Failure!!!')  
-      console.error('Failed');
     });
   }
 
