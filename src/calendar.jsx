@@ -300,35 +300,20 @@ export default class Calendar extends React.Component {
     let tempCalendarMonth = month;
     let tempDateArray = [];
     let tempDateIndex = 0;
-    switch(month) {
-      case 1: tempDateArray = [null, null, null, null, null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, null, null, null, null, null, null];
-      break;
-      case 2: tempDateArray = [null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, null, null, null, null, null, null, null, null, null, null, null, null, null];
-      break;
-      case 3: tempDateArray = [null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, null, null, null, null, null, null, null, null, null, null];
-      break;
-      case 4: tempDateArray = [null, null, null, null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, null, null, null, null, null, null, null, null];
-      break;
-      case 5: tempDateArray = [null, null, null, null, null, null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, null, null, null, null, null];
-      break;
-      case 6: tempDateArray = [null, null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, null, null, null, null, null, null, null, null, null, null];
-      break;
-      case 7: tempDateArray = [null, null, null, null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, null, null, null, null, null, null, null];
-      break;
-      case 8: tempDateArray =  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, null, null, null, null, null, null, null, null, null, null, null];
-      break;
-      case 9: tempDateArray = [null, null, null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, null, null, null, null, null, null, null, null, null];
-      break;
-      case 10: tempDateArray = [null, null, null, null, null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, null, null, null, null, null, null];
-      break;
-      case 11: tempDateArray = [null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, null, null, null, null, null, null, null, null, null, null, null];
-      break;
-      case 12: tempDateArray = [null, null, null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, null, null, null, null, null, null, null, null];
-      break;
-      default: return;
+    let tempDay = new Date(2021, month - 1, 1);
+    console.log("de", tempDay.getDate(), tempDay.getMonth() + 1);
+    // fill date array
+    let i = 0;
+    for (; i < tempDay.getDay(); i++)
+      tempDateArray.push(null)
+    for (; i < this.getMaxDays(month) + tempDay.getDay(); i++) {
+      tempDateArray.push(i - tempDay.getDay() + 1)
+      if (tempDateArray[i] === date)
+        tempDateIndex = i;
     }
-    while (tempDateArray[tempDateIndex] === null || tempDateArray[tempDateIndex] < date) 
-      tempDateIndex++;
+    for (; i < 42; i++)
+      tempDateArray.push(null)
+
     this.setState({calendarMonth: tempCalendarMonth,
       dateArray: tempDateArray,
       dateIndex: tempDateIndex});
@@ -338,14 +323,13 @@ export default class Calendar extends React.Component {
   render() {
     if (!this.state.initialized) {
       // initialize to current day
-      var today = new Date();
-      var todayDate = today.getDate();
-      var todayMonth = today.getMonth() + 1;
-      console.log(todayDate, todayMonth)
+      let today = new Date();
+      let todayDate = today.getDate();
+      let todayMonth = today.getMonth() + 1;
       // initialize dateArray
       this.setDatesToCurrentMonth(todayMonth, todayDate);
       // initialize eventArray
-      this.getEventsOfCurrentDate(todayMonth, todayDate);
+      //this.getEventsOfCurrentDate(todayMonth, todayDate);
       this.setState({initialized: true});
     }
     console.log(this.state.eventArray);
