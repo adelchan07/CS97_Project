@@ -40,12 +40,12 @@ const events = db.collection('events');
 /* GET REQUESTS */
 
 // retrieve events of spec user on spec day
-app.get('/events/:uid/:eventMonth/:eventDay', async (req, res) => {
+app.get('/events/:uid/:calendarMonth/:calendarDay', async (req, res) => {
     const uid = req.params.uid;
-    const eventMonth = parseInt(req.params.eventMonth, 10);
-    const eventDay = parseInt(req.params.eventDay, 10);
+    const calendarMonth = parseInt(req.params.calendarMonth, 10);
+    const calendarDay = parseInt(req.params.calendarDay, 10);
 
-    const allEventRefs = await events.where('eventMonth', '==', eventMonth).where('eventDay', '==', eventDay).where('uid', '==', uid)
+    const allEventRefs = await events.where('eventMonth', '==', calendarMonth).where('eventDay', '==', calendarDay).where('uid', '==', uid)
                                 .orderBy('eventStartHour').orderBy('eventStartMinute')
                                 .orderBy('eventEndHour').orderBy('eventEndMinute')
                                 .orderBy('eventName').get();

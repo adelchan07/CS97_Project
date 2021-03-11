@@ -31,7 +31,7 @@ class Dates extends React.Component {
   render() {
     return (
       <div>
-        {[0, 7, 14, 21, 28].map(item => (this.renderWeeks(item)))}
+        {[0, 7, 14, 21, 28, 35].map(item => (this.renderWeeks(item)))}
       </div>
     );
   }
@@ -52,13 +52,9 @@ export default class Calendar extends React.Component {
       eventEndHour: null,
       eventEndMinute: null,
       eventArray: [],
-      dateArray: [null, 1, 2, 3, 4, 5, 6, 
-        7, 8, 9, 10, 11, 12, 13, 
-        14, 15, 16, 17, 18, 19, 20, 
-        21, 22, 23, 24, 25, 26, 27, 
-        28, 29, 30, 31, null, null, null],
+      dateArray: [null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, null, null, null, null, null, null, null, null, null, null, null, null, null],
     };
-    this.getEventsOfCurrentDate(this.state.dateIndex)
+
     fb.auth().onAuthStateChanged((user) => {
       if (user) {
         this.setState({
@@ -121,9 +117,9 @@ export default class Calendar extends React.Component {
 
 //https://c0ad8586d629.ngrok.io
 
-  async getEventsOfCurrentDate() {
-    console.log('http://localhost:3200/events/' + this.state.uid + '/' + this.state.eventMonth + '/' + this.state.dateArray[this.state.dateIndex]);
-    fetch('http://localhost:3200/events/' + this.state.uid + '/' + this.state.eventMonth + '/' + this.state.dateArray[this.state.dateIndex], {
+  async getEventsOfCurrentDate(month, date) {
+    console.log('http://localhost:3200/events/' + this.state.uid + '/' + month + '/' + date);
+    fetch('http://localhost:3200/events/' + this.state.uid + '/' + month + '/' + date, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -166,7 +162,7 @@ export default class Calendar extends React.Component {
     await this.setState({
       dateIndex: i,
     });
-    this.getEventsOfCurrentDate();
+    this.getEventsOfCurrentDate(this.state.calendarMonth, this.state.dateArray[this.state.dateIndex]);
   }
 
   setEventInfo(type, input) {
@@ -244,6 +240,7 @@ export default class Calendar extends React.Component {
       default: return;
     }
   }
+
   getMonth(i) {
     switch(i) {
       case 1: return "JANUARY";
@@ -262,6 +259,45 @@ export default class Calendar extends React.Component {
     }
   }
 
+  setDatesToCurrentMonth(i) {
+    let tempCalendarMonth = i;
+    let tempDateArray = [];
+    let tempDateIndex = 0;
+    switch(i) {
+      case 1: tempDateArray = [null, null, null, null, null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, null, null, null, null, null, null];
+      break;
+      case 2: tempDateArray = [null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, null, null, null, null, null, null, null, null, null, null];
+      break;
+      case 3: tempDateArray = [null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, null, null, null, null, null, null, null, null, null, null, null, null, null];
+      break;
+      case 4: tempDateArray = [null, null, null, null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, null, null, null, null, null, null, null, null];
+      break;
+      case 5: tempDateArray = [null, null, null, null, null, null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, null, null, null, null, null];
+      break;
+      case 6: tempDateArray = [null, null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, null, null, null, null, null, null, null, null, null, null];
+      break;
+      case 7: tempDateArray = [null, null, null, null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, null, null, null, null, null, null, null];
+      break;
+      case 8: tempDateArray =  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, null, null, null, null, null, null, null, null, null, null, null];
+      break;
+      case 9: tempDateArray = [null, null, null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, null, null, null, null, null, null, null, null, null];
+      break;
+      case 10: tempDateArray = [null, null, null, null, null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, null, null, null, null, null, null];
+      break;
+      case 11: tempDateArray = [null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, null, null, null, null, null, null, null, null, null, null, null];
+      break;
+      case 12: tempDateArray = [null, null, null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, null, null, null, null, null, null, null, null];
+      break;
+      default: return;
+    }
+    while (tempDateArray[tempDateIndex] === null) 
+      tempDateIndex++;
+    this.setState({calendarMonth: tempCalendarMonth,
+      dateArray: tempDateArray,
+      dateIndex: tempDateIndex});
+    this.getEventsOfCurrentDate(tempCalendarMonth, tempDateArray[tempDateIndex])
+  }
+
   render() {
     return(<>
       <meta charSet="UTF-8" />
@@ -278,6 +314,19 @@ export default class Calendar extends React.Component {
 
           {/* year */}
           <div className="months">
+          <button className="month-button" onClick={() => this.setDatesToCurrentMonth(1)} >Jan</button>
+            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(2)} >Feb</button>
+            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(3)} >Mar</button>
+            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(4)} >Apr</button>
+            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(5)} >May</button>
+            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(6)} >Jun</button>
+            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(7)} >Jul</button>
+            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(8)} >Aug</button>
+            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(9)} >Sep</button>
+            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(10)} >Oct</button>
+            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(11)} >Nov</button>
+            <button className="month-button" onClick={() => this.setDatesToCurrentMonth(12)} >Dec</button>
+            {/*NOTE: use this if not hard coding
             <button className="month-button" onClick={() => this.setState({calendarMonth: 1})} >Jan</button>
             <button className="month-button" onClick={() => this.setState({calendarMonth: 2})} >Feb</button>
             <button className="month-button" onClick={() => this.setState({calendarMonth: 3})} >Mar</button>
@@ -289,7 +338,7 @@ export default class Calendar extends React.Component {
             <button className="month-button" onClick={() => this.setState({calendarMonth: 9})} >Sep</button>
             <button className="month-button" onClick={() => this.setState({calendarMonth: 10})} >Oct</button>
             <button className="month-button" onClick={() => this.setState({calendarMonth: 11})} >Nov</button>
-            <button className="month-button" onClick={() => this.setState({calendarMonth: 12})} >Dec</button>
+            <button className="month-button" onClick={() => this.setState({calendarMonth: 12})} >Dec</button>*/}
           </div>{/* months */}
           <hr className="month-line" />
           <div className="days-line"><span className="white"> </span>SUN MON TUE WED THU FRI SAT</div>
