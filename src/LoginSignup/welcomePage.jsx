@@ -1,5 +1,4 @@
 import React from "react";
-import wallpaper from '../wallpaper.jpg';
 
 
 export default class WelcomePage extends React.Component {

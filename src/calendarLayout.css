@@ -3,6 +3,7 @@ body {
   margin: 100px auto;
   background-color: lightgray;
   font-family: 'Kanit', sans-serif;
+  overflow:hidden;
 }
 
 .calendar-base {
@@ -351,7 +352,7 @@ body {
   position: relative;
   width: 240px;
   font-size: 17px;
-  bottom: 125px;
+  top:-130px;
   align-items: center;
   border: none;
 }
