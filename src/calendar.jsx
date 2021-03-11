@@ -2,6 +2,7 @@ import React from 'react';
 import './calendarLayout.css';
 import fb from '../src/firebase_config'
 
+// to render the date buttons
 class Dates extends React.Component {
   renderDay(i) {
     if (this.props.dateArray[i] === null) {
@@ -52,9 +53,9 @@ export default class Calendar extends React.Component {
       eventEndHour: null,
       eventEndMinute: null,
       eventArray: [],
-      dateArray: [null, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, null, null, null, null, null, null, null, null, null, null],
+      dateArray: [],
+      initialized: false,
     };
-
     fb.auth().onAuthStateChanged((user) => {
       if (user) {
         this.setState({
@@ -207,20 +208,19 @@ export default class Calendar extends React.Component {
       break;
       default: return;
     }
-    
     alert("Input Invalid!")
-    return input.substring(0, input.length - 1);
+    return '';
   }
 
   validateInput(input, num) {
-    if (isNaN(input))
+    if (isNaN(input) || input[0] == '-')
       return false;
     if (parseInt(input) > num || input === "0")
       return false;
     return true;
   }
   validateInputWithZero(input, num) {
-    if (isNaN(input))
+    if (isNaN(input) || input[0] == '-')
       return false;
     if (parseInt(input) > num)
       return false;
@@ -316,6 +316,14 @@ export default class Calendar extends React.Component {
   }
 
   render() {
+    if (!this.state.initialized) {
+      // initialize dateArray
+      this.setDatesToCurrentMonth(3);
+      // initialize eventArray
+      this.getEventsOfCurrentDate(3, 1);
+      this.setState({initialized: true});
+    }
+    console.log(this.state.eventArray);
     return(<>
       <meta charSet="UTF-8" />
       <title>My Calendar</title>
@@ -343,20 +351,7 @@ export default class Calendar extends React.Component {
             <button className="month-button" onClick={() => this.setDatesToCurrentMonth(10)} >Oct</button>
             <button className="month-button" onClick={() => this.setDatesToCurrentMonth(11)} >Nov</button>
             <button className="month-button" onClick={() => this.setDatesToCurrentMonth(12)} >Dec</button>
-            {/*NOTE: use this if not hard coding
-            <button className="month-button" onClick={() => this.setState({calendarMonth: 1})} >Jan</button>
-            <button className="month-button" onClick={() => this.setState({calendarMonth: 2})} >Feb</button>
-            <button className="month-button" onClick={() => this.setState({calendarMonth: 3})} >Mar</button>
-            <button className="month-button" onClick={() => this.setState({calendarMonth: 4})} >Apr</button>
-            <button className="month-button" onClick={() => this.setState({calendarMonth: 5})} >May</button>
-            <button className="month-button" onClick={() => this.setState({calendarMonth: 6})} >Jun</button>
-            <button className="month-button" onClick={() => this.setState({calendarMonth: 7})} >Jul</button>
-            <button className="month-button" onClick={() => this.setState({calendarMonth: 8})} >Aug</button>
-            <button className="month-button" onClick={() => this.setState({calendarMonth: 9})} >Sep</button>
-            <button className="month-button" onClick={() => this.setState({calendarMonth: 10})} >Oct</button>
-            <button className="month-button" onClick={() => this.setState({calendarMonth: 11})} >Nov</button>
-            <button className="month-button" onClick={() => this.setState({calendarMonth: 12})} >Dec</button>*/}
-          </div>{/* months */}
+            </div>{/* months */}
           <hr className="month-line" />
           <div className="days-line"><span className="white"> </span>SUN MON TUE WED THU FRI SAT</div>
           {/* days */}
