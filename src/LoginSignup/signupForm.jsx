@@ -22,6 +22,7 @@ export default class SignupPage extends React.Component {
 
     if (userData.password.length < 6) {
       alert("Password must be a minimum of 6 characters");
+      return;
     }
 
     if(userData.password !== userData.confirm) {
@@ -32,6 +33,7 @@ export default class SignupPage extends React.Component {
       window.location.replace('LoginForm'); 
     }).catch((error) => {
       alert("Not in email address format or email registered already");
+      return;
     });
   }
 
