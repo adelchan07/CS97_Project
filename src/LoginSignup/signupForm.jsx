@@ -49,11 +49,11 @@ export default class SignupPage extends React.Component {
 
           <label htmlFor="register_pw"> Select a password: </label> 
           <input type="signin" name="register_pw" placeholder="Password (min length: 6)"
-           onChange={({target}) => this.setState({password: target.value})} required /><br />
+           onChange={({target}) => this.setState({password: target.value})} autoComplete="off" required /><br />
 
           <label htmlFor="confirm_pw"> Confirm password: </label> 
           <input type="signin" name="confirm_pw" placeholder="Confirm password"
-           onChange={({target}) => this.setState({confirm: target.value})} required /><br /> <br></br><br></br><br></br>
+           onChange={({target}) => this.setState({confirm: target.value})} autoComplete="off" required /><br /> <br></br><br></br><br></br>
 
           <button type="submit"> Create Account </button>
           
