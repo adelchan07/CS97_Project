@@ -102,7 +102,7 @@ export default class Calendar extends React.Component {
       return;
     }
 
-    const res = await fetch('http://localhost:3200/events', {
+    await fetch('http://localhost:3200/events', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
