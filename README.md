@@ -13,7 +13,8 @@ First, open the directory you want the app to be in. If you don't have git insta
 install it from an online download. Once git is installed, run the command:
 git clone https://github.com/adelchan07/CS97_Project.git
 
-Once you navigate into the project directory, you can run the app and server with the following commands.
+Then, navigate into the project directory with the command "cd CS97_Project"
+
 To run the app locally:
 1. Run the command "npm install"
 2. Run the command "npm start"
