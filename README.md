@@ -11,7 +11,7 @@ GOCAL is an online calendar where users can create and keep track of their own e
 ## How to Use
 First, open the directory you want the app to be in. If you don't have git installed,
 install it from an online download. Once git is installed, run the command:
-git clone https://github.com/adelchan07/CS97_Project.git
+git clone https://github.com/adelchan07/CS97Project_GOCAL.git
 
 Then, navigate into the project directory with the command "cd CS97_Project"
 
